@@ -10,8 +10,8 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
                 crossorigin="anonymous">
-            <link rel="stylesheet" href="resources/loginpage/login.css">
-            <link rel="shortcut icon" type="image/x-icon" href="resources/logo.png">
+            <!-- <link rel="stylesheet" href="/webapp/resources/loginpage/loginpage.css"> -->
+            <link rel="shortcut icon" type="image/x-icon" href="/webapp/resources/logo.png">
         </head>
 
         <body>
@@ -23,7 +23,7 @@
                     <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
                         style="background: #ebeef8;">
                         <div class="featured-image mb-3">
-                            <img src="resources/loginpage/images/1.png" class="img-fluid" style="width: 250px;">
+                            <img src="/webapp/resources/loginpage/images/1.png" class="img-fluid" style="width: 250px;">
                         </div>
                         <p class="text-black fs-2"
                             style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">PTIT</p>

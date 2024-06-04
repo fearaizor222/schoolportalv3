@@ -23,7 +23,7 @@ public class SINHVIEN {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date NGAYSINH;
     private String MALOP;
-    private boolean DANGNGHIHOC;
+    private boolean DANGHIHOC;
     private String PASSWORD;
 
     public String getMASV() {
@@ -82,12 +82,12 @@ public class SINHVIEN {
         this.MALOP = MALOP;
     }
 
-    public boolean isDANGNGHIHOC() {
-        return DANGNGHIHOC;
+    public boolean isDANGHIHOC() {
+        return DANGHIHOC;
     }
 
-    public void setDANGNGHIHOC(boolean DANGNGHIHOC) {
-        this.DANGNGHIHOC = DANGNGHIHOC;
+    public void setDANGHIHOC(boolean DANGHIHOC) {
+        this.DANGHIHOC = DANGHIHOC;
     }
 
     public String getPASSWORD() {
