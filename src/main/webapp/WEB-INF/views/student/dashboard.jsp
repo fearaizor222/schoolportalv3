@@ -40,7 +40,7 @@
                     <p>Lớp: ${SINHVIEN.MALOP}</p>
                 </div>
             </div>
-            <nav class="navbar navbar-dark bg-danger fixed-top">
+            <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Thông tin sinh viên</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -78,6 +78,7 @@
                                 </li>
                             </ul>
                         </div>
+
                         <div class="position-absolute bottom-0 start-50 translate-middle-x my-10">
                             <button type="button" class="btn btn-warning">Logout</button>
                         </div>
@@ -85,7 +86,7 @@
                     </div>
                 </div>
             </nav>
-            <footer class="navbar fixed-bottom bg-danger">
+            <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                 <div class="container text-center">
                     <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Hiếu</span>
                 </div>
