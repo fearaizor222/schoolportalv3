@@ -15,6 +15,7 @@ public class GIANGVIEN {
     private String HOCVI;
     private String HOCHAM;
     private String CHUYENMON;
+    private String PASSWORD;
 
     public String getMAGV() {
         return MAGV;
@@ -70,5 +71,13 @@ public class GIANGVIEN {
 
     public void setCHUYENMON(String CHUYENMON) {
         this.CHUYENMON = CHUYENMON;
+    }
+
+    public String getPASSWORD() {
+        return PASSWORD;
+    }
+
+    public void setPASSWORD(String PASSWORD) {
+        this.PASSWORD = PASSWORD;
     }
 }
