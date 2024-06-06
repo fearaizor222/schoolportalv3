@@ -19,7 +19,11 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/student/**" />
-            <bean class="interceptor.SecurityInterceptor" />
+            <bean class="interceptor.StudentSecurityInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/teacher/**" />
+            <bean class="interceptor.TeacherSecurityInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

@@ -6,11 +6,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class SecurityInterceptor extends HandlerInterceptorAdapter {
+public class StudentSecurityInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
        HttpSession session = request.getSession();
-       if (session.getAttribute("username") == null) {
+       if (session.getAttribute("username") == null || !session.getAttribute("role").equals("student")){
             response.sendRedirect(request.getContextPath() + "/login.htm");
             return false;
         } 
