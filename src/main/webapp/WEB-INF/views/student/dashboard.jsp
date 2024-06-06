@@ -18,20 +18,21 @@
                 body {
                     font-family: 'Poppins', sans-serif;
                     background: #ececec;
+                    margin-top: 60px;
                 }
             </style>
         </head>
 
         <body>
             <div class="d-flex">
-                <div>
+                <div class="col-md-2">
                     <img src="/webapp/resources/heh.png" alt="placeholder" width="250" height="400"
-                        style="border: 2px solid black; margin-left: 5px; margin-top: 60px; border-radius: 5px;">
+                        style="border: 2px solid black; margin-left: 5px; border-radius: 5px;">
                     <br>
                     <button type="button" class="btn btn-info"
                         style="margin-top: 10px; margin-left: 5px;">Update</button>
                 </div>
-                <div style="margin-left: 20px; margin-top: 60px;">
+                <div class="col-md-2" style="margin-left: 20px;">
                     <p>Mã sinh viên: ${SINHVIEN.MASV}</p>
                     <p>Họ tên: ${SINHVIEN.HO.concat(' ').concat(SINHVIEN.TEN)}</p>
                     <p>Giới tính: ${SINHVIEN.PHAI == True? "Nữ": "Nam"}</p>
@@ -40,6 +41,7 @@
                     <p>Lớp: ${SINHVIEN.MALOP}</p>
                 </div>
             </div>
+
             <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Thông tin sinh viên</a>
@@ -79,10 +81,11 @@
                             </ul>
                         </div>
 
-                        <div class="position-absolute bottom-0 start-50 translate-middle-x my-10">
-                            <button type="button" class="btn btn-warning">Logout</button>
-                        </div>
-
+                        <form action="logout.htm" method="post">
+                            <div class="position-absolute bottom-0 start-50 translate-middle-x my-10" style="margin-bottom: 10px;">
+                                <button type="submit" class="btn btn-warning">Logout</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </nav>

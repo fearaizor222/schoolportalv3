@@ -34,12 +34,16 @@ public class LoginController {
         if(AuthenticateHelper.isStudent(username)){
             if(AuthenticateHelper.authenticateStudent(username, password, session)) {
                 request.getSession().setAttribute("username", username);
+                request.getSession().setAttribute("role", "student");
+                request.getSession().setMaxInactiveInterval(15);
                 return "redirect:/student/dashboard.htm";
             }
         }
         else if(AuthenticateHelper.isTeacher(username)){
             if(AuthenticateHelper.authenticateTeacher(username, password, session)) {
                 request.getSession().setAttribute("username", username);
+                request.getSession().setAttribute("role", "teacher");
+                request.getSession().setMaxInactiveInterval(15);
                 return "redirect:/teacher/dashboard.htm";
             }
         }
