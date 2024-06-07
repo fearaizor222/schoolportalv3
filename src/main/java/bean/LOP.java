@@ -1,7 +1,10 @@
 package bean;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +15,9 @@ public class LOP {
     private String TENLOP;
     private String KHOAHOC;
     private String MAKHOA;
+
+    @OneToMany(mappedBy = "lop")
+    private List<SINHVIEN> sinhviens;
 
     public String getMALOP() {
         return MALOP;
@@ -43,5 +49,13 @@ public class LOP {
 
     public void setMAKHOA(String mAKHOA) {
         MAKHOA = mAKHOA;
+    }
+
+    public List<SINHVIEN> getSinhviens() {
+        return sinhviens;
+    }
+
+    public void setSinhviens(List<SINHVIEN> sinhviens) {
+        this.sinhviens = sinhviens;
     }
 }

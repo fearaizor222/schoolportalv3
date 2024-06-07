@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,7 +24,9 @@ public class SINHVIEN {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date NGAYSINH;
-    private String MALOP;
+    @ManyToOne
+    @JoinColumn(name = "MALOP")
+    private LOP lop;
     private boolean DANGHIHOC;
     private String PASSWORD;
 
@@ -74,12 +78,12 @@ public class SINHVIEN {
         this.NGAYSINH = NGAYSINH;
     }
 
-    public String getMALOP() {
-        return MALOP;
+    public LOP getLop() {
+        return lop;
     }
 
-    public void setMALOP(String MALOP) {
-        this.MALOP = MALOP;
+    public void setLop(LOP lop) {
+        this.lop = lop;
     }
 
     public boolean isDANGHIHOC() {

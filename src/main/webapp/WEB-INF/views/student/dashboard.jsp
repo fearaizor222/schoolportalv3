@@ -1,4 +1,4 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         <!DOCTYPE html>
         <html lang="en">
@@ -19,29 +19,12 @@
                     font-family: 'Poppins', sans-serif;
                     background: #ececec;
                     margin-top: 60px;
+                    padding-top: 20px;
                 }
             </style>
         </head>
 
         <body>
-            <div class="d-flex">
-                <div class="col-md-2">
-                    <img src="/webapp/resources/heh.png" alt="placeholder" width="250" height="400"
-                        style="border: 2px solid black; margin-left: 5px; border-radius: 5px;">
-                    <br>
-                    <button type="button" class="btn btn-info"
-                        style="margin-top: 10px; margin-left: 5px;">Update</button>
-                </div>
-                <div class="col-md-2" style="margin-left: 20px;">
-                    <p>Mã sinh viên: ${SINHVIEN.MASV}</p>
-                    <p>Họ tên: ${SINHVIEN.HO.concat(' ').concat(SINHVIEN.TEN)}</p>
-                    <p>Giới tính: ${SINHVIEN.PHAI == True? "Nữ": "Nam"}</p>
-                    <p>Địa chỉ: ${SINHVIEN.DIACHI}</p>
-                    <p>Ngày sinh: ${SINHVIEN.NGAYSINH}</p>
-                    <p>Lớp: ${SINHVIEN.MALOP}</p>
-                </div>
-            </div>
-
             <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Thông tin sinh viên</a>
@@ -60,7 +43,8 @@
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin sinh
+                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin
+                                        sinh
                                         viên</a>
                                 </li>
                                 <li class="nav-item">
@@ -82,13 +66,139 @@
                         </div>
 
                         <form action="logout.htm" method="post">
-                            <div class="position-absolute bottom-0 start-50 translate-middle-x my-10" style="margin-bottom: 10px;">
+                            <div class="position-absolute bottom-0 start-50 translate-middle-x my-10"
+                                style="margin-bottom: 10px;">
                                 <button type="submit" class="btn btn-warning">Logout</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </nav>
+            <div class="row g-1" style="margin-left: 5px; margin-right: 5px;">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Thông tin sinh viên</h5>
+                                    <p class="card-text">Họ tên: ${SINHVIEN.HO.concat(' ').concat(SINHVIEN.TEN)}</p>
+                                    <p class="card-text">Mã sinh viên: ${SINHVIEN.MASV}</p>
+                                    <p class="card-text">Giới tính: ${SINHVIEN.PHAI == True? "Nữ": "Nam"}</p>
+                                    <p class="card-text">Địa chỉ: ${SINHVIEN.DIACHI}</p>
+                                    <p class="card-text">Ngày sinh: ${SINHVIEN.NGAYSINH}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <img src="/webapp/resources/heh.png" alt="placeholder" class="card-img-right"
+                                    style="width: 100px; height: 150px; border: 2px solid black;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Thông tin lớp</h5>
+                            <p class="card-text">Mã lớp: ${LOP.MALOP}</p>
+                            <p class="card-text">Tên lớp: ${LOP.TENLOP}</p>
+                            <p class="card-text">Niên khóa: ${LOP.KHOAHOC}</p>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Thông báo</h5>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ngày đăng</th>
+                                        <th scope="col">Tiêu đề</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div style="height: 70px; overflow-y: auto;">
+                                <table class="table">
+                                    <tbody>
+                                        <c:forEach var="TB" items="${dsTHONGBAO}" varStatus="loop">
+                                            <tr data-bs-toggle="modal" data-bs-target="#announcementModal${loop.index}">
+                                                <td>${TB.NGAYDANG}</td>
+                                                <td>${TB.TIEUDE}</td>
+                                            </tr>
+                                            <div class="modal fade" id="announcementModal${loop.index}" tabindex="-1"
+                                                aria-labelledby="announcementModalLabel${loop.index}"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"
+                                                                id="announcementModalLabel${loop.index}">
+                                                                ${TB.TIEUDE}</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            ${TB.NOIDUNG}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 d-flex flex-column">
+                    <div class="card flex-grow-1">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">Student Timetable</h5>
+                                <div>
+                                    <button id="prevWeek" class="btn btn-primary">Trước</button>
+                                    <button id="nextWeek" class="btn btn-primary">Sau</button>
+                                </div>
+                            </div>
+                            <table class="table flex-grow-1">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Time/Day</th>
+                                        <th scope="col">Thứ hai</th>
+                                        <th scope="col">Thứ ba</th>
+                                        <th scope="col">Thứ tư</th>
+                                        <th scope="col">Thứ năm</th>
+                                        <th scope="col">Thứ sáu</th>
+                                        <th scope="col">Thứ bảy</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" class="align-middle">Tiết 1-4</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="align-middle">Tiết 7-10</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                 <div class="container text-center">
                     <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Hiếu</span>
