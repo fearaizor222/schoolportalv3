@@ -89,8 +89,9 @@
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
-                                <img src="/webapp/resources/heh.png" alt="placeholder" class="card-img-right"
-                                    style="width: 100px; height: 150px; border: 2px solid black;">
+                                <img src="${'data:image/png;base64,'.concat(SINHVIEN.LINKANH)}" alt="avatar" class="card-img-right"
+                                    style="width: 120px; height: 144px; border: 2px solid black;"
+                                    onerror="this.onerror=null; this.src='/webapp/resources/heh.png';">
                             </div>
                         </div>
                     </div>

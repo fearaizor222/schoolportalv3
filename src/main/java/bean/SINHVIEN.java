@@ -29,6 +29,8 @@ public class SINHVIEN {
     private LOP lop;
     private boolean DANGHIHOC;
     private String PASSWORD;
+    private String EMAIL;
+    private String LINKANH;
 
     public String getMASV() {
         return MASV;
@@ -100,5 +102,21 @@ public class SINHVIEN {
 
     public void setPASSWORD(String PASSWORD) {
         this.PASSWORD = PASSWORD;
+    }
+
+    public String getEMAIL() {
+        return EMAIL;
+    }
+
+    public void setEMAIL(String EMAIL) {
+        this.EMAIL = EMAIL;
+    }
+
+    public String getLINKANH() {
+        return LINKANH;
+    }
+
+    public void setLINKANH(String LINKANH) {
+        this.LINKANH = LINKANH;
     }
 }

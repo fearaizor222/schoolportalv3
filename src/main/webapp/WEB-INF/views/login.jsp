@@ -53,7 +53,7 @@
                                         <label for="formCheck" class="form-check-label text-secondary"><small>Remember Me</small></label>
                                     </div>
                                     <div class="forgot">
-                                        <small><a href="#">Forgot Password?</a></small>
+                                        <small><a href="forgot-password.htm">Forgot Password?</a></small>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
@@ -69,35 +69,6 @@
                             </c:if>
                         </div>
                     </div>
-                    <!-- <div class="col-md-6 right-box">
-          <div class="row align-items-center">
-                <div class="header-text mb-4">
-                     <h2>Hello,Again</h2>
-                     <p>We are happy to have you back.</p>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="username" class="form-control form-control-lg bg-light fs-6" placeholder="Username">
-                </div>
-                <div class="input-group mb-1">
-                    <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password">
-                </div>
-                <div class="input-group mb-5 d-flex justify-content-between">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="formCheck">
-                        <label for="formCheck" class="form-check-label text-secondary"><small>Remember Me</small></label>
-                    </div>
-                    <div class="forgot">
-                        <small><a href="#">Forgot Password?</a></small>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <button class="btn btn-lg btn-primary w-100 fs-6">Login</button>
-                </div>
-          </div>
-       </div> 
-      </div>
-    </div> -->
-
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                         crossorigin="anonymous"></script>
