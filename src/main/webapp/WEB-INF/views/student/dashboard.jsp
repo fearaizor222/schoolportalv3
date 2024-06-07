@@ -48,10 +48,7 @@
                                         viên</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Điểm</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Lịch học</a>
+                                    <a class="nav-link" href="point.htm">Điểm</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Lịch thi</a>
@@ -102,6 +99,7 @@
                             <p class="card-text">Mã lớp: ${LOP.MALOP}</p>
                             <p class="card-text">Tên lớp: ${LOP.TENLOP}</p>
                             <p class="card-text">Niên khóa: ${LOP.KHOAHOC}</p>
+                            <!-- <p class="card-text">Khoa: ${LOP.khoa.TENKHOA}</p> -->
                         </div>
                     </div>
 

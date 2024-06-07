@@ -18,8 +18,9 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="card">
-                            <div class="card-header text-center">
+                            <div class="card-header text-center d-flex justify-content-between">
                                 <h4>Lấy lại mật khẩu</h4>
+                                <a href="login.htm" class="btn-close"></a>
                             </div>
                             <div class="card-body">
                                 <form action="forgot-password-action.htm" method="post">
