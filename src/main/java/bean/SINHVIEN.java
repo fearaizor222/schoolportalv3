@@ -1,11 +1,13 @@
 package bean;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,6 +33,17 @@ public class SINHVIEN {
     private String PASSWORD;
     private String EMAIL;
     private String LINKANH;
+
+    @OneToMany(mappedBy = "sinhvien")
+    private List<DANGKY> dangkys;
+
+    public List<DANGKY> getDangkys() {
+        return dangkys;
+    }
+
+    public void setDangkys(List<DANGKY> dangkys) {
+        this.dangkys = dangkys;
+    }
 
     public String getMASV() {
         return MASV;

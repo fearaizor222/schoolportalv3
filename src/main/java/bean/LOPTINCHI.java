@@ -1,7 +1,12 @@
 package bean;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -11,12 +16,29 @@ public class LOPTINCHI {
     private int MALTC;
     private String NIENKHOA;
     private int HOCKY;
-    private String MAMH;
+    @ManyToOne
+    @JoinColumn(name = "MAMH")
+    private MONHOC monhoc;
     private int NHOM;
-    private String MAGV;
-    private String MAKHOA;
+    @ManyToOne
+    @JoinColumn(name = "MAGV")
+    private GIANGVIEN giangvien;
+    @ManyToOne
+    @JoinColumn(name = "MAKHOA")
+    private KHOA khoa;
     private int SOSVTOITHIEU;
     private boolean HUYLOP;
+
+    @OneToMany(mappedBy = "loptinchi")
+    private List<DANGKY> dangkys;
+
+    public List<DANGKY> getDangkys() {
+        return dangkys;
+    }
+
+    public void setDangkys(List<DANGKY> dangkys) {
+        this.dangkys = dangkys;
+    }
 
     public int getMALTC() {
         return MALTC;
@@ -42,12 +64,12 @@ public class LOPTINCHI {
         HOCKY = hOCKY;
     }
 
-    public String getMAMH() {
-        return MAMH;
+    public MONHOC getMonhoc() {
+        return monhoc;
     }
 
-    public void setMAMH(String mAMH) {
-        MAMH = mAMH;
+    public void setMonhoc(MONHOC monhoc) {
+        this.monhoc = monhoc;
     }
 
     public int getNHOM() {
@@ -58,20 +80,20 @@ public class LOPTINCHI {
         NHOM = nHOM;
     }
 
-    public String getMAGV() {
-        return MAGV;
+    public GIANGVIEN getGiangvien() {
+        return giangvien;
     }
 
-    public void setMAGV(String mAGV) {
-        MAGV = mAGV;
+    public void setGiangvien(GIANGVIEN giangvien) {
+        this.giangvien = giangvien;
     }
 
-    public String getMAKHOA() {
-        return MAKHOA;
+    public KHOA getKhoa() {
+        return khoa;
     }
 
-    public void setMAKHOA(String mAKHOA) {
-        MAKHOA = mAKHOA;
+    public void setKhoa(KHOA khoa) {
+        this.khoa = khoa;
     }
 
     public int getSOSVTOITHIEU() {
@@ -89,5 +111,4 @@ public class LOPTINCHI {
     public void setHUYLOP(boolean hUYLOP) {
         HUYLOP = hUYLOP;
     }
-
 }
