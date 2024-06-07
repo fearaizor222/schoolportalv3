@@ -1,7 +1,12 @@
 package bean;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -9,13 +14,26 @@ import javax.persistence.Table;
 public class GIANGVIEN {
     @Id
     private String MAGV;
-    private String MAKHOA;
+    @ManyToOne
+    @JoinColumn(name = "MAKHOA")
+    private KHOA khoa;
     private String HO;
     private String TEN;
     private String HOCVI;
     private String HOCHAM;
     private String CHUYENMON;
     private String PASSWORD;
+
+    @OneToMany(mappedBy = "giangvien")
+    private List<LOPTINCHI> loptinchis;
+
+    public List<LOPTINCHI> getLoptinchis() {
+        return loptinchis;
+    }
+
+    public void setLoptinchis(List<LOPTINCHI> loptinchis) {
+        this.loptinchis = loptinchis;
+    }
 
     public String getMAGV() {
         return MAGV;
@@ -25,12 +43,12 @@ public class GIANGVIEN {
         this.MAGV = MAGV;
     }
 
-    public String getMAKHOA() {
-        return MAKHOA;
+    public KHOA getKhoa() {
+        return khoa;
     }
 
-    public void setMAKHOA(String MAKHOA) {
-        this.MAKHOA = MAKHOA;
+    public void setKhoa(KHOA khoa) {
+        this.khoa = khoa;
     }
 
     public String getHO() {

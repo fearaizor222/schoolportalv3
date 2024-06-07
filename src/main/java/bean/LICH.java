@@ -3,6 +3,7 @@ package bean;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,18 +17,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "LICH")
 public class LICH {
     @Id
+    @GeneratedValue
     private int MALICH;
-    private int MALTC;
+    
+    @ManyToOne
+    @JoinColumn(name = "MALTC")
+    private LOPTINCHI loptinchi;
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date NGAYHOC;
+
     private int TIETBD;
     private int SOTIET;
-    private boolean LOAILICH;
-
-    @ManyToOne
-    @JoinColumn(name = "MALTC", insertable = false, updatable = false)
-    private LOPTINCHI LOPTINCHI;
+    private Boolean LOAILICH;
+    private int PHONG;
 
     public int getMALICH() {
         return MALICH;
@@ -37,12 +41,12 @@ public class LICH {
         MALICH = mALICH;
     }
 
-    public int getMALTC() {
-        return MALTC;
+    public LOPTINCHI getLoptinchi() {
+        return loptinchi;
     }
 
-    public void setMALTC(int mALTC) {
-        MALTC = mALTC;
+    public void setLoptinchi(LOPTINCHI loptinchi) {
+        this.loptinchi = loptinchi;
     }
 
     public Date getNGAYHOC() {
@@ -69,11 +73,19 @@ public class LICH {
         SOTIET = sOTIET;
     }
 
-    public boolean isLOAILICH() {
+    public Boolean getLOAILICH() {
         return LOAILICH;
     }
 
-    public void setLOAILICH(boolean lOAILICH) {
+    public void setLOAILICH(Boolean lOAILICH) {
         LOAILICH = lOAILICH;
+    }
+
+    public int getPHONG() {
+        return PHONG;
+    }
+
+    public void setPHONG(int pHONG) {
+        PHONG = pHONG;
     }
 }

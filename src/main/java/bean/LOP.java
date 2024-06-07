@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -14,7 +16,9 @@ public class LOP {
     private String MALOP;
     private String TENLOP;
     private String KHOAHOC;
-    private String MAKHOA;
+    @ManyToOne
+    @JoinColumn(name = "MAKHOA")
+    private KHOA khoa;
 
     @OneToMany(mappedBy = "lop")
     private List<SINHVIEN> sinhviens;
@@ -31,10 +35,6 @@ public class LOP {
         return KHOAHOC;
     }
 
-    public String getMAKHOA() {
-        return MAKHOA;
-    }
-
     public void setMALOP(String mALOP) {
         MALOP = mALOP;
     }
@@ -47,15 +47,19 @@ public class LOP {
         KHOAHOC = kHOAHOC;
     }
 
-    public void setMAKHOA(String mAKHOA) {
-        MAKHOA = mAKHOA;
-    }
-
     public List<SINHVIEN> getSinhviens() {
         return sinhviens;
     }
 
     public void setSinhviens(List<SINHVIEN> sinhviens) {
         this.sinhviens = sinhviens;
+    }
+
+    public KHOA getKhoa() {
+        return khoa;
+    }
+
+    public void setKhoa(KHOA khoa) {
+        this.khoa = khoa;
     }
 }

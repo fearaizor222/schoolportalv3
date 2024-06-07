@@ -1,7 +1,10 @@
 package bean;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,6 +16,17 @@ public class MONHOC {
     private int SOTIET_LT;
     private int SOTIET_TH;
     private int SOTINCHI;
+
+    @OneToMany(mappedBy = "monhoc")
+    private List<LOPTINCHI> lopTinChis;
+
+    public List<LOPTINCHI> getLopTinChis() {
+        return lopTinChis;
+    }
+
+    public void setLopTinChis(List<LOPTINCHI> lopTinChis) {
+        this.lopTinChis = lopTinChis;
+    }
 
     public String getMAMH() {
         return MAMH;
