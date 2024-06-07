@@ -15,7 +15,7 @@ public class GIANGVIENDAO {
     @Transactional
     public boolean authenticate(String username, String password) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "SELECT 1 FROM GIAOVIEN WHERE MAGV = :username AND PASSWORD = :password";
+        String hql = "SELECT 1 FROM GIANGVIEN WHERE MAGV = :username AND PASSWORD = :password";
         Query query = session.createQuery(hql);
         query.setParameter("username", username);
         query.setParameter("password", password);
