@@ -115,7 +115,7 @@
                             <a class="nav-link" href="point.htm">Điểm</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Lịch thi</a>
+                            <a class="nav-link" href="test.htm">Lịch thi</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Đăng ký môn</a>

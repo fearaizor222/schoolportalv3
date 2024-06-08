@@ -37,6 +37,17 @@ public class SINHVIEN {
     @OneToMany(mappedBy = "sinhvien")
     private List<DANGKY> dangkys;
 
+    // @OneToMany(mappedBy = "sinhVien")
+    // private List<HOCPHI> hocPhis;
+
+    // public List<HOCPHI> getHocPhis() {
+    //     return hocPhis;
+    // }
+
+    // public void setHocPhis(List<HOCPHI> hocPhis) {
+    //     this.hocPhis = hocPhis;
+    // }
+
     public List<DANGKY> getDangkys() {
         return dangkys;
     }
