@@ -57,7 +57,7 @@
                                     <a class="nav-link" href="#">Đăng ký môn</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Học phí</a>
+                                    <a class="nav-link" href="fee.htm">Học phí</a>
                                 </li>
                             </ul>
                         </div>
