@@ -1,6 +1,7 @@
 package controller;
 
 
+import bean.CT_DONGHOCPHI;
 import bean.HOCPHI;
 import bean.SINHVIEN;
 import DAO.SINHVIENDAO;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @SuppressWarnings("unchecked")
 @Transactional
 @Controller
-@RequestMapping("fee")
+@RequestMapping("student")
 public class HocPhiController {
     @Autowired 
     private SessionFactory sessionFactory;
@@ -28,7 +29,7 @@ public class HocPhiController {
     @Autowired
     private SINHVIENDAO SINHVIENDAO;
 
-    @RequestMapping("hocphibymasv")
+    @RequestMapping("fee")
     public String hocPhiByMaSV(Model model, HttpServletRequest request){
         request.getSession().getAttribute("username");
         String username = (String) request.getSession().getAttribute("username");
@@ -39,7 +40,7 @@ public class HocPhiController {
                     .setParameter("username", username)
                     .list();
         model.addAttribute("hocPhi", hocPhi);
-        return "fee/hocphibymasv";
+        return "student/fee";
     }
 
 }
