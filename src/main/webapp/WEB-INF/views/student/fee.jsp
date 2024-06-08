@@ -109,7 +109,7 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin sinh viên</a>
+                            <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin sinh viên</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="point.htm">Điểm</a>
@@ -121,7 +121,7 @@
                             <a class="nav-link" href="#">Đăng ký môn</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="fee.jsp">Học phí</a>
+                            <a class="nav-link active" href="fee.jsp">Học phí</a>
                         </li>
                     </ul>
                 </div>
@@ -203,7 +203,7 @@
                     <td class="total-label">Tổng số tiền nợ</td>
                     <td>
                         <c:set var="tongHocPhi" value="0" />
-                        <c:forEach var="a" items="${dsHOCPHI}">
+                        <c:forEach var="a" items="${hocPhi}">
                             <c:set var="tongHocPhi" value="${tongHocPhi + a.HOCPHI}" />
                         </c:forEach>
                         <c:set var="tongDaDong" value="0" />
