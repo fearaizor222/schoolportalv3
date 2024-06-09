@@ -1,5 +1,8 @@
 package bean;
 
+import java.io.Serializable;
+
+import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,6 +15,7 @@ import javax.persistence.Table;
 public class DANGKY {
     @EmbeddedId
     private DANGKYID ID;
+
     private int DIEM_CC;
     private float DIEM_GK;
     private float DIEM_CK;
@@ -81,5 +85,28 @@ public class DANGKY {
 
     public void setHUYDANGKY(boolean hUYDANGKY) {
         HUYDANGKY = hUYDANGKY;
+    }
+
+    @Embeddable
+    public static class DANGKYID implements Serializable {
+        private String MALTC;
+
+        private String MASV;
+
+        public String getMALTC() {
+            return MALTC;
+        }
+
+        public void setMALTC(String mALTC) {
+            MALTC = mALTC;
+        }
+
+        public String getMASV() {
+            return MASV;
+        }
+
+        public void setMASV(String mASV) {
+            MASV = mASV;
+        }
     }
 }

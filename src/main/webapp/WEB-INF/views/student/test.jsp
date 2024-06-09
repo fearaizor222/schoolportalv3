@@ -48,10 +48,10 @@
                                         viên</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="point.htm">Điểm</a>
+                                    <a class="nav-link" href="point.htm">Điểm</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="test.htm">Lịch thi</a>
+                                    <a class="nav-link active" href="test.htm">Lịch thi</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Đăng ký môn</a>
@@ -76,18 +76,20 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>Môn học</th>
-                            <th>Điểm chuyên cần</th>
-                            <th>Điểm giữa kỳ</th>
-                            <th>Điểm cuối kỳ</th>
+                            <th>Ngày thi</th>
+                            <th>Tiết bắt đầu</th>
+                            <th>Số tiết</th>
+                            <th>Phòng thi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="p" items="${points}">
+                        <c:forEach var="p" items="${lichthi}">
                             <tr>
                                 <td>${p.loptinchi.monhoc.TENMH}</td>
-                                <td>${p.DIEM_CC}</td>
-                                <td>${p.DIEM_GK}</td>
-                                <td>${p.DIEM_CK}</td>
+                                <td>${p.NGAYHOC}</td>
+                                <td>${p.TIETBD}</td>
+                                <td>${p.SOTIET}</td>
+                                <td>${p.PHONG}</td>
                             </tr>
                         </c:forEach>
                     </tbody>
