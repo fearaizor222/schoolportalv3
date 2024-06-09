@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import bean.GIANGVIEN;
+
 @Repository
 public class GIANGVIENDAO {
     @Autowired
@@ -23,5 +25,15 @@ public class GIANGVIENDAO {
             return true;
         }
         return false;
+    }
+
+    public GIANGVIEN getGiangVienByMAGV(String MAGV) {
+        Session curr = sessionFactory.getCurrentSession();
+        String hql = "FROM GIANGVIEN WHERE MAGV = :loginuser";
+        Query query = curr.createQuery(hql);
+        query.setParameter("loginuser", MAGV);
+        GIANGVIEN gv = (GIANGVIEN) query.list().get(0);
+
+        return gv;
     }
 }
