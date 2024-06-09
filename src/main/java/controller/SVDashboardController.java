@@ -39,7 +39,7 @@ public class SVDashboardController {
         String loginuser = (String) session.getAttribute("username");
 
         SINHVIEN sv = SINHVIENDAO.getSinhVienByMASV(loginuser);
-        model.addAttribute("SINHVIEN", sv);
+        session.setAttribute("SINHVIEN", sv);
 
         model.addAttribute("LOP", sv.getLop());
 
@@ -52,13 +52,13 @@ public class SVDashboardController {
             LocalDate today = LocalDate.now();
 
             LocalDate firstDayOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-            LocalDate lastDayOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY));
-
-            Date firstDayOfWeekDate = Date.from(firstDayOfWeek.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            Date lastDayOfWeekDate = Date.from(lastDayOfWeek.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            LocalDate lastDayOfWeek = firstDayOfWeek.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY));
             
             session.setAttribute("firstDayOfWeek", firstDayOfWeek);
             session.setAttribute("lastDayOfWeek", lastDayOfWeek);
+
+            Date firstDayOfWeekDate = Date.from(firstDayOfWeek.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date lastDayOfWeekDate = Date.from(lastDayOfWeek.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
             List<LICH> listLICH = SINHVIENDAO.getLichSangFromDateToDate(loginuser, firstDayOfWeekDate, lastDayOfWeekDate);
             session.setAttribute("dsLICHSANG", listLICH);

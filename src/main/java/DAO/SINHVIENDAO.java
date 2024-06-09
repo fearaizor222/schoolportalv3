@@ -3,6 +3,7 @@ package DAO;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import bean.SINHVIEN;
 import bean.DANGKY;
+import bean.HOCPHI;
 import bean.LICH;
 import bean.LOPTINCHI;
 
@@ -57,6 +59,31 @@ public class SINHVIENDAO {
         SINHVIEN sv = (SINHVIEN) query.list().get(0);
 
         return sv;
+    }
+
+    public boolean isDangKyDuoc(String MASV, LOPTINCHI newLopTinChi) {
+        SINHVIEN sv = getSinhVienByMASV(MASV);
+
+        List<DANGKY> existingLopTinChi = sv.getDangkys();
+
+        for (DANGKY lopTinChi : existingLopTinChi) {
+            if (lopTinChi.getLoptinchi().getMonhoc().getMAMH().equals(newLopTinChi.getMonhoc().getMAMH()) &&
+                    lopTinChi.getLoptinchi().getNIENKHOA().equals(newLopTinChi.getNIENKHOA()) &&
+                    lopTinChi.getLoptinchi().getHOCKY() == newLopTinChi.getHOCKY()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<HOCPHI> getHocPhiByMASV(String MASV) {
+        Session curr = sessionFactory.getCurrentSession();
+        String hql = "FROM HOCPHI WHERE MASV = :loginuser";
+        Query query = curr.createQuery(hql);
+        query.setParameter("loginuser", MASV);
+        List<HOCPHI> list = query.list();
+
+        return list;
     }
 
     public List<DANGKY> getDiemByMASV(String MASV) {
@@ -104,6 +131,12 @@ public class SINHVIENDAO {
                 listLichThi.add(lich);
             }
         }
+        listLichThi.sort(new Comparator<LICH>() {
+            @Override
+            public int compare(LICH l1, LICH l2) {
+                return l2.getNGAYHOC().compareTo(l1.getNGAYHOC());
+            }
+        });
         return listLichThi;
     }
 

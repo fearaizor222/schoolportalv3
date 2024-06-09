@@ -8,7 +8,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import DAO.GIANGVIENDAO;
@@ -28,6 +27,9 @@ public class LoginController {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private String superAdmin;
+
     @RequestMapping("login")
     public String login() {
         return "login";
@@ -46,8 +48,13 @@ public class LoginController {
         }
         else if(GIANGVIENDAO.authenticate(username, password)) {
                 request.getSession().setAttribute("username", username);
-                request.getSession().setAttribute("role", "teacher");
                 request.getSession().setMaxInactiveInterval(15 * 60);
+                if(username.equals(superAdmin)){
+                    request.getSession().setAttribute("role", "admin");
+                }
+                else{
+                    request.getSession().setAttribute("role", "teacher");
+                }
                 return "redirect:/teacher/dashboard.htm";
         }
 

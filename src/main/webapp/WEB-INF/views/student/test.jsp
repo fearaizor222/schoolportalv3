@@ -27,7 +27,7 @@
         <body>
             <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Điểm thành phần sinh viên</a>
+                    <a class="navbar-brand">Lịch thi sinh viên</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                         aria-label="Toggle navigation">
@@ -54,7 +54,7 @@
                                     <a class="nav-link active" href="test.htm">Lịch thi</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Đăng ký môn</a>
+                                    <a class="nav-link" href="dangkymon.htm">Đăng ký môn</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="fee.htm">Học phí</a>

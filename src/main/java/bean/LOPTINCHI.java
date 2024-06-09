@@ -40,6 +40,15 @@ public class LOPTINCHI {
         this.dangkys = dangkys;
     }
 
+    public boolean hasThisSINHVIEN(String MASV){
+        for (DANGKY dangky : dangkys) {
+            if (dangky.getSinhVien().getMASV().equals(MASV)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getMALTC() {
         return MALTC;
     }

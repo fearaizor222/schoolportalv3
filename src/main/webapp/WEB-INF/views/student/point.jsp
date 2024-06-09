@@ -27,7 +27,7 @@
         <body>
             <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Điểm thành phần sinh viên</a>
+                    <a class="navbar-brand">Điểm thành phần sinh viên</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                         aria-label="Toggle navigation">
@@ -54,7 +54,7 @@
                                     <a class="nav-link" href="test.htm">Lịch thi</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Đăng ký môn</a>
+                                    <a class="nav-link" href="dangkymon.htm">Đăng ký môn</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="fee.htm">Học phí</a>
@@ -76,6 +76,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>Môn học</th>
+                            <th>Niên khóa</th>
                             <th>Điểm chuyên cần</th>
                             <th>Điểm giữa kỳ</th>
                             <th>Điểm cuối kỳ</th>
@@ -85,6 +86,7 @@
                         <c:forEach var="p" items="${points}">
                             <tr>
                                 <td>${p.loptinchi.monhoc.TENMH}</td>
+                                <td>${p.loptinchi.NIENKHOA}</td>
                                 <td>${p.DIEM_CC}</td>
                                 <td>${p.DIEM_GK}</td>
                                 <td>${p.DIEM_CK}</td>

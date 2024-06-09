@@ -26,8 +26,8 @@
                     .table-cell {
                         overflow: hidden;
                         word-wrap: break-word;
-    white-space: normal;    
-                        max-width: 100px;
+                        white-space: normal;
+                        height: 250px;
                     }
                 </style>
             </head>
@@ -35,7 +35,7 @@
             <body>
                 <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Thông tin sinh viên</a>
+                        <a class="navbar-brand">Thông tin sinh viên</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                             aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
                                         <a class="nav-link" href="test.htm">Lịch thi</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Đăng ký môn</a>
+                                        <a class="nav-link" href="dangkymon.htm">Đăng ký môn</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="fee.htm">Học phí</a>
@@ -170,7 +170,8 @@
                                         ').concat(lastDayOfWeek).concat(')')}</h5>
                                     <div class="d-flex">
                                         <form action="truoc.htm" method="get">
-                                            <button id="prevWeek" class="btn btn-primary">Trước</button>
+                                            <button id="prevWeek" class="btn btn-primary"
+                                                style="margin-right: 10px;">Trước</button>
                                         </form>
                                         <form action="sau.htm" method="get">
                                             <button id="nextWeek" class="btn btn-primary">Sau</button>
@@ -194,13 +195,13 @@
                                             <th scope="row" class="align-middle">Tiết 1-4</th>
                                             <c:forEach var="Buoi" items="${dsLICHSANG}">
                                                 <c:if test="${Buoi.TIETBD == 1}">
-                                                    <td>
-                                                        <div class="table-cell">${Buoi.loptinchi.monhoc.TENMH}</div>
-                                                        <div class="table-cell">Phòng: ${Buoi.PHONG}</div>
+                                                    <td class="table-cell">
+                                                        ${Buoi.loptinchi.monhoc.TENMH}<br>
+                                                        Phòng: ${Buoi.PHONG}
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${Buoi.TIETBD != 1}">
-                                                    <td></td>
+                                                    <td class="table-cell"></td>
                                                 </c:if>
                                             </c:forEach>
                                         </tr>
@@ -208,13 +209,13 @@
                                             <th scope="row" class="align-middle">Tiết 7-10</th>
                                             <c:forEach var="Buoi" items="${dsLICHCHIEU}">
                                                 <c:if test="${Buoi.TIETBD == 7}">
-                                                    <td>
-                                                        <div class="table-cell">${Buoi.loptinchi.monhoc.TENMH}</div>
-                                                        <div class="table-cell">Phòng:  ${Buoi.PHONG}</div>
+                                                    <td class="table-cell">
+                                                        ${Buoi.loptinchi.monhoc.TENMH}<br>
+                                                        Phòng: ${Buoi.PHONG}
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${Buoi.TIETBD != 7}">
-                                                    <td></td>
+                                                    <td class="table-cell"></td>
                                                 </c:if>
                                             </c:forEach>
                                         </tr>

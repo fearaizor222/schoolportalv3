@@ -89,16 +89,24 @@ public class DANGKY {
 
     @Embeddable
     public static class DANGKYID implements Serializable {
-        private String MALTC;
-
+        private int MALTC;
         private String MASV;
 
-        public String getMALTC() {
+        public DANGKYID(){
+            
+        }
+
+        public DANGKYID(int maltc, String masv){
+            setMALTC(maltc);
+            setMASV(masv);
+        }
+
+        public int getMALTC() {
             return MALTC;
         }
 
-        public void setMALTC(String mALTC) {
-            MALTC = mALTC;
+        public void setMALTC(int maltc2) {
+            MALTC = maltc2;
         }
 
         public String getMASV() {

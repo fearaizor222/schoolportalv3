@@ -6,44 +6,32 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "HOCPHI")
-@IdClass(HOCPHI.HocPhiId.class)
 public class HOCPHI {
-
-    @Id
-    private String MASV;
-
-    @Id
-    private String NIENKHOA;
-
-    @Id
-    private int HOCKY;
+    @EmbeddedId
+    private HocPhiId hocPhiId;
 
     private int HOCPHI;
 
+    @MapsId("MASV")
+    @ManyToOne
+    @JoinColumn(name = "MASV")
+    private SINHVIEN sinhVien;
+
     // Getters and setters
-
-    public String getMASV() {
-        return MASV;
+    public SINHVIEN getSinhVien() {
+        return sinhVien;
     }
 
-    public void setMASV(String MASV) {
-        this.MASV = MASV;
+    public void setSinhVien(SINHVIEN sinhVien) {
+        this.sinhVien = sinhVien;
     }
 
-    public String getNIENKHOA() {
-        return NIENKHOA;
+    public HocPhiId getHocPhiId() {
+        return hocPhiId;
     }
 
-    public void setNIENKHOA(String NIENKHOA) {
-        this.NIENKHOA = NIENKHOA;
-    }
-
-    public int getHOCKY() {
-        return HOCKY;
-    }
-
-    public void setHOCKY(int HOCKY) {
-        this.HOCKY = HOCKY;
+    public void setHocPhiId(HocPhiId hocPhiId) {
+        this.hocPhiId = hocPhiId;
     }
 
     public int getHOCPHI() {
@@ -55,12 +43,46 @@ public class HOCPHI {
     }
 
     // Composite key class
+    @Embeddable
     public static class HocPhiId implements Serializable {
         private String MASV;
         private String NIENKHOA;
         private int HOCKY;
 
-        // Getters, setters and equals, hashCode methods
+        public HocPhiId() {
+            
+        }
+
+        public HocPhiId(String mASV2, String nienKhoa2, int hocKy2) {
+            this.MASV = mASV2;
+            this.NIENKHOA = nienKhoa2;
+            this.HOCKY = hocKy2;
+        }
+
+        public String getMASV() {
+            return MASV;
+        }
+
+        public void setMASV(String MASV) {
+            this.MASV = MASV;
+        }
+
+        public String getNIENKHOA() {
+            return NIENKHOA;
+        }
+
+        public void setNIENKHOA(String NIENKHOA) {
+            this.NIENKHOA = NIENKHOA;
+        }
+
+        public int getHOCKY() {
+            return HOCKY;
+        }
+
+        public void setHOCKY(int HOCKY) {
+            this.HOCKY = HOCKY;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -73,5 +95,10 @@ public class HOCPHI {
         public int hashCode() {
             return Objects.hash(MASV, NIENKHOA, HOCKY);
         }
+    }
+
+    public void setHocPhiId(String username, String nienkhoa, int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setHocPhiId'");
     }
 }

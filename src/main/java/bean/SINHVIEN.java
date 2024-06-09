@@ -1,5 +1,6 @@
 package bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import bean.HOCPHI.HocPhiId;
 
 @Entity
 @Table(name = "SINHVIEN")
@@ -37,16 +40,62 @@ public class SINHVIEN {
     @OneToMany(mappedBy = "sinhvien")
     private List<DANGKY> dangkys;
 
-    // @OneToMany(mappedBy = "sinhVien")
-    // private List<HOCPHI> hocPhis;
+    @OneToMany(mappedBy = "sinhVien")
+    private List<HOCPHI> hocPhis;
 
-    // public List<HOCPHI> getHocPhis() {
-    //     return hocPhis;
-    // }
+    public List<HOCPHI> getHocPhis() {
+        return hocPhis;
+    }
 
-    // public void setHocPhis(List<HOCPHI> hocPhis) {
-    //     this.hocPhis = hocPhis;
-    // }
+    public HOCPHI getHocPhiTheoKey(HocPhiId hocPhiId) {
+        for (HOCPHI hocPhi : hocPhis) {
+            HocPhiId temp = hocPhi.getHocPhiId();
+            if (temp.getMASV().equals(hocPhiId.getMASV())
+                    && temp.getNIENKHOA().equals(hocPhiId.getNIENKHOA())
+                    && temp.getHOCKY() == hocPhiId.getHOCKY()) {
+                return hocPhi;
+            }
+        }
+        return null;
+    }
+
+    public List<LOPTINCHI> getLopTinChiTheoNienKhoaHocKy(String nienKhoa, int hocKy) {
+        List<LOPTINCHI> lopTinChi = new ArrayList<>();
+        try{
+            for (DANGKY dangKy : dangkys) {
+                if (dangKy.getLoptinchi().getHOCKY() == hocKy
+                        && dangKy.getLoptinchi().getNIENKHOA().equals(nienKhoa)) {
+                    lopTinChi.add(dangKy.getLoptinchi());
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return lopTinChi;
+    }
+
+    public int getSoTinChiDaDangKyTheoKy(String nienKhoa, int hocKy) {
+        int soTinChi = 0;
+        List<LOPTINCHI> lopTinChi = getLopTinChiTheoNienKhoaHocKy(nienKhoa, hocKy);
+        for (LOPTINCHI lop : lopTinChi) {
+            soTinChi += lop.getMonhoc().getSOTINCHI();
+        }
+        return soTinChi;
+    }
+
+    public int getTongTienCanDongTrongKy(String nienKhoa, int hocKy) {
+        int sotinchi = getSoTinChiDaDangKyTheoKy(nienKhoa, hocKy);
+        int tongTien = sotinchi * 600000;
+
+        // getHocPhiTheoKey(new HocPhiId(MASV, nienKhoa, hocKy)).setHOCPHI(tongTien);
+        
+        return tongTien;
+    }
+
+    public void setHocPhis(List<HOCPHI> hocPhis) {
+        this.hocPhis = hocPhis;
+    }
 
     public List<DANGKY> getDangkys() {
         return dangkys;
