@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "THONGBAO")
 public class THONGBAO {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int MATB;
     private String TIEUDE;
     private String NOIDUNG;

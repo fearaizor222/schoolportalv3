@@ -3,6 +3,7 @@ package bean;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @Table(name = "LOPTINCHI")
 public class LOPTINCHI {
     @Id
+    @GeneratedValue
     private int MALTC;
     private String NIENKHOA;
     private int HOCKY;

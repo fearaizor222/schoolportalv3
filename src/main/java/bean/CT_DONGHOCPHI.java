@@ -45,6 +45,16 @@ public class CT_DONGHOCPHI {
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private Date NGAYDONG;
 
+        public CT_DONGHOCPHIID() {
+        }
+
+        public CT_DONGHOCPHIID(String mASV, String nIENKHOA, int hOCKY, Date nGAYDONG) {
+            MASV = mASV;
+            NIENKHOA = nIENKHOA;
+            HOCKY = hOCKY;
+            NGAYDONG = nGAYDONG;
+        }
+
         public String getMASV() {
             return MASV;
         }

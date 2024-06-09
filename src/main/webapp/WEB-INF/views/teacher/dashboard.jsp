@@ -6,7 +6,7 @@
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Cổng thông tin sinh viên</title>
+            <title>Cổng quản lý sinh viên</title>
             <link rel="shortcut icon" type="image/x-icon" href="/webapp/resources/logo.png">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
@@ -18,8 +18,15 @@
                 body {
                     font-family: 'Poppins', sans-serif;
                     background: #ececec;
-                    margin-top: 60px;
+                    margin-top: 80px;
                     padding-top: 20px;
+                }
+
+                .table-cell {
+                    overflow: hidden;
+                    word-wrap: break-word;
+                    white-space: normal;
+                    height: 250px;
                 }
             </style>
         </head>
@@ -27,7 +34,7 @@
         <body>
             <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Thông tin giang vien</a>
+                    <a class="navbar-brand" href="#">Thông tin giảng viên</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                         aria-label="Toggle navigation">
@@ -43,11 +50,12 @@
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng viên
+                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng
+                                        viên
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="point.htm">Nhập/Sửa Điểm</a>
+                                    <a class="nav-link" href="#">Nhập/Sửa Điểm</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Nhập/Sửa Môn</a>
@@ -55,9 +63,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Nhập/Sửa Sinh viên</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Chưa biết thêm gì</a>
-                                </li>
+                                <c:if test="${role == 'admin'}">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="announcement.htm">Thông báo</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="fee.htm">Học phí sinh viên</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="settings.htm">Điều chỉnh</a>
+                                    </li>
+                                </c:if>
                             </ul>
                         </div>
 
@@ -85,8 +101,8 @@
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
-                                <img src="${'data:image/png;base64,'.concat(SINHVIEN.LINKANH)}" alt="avatar" class="card-img-right"
-                                    style="width: 120px; height: 144px; border: 2px solid black;"
+                                <img src="${'data:image/png;base64,'.concat(SINHVIEN.LINKANH)}" alt="avatar"
+                                    class="card-img-right" style="width: 120px; height: 144px; border: 2px solid black;"
                                     onerror="this.onerror=null; this.src='/webapp/resources/gojo.png';">
                             </div>
                         </div>
@@ -97,14 +113,12 @@
                             <h5 class="card-title">Thông tin Khoa</h5>
                             <p class="card-text">Mã khoa: ${Khoa.MAKHOA}</p>
                             <p class="card-text">Tên khoa: ${Khoa.TENKHOA}</p>
-                            <!-- <p class="card-text">Niên khóa: ${LOP.KHOAHOC}</p>
-                            <p class="card-text">Khoa: ${LOP.khoa.TENKHOA}</p> -->
                         </div>
                     </div>
 
                     <div class="card mt-3">
                         <div class="card-body">
-                            <h5 class="card-title">Thông báo</h5>
+                            <h5 class="card-title mb-0">Thông báo</h5>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -154,10 +168,17 @@
                     <div class="card flex-grow-1">
                         <div class="card-body d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Teacher Timetable</h5>
-                                <div>
-                                    <button id="prevWeek" class="btn btn-primary">Trước</button>
-                                    <button id="nextWeek" class="btn btn-primary">Sau</button>
+                                <h5 class="card-title mb-0">${'Thời khóa biểu
+                                    '.concat('(').concat(firstDayOfWeek).concat(' ->
+                                    ').concat(lastDayOfWeek).concat(')')}</h5>
+                                <div class="d-flex">
+                                    <form action="truoc.htm" method="get">
+                                        <button id="prevWeek" class="btn btn-primary"
+                                            style="margin-right: 10px;">Trước</button>
+                                    </form>
+                                    <form action="sau.htm" method="get">
+                                        <button id="nextWeek" class="btn btn-primary">Sau</button>
+                                    </form>
                                 </div>
                             </div>
                             <table class="table flex-grow-1">
@@ -175,21 +196,31 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row" class="align-middle">Tiết 1-4</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <c:forEach var="Buoi" items="${dsLICHSANG}">
+                                            <c:if test="${Buoi.TIETBD == 1}">
+                                                <td class="table-cell">
+                                                    ${Buoi.loptinchi.monhoc.TENMH}<br>
+                                                    Phòng: ${Buoi.PHONG}
+                                                </td>
+                                            </c:if>
+                                            <c:if test="${Buoi.TIETBD != 1}">
+                                                <td class="table-cell"></td>
+                                            </c:if>
+                                        </c:forEach>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="align-middle">Tiết 7-10</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <c:forEach var="Buoi" items="${dsLICHCHIEU}">
+                                            <c:if test="${Buoi.TIETBD == 7}">
+                                                <td class="table-cell">
+                                                    ${Buoi.loptinchi.monhoc.TENMH}<br>
+                                                    Phòng: ${Buoi.PHONG}
+                                                </td>
+                                            </c:if>
+                                            <c:if test="${Buoi.TIETBD != 7}">
+                                                <td class="table-cell"></td>
+                                            </c:if>
+                                        </c:forEach>
                                     </tr>
                                 </tbody>
                             </table>
