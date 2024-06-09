@@ -36,6 +36,8 @@ public class GVDashboardController {
 
         model.addAttribute("CHUYENMON", gv.getCHUYENMON());
 
+        model.addAttribute("Khoa", gv.getKhoa());
+
         model.addAttribute("KHOA", gv.getKhoa().getTENKHOA());
 
         List<THONGBAO> list = THONGBAODAO.getAllThongBao();

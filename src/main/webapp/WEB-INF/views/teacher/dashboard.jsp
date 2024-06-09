@@ -78,29 +78,29 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Thông tin giảng viên</h5>
                                     <p class="card-text">Họ tên: ${GIANGVIEN.HO.concat(' ').concat(GIANGVIEN.TEN)}</p>
-                                    <p class="card-text">Mã sinh viên: ${GIANGVIEN.MAGV}</p>
-                                    <p class="card-text">Giới tính: ${GIANGVIEN.MAKHOA}</p>
-                                    <p class="card-text">Địa chỉ: ${GIANGVIEN.HOCVI}</p>
-                                    <p class="card-text">Ngày sinh: ${GIANGVIEN.CHUYENMON}</p>
+                                    <p class="card-text">Mã giảng viên: ${GIANGVIEN.MAGV}</p>
+                                    <p class="card-text">Học hàm: ${GIANGVIEN.HOCHAM}</p>
+                                    <p class="card-text">Học vị: ${GIANGVIEN.HOCVI}</p>
+                                    <p class="card-text">Chuyên môn: ${GIANGVIEN.CHUYENMON}</p>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <img src="${'data:image/png;base64,'.concat(SINHVIEN.LINKANH)}" alt="avatar" class="card-img-right"
                                     style="width: 120px; height: 144px; border: 2px solid black;"
-                                    onerror="this.onerror=null; this.src='/webapp/resources/heh.png';">
+                                    onerror="this.onerror=null; this.src='/webapp/resources/gojo.png';">
                             </div>
                         </div>
                     </div>
 
-                    <!-- <div class="card mt-3">
+                    <div class="card mt-3">
                         <div class="card-body">
-                            <h5 class="card-title">Thông tin lớp</h5>
-                            <p class="card-text">Mã lớp: ${LOP.MALOP}</p>
-                            <p class="card-text">Tên lớp: ${LOP.TENLOP}</p>
-                            <p class="card-text">Niên khóa: ${LOP.KHOAHOC}</p>
-                            <p class="card-text">Khoa: ${LOP.khoa.TENKHOA}</p>
+                            <h5 class="card-title">Thông tin Khoa</h5>
+                            <p class="card-text">Mã khoa: ${Khoa.MAKHOA}</p>
+                            <p class="card-text">Tên khoa: ${Khoa.TENKHOA}</p>
+                            <!-- <p class="card-text">Niên khóa: ${LOP.KHOAHOC}</p>
+                            <p class="card-text">Khoa: ${LOP.khoa.TENKHOA}</p> -->
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="card mt-3">
                         <div class="card-body">
@@ -154,7 +154,7 @@
                     <div class="card flex-grow-1">
                         <div class="card-body d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">Student Timetable</h5>
+                                <h5 class="card-title mb-0">Teacher Timetable</h5>
                                 <div>
                                     <button id="prevWeek" class="btn btn-primary">Trước</button>
                                     <button id="nextWeek" class="btn btn-primary">Sau</button>
