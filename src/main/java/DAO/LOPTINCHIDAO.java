@@ -1,5 +1,6 @@
 package DAO;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import bean.DANGKY;
 import bean.LOPTINCHI;
 
 @Repository
@@ -39,5 +41,31 @@ public class LOPTINCHIDAO {
                 list.add(ltc.getNIENKHOA());
         }
         return list;
+    }
+
+    public List<LOPTINCHI> getAllLoptinchisTheoMAGV(String MAGV){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "FROM LOPTINCHI WHERE MAGV = :magv";
+        Query query = session.createQuery(hql);
+        query.setParameter("magv", MAGV);
+        return query.list();
+    }
+
+    public List<DANGKY> getAllDangkyTheoMAGV(String MAGV){
+        List<LOPTINCHI> listLTC = getAllLoptinchisTheoMAGV(MAGV);
+        List<DANGKY> listDK = new ArrayList<>();
+        for(LOPTINCHI ltc : listLTC){
+            listDK.addAll(ltc.getDangkys());
+        }
+        return listDK;
+    }
+
+    public DANGKY getDiemTheoKey(int maltc, String masv){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "FROM DANGKY WHERE ID.MALTC = :maltc AND ID.MASV = :masv";
+        Query query = session.createQuery(hql);
+        query.setParameter("maltc", maltc);
+        query.setParameter("masv", masv);
+        return (DANGKY) query.uniqueResult();
     }
 }

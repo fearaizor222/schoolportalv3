@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Thêm thông báo</title>
+        <title>Thay đổi thông báo</title>
         <link rel="shortcut icon" type="image/x-icon" href="/webapp/resources/logo.png">
         <title>Đăng thông báo</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -27,7 +27,7 @@
     <body>
         <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Thông báo sinh viên</a>
+                <a class="navbar-brand" href="#">Quản lý điểm</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                     aria-label="Toggle navigation">
@@ -48,14 +48,14 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="points.htm">Chỉnh điểm</a>
+                                <a class="nav-link active" href="points.htm">Chỉnh điểm</a>
                             </li>
                             <c:if test="${role == 'admin'}">
                                 <li class="nav-item">
                                     <a class="nav-link" href="student-management.htm">Nhập/xóa Sinh viên</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="announcement.htm">Thông báo</a>
+                                    <a class="nav-link" href="announcement.htm">Thông báo</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="fee.htm">Học phí sinh viên</a>
@@ -77,24 +77,28 @@
             </div>
         </nav>
         <div class="container">
-            <form:form action="inserttb.htm" method="POST" modelAttribute="tbneedtobeupdated">
+            <form:form action="editPoint.htm" method="POST" modelAttribute="choosenpoint">
                 <div class="mb-3">
-                    <label for="title" class="form-label">Tiêu đề</label>
-                    <form:input path="TIEUDE" id="title" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label for="date" class="form-label">Ngày</label>
-                    <form:input path="NGAYDANG" id="date" type="date" class="form-control" />
+                    <label for="MASV" class="form-label">Mã sinh viên</label>
+                    <form:input path="ID.MASV" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label for="noidung" class="form-label">Nội dung</label>
-                    <form:textarea path="NOIDUNG" id="noidung" class="form-control" />
+                    <label for="MALTC" class="form-label">Mã lớp tín chỉ</label>
+                    <form:input path="ID.MALTC" class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary">Đăng</button>
-                <div class="mb-3" style="display: none;">
-                    <label for="title" class="form-label">Title</label>
-                    <form:input path="MATB" id="title" class="form-control" />
+                <div class="mb-3">
+                    <label for="DIEM_CC" class="form-label">Điểm chuyên cần</label>
+                    <form:input path="DIEM_CC" class="form-control" />
                 </div>
+                <div class="mb-3">
+                    <label for="DIEM_GK" class="form-label">Điểm giữa kỳ</label>
+                    <form:input path="DIEM_GK" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="DIEM_CK" class="form-label">Điểm cuối kỳ</label>
+                    <form:input path="DIEM_CK" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary">Thay đổi</button>
             </form:form>
         </div>
         <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">

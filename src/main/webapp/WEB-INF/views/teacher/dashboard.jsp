@@ -55,15 +55,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Nhập/Sửa Điểm</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Nhập/Sửa Môn</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Nhập/Sửa Sinh viên</a>
+                                    <a class="nav-link" href="points.htm">Chỉnh Điểm</a>
                                 </li>
                                 <c:if test="${role == 'admin'}">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="student-management.htm">Nhập/xóa Sinh viên</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="announcement.htm">Thông báo</a>
                                     </li>

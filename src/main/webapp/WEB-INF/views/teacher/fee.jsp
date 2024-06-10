@@ -34,7 +34,7 @@
         <body>
             <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Thông báo sinh viên</a>
+                    <a class="navbar-brand" href="#">Học phí sinh viên</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                         aria-label="Toggle navigation">
@@ -55,15 +55,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Nhập/Sửa Điểm</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Nhập/Sửa Môn</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Nhập/Sửa Sinh viên</a>
+                                    <a class="nav-link" href="points.htm">Chỉnh điểm</a>
                                 </li>
                                 <c:if test="${role == 'admin'}">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="student-management.htm">Nhập/xóa Sinh viên</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="announcement.htm">Thông báo</a>
                                     </li>

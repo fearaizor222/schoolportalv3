@@ -39,6 +39,22 @@ public class DANGKY {
         ID = iD;
     }
 
+    public int getMALTC() {
+        return ID.getMALTC();
+    }
+
+    public void setMALTC(int maltc) {
+        ID.setMALTC(maltc);
+    }
+
+    public String getMASV() {
+        return ID.getMASV();
+    }
+
+    public void setMASV(String masv) {
+        ID.setMASV(masv);
+    }
+
     public int getDIEM_CC() {
         return DIEM_CC;
     }

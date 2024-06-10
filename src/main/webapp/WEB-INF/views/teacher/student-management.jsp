@@ -73,7 +73,7 @@
 <body>
     <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Thông tin sinh viên</a>
+            <a class="navbar-brand" href="#">Quản lý sinh viên</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                 aria-label="Toggle navigation">
@@ -82,36 +82,43 @@
             <div class="offcanvas offcanvas-end bg-danger text-white" tabindex="-1" id="offcanvasDarkNavbar"
                 aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
-<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
-<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
+                            <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin giảng
+                                viên
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="point.htm">Điểm</a>
+                            <a class="nav-link" href="points.htm">Chỉnh điểm</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Lịch thi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Đăng ký môn</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Học phí</a>
-                        </li>
+                        <c:if test="${role == 'admin'}">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="student-management.htm">Nhập/xóa Sinh viên</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="announcement.htm">Thông báo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="fee.htm">Học phí sinh viên</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="settings.htm">Điều chỉnh</a>
+                            </li>
+                        </c:if>
                     </ul>
-
-                    <form action="logout.htm" method="post">
-                        <div class="position-absolute bottom-0 start-50 translate-middle-x my-10"
-                            style="margin-bottom: 10px;">
-                            <button type="submit" class="btn btn-warning">Logout</button>
-                        </div>
-                    </form>
                 </div>
+
+                <form action="logout.htm" method="post">
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x my-10"
+                        style="margin-bottom: 10px;">
+                        <button type="submit" class="btn btn-warning">Logout</button>
+                    </div>
+                </form>
             </div>
         </div>
     </nav>
