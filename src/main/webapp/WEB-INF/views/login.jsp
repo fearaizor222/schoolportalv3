@@ -49,9 +49,9 @@
                                 </div>
                                 <div class="input-group mb-5">
                                     <select class="form-select" name="databaseSite">
-                                        <option selected value="0">Sinh viên</option>
+                                        <option selected value="0">Chọn khoa</option>
                                         <c:forEach var="site" items="${listSite}" varStatus="loop">
-                                            <option value="${loop.index + 1}">Nhân viên ${site}</option>
+                                            <option value="${loop.index + 1}">${site}</option>
                                         </c:forEach>
                                     </select>
                                 </div>

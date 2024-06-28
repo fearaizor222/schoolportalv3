@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Connection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,8 @@ public class SVDashboardController {
     @RequestMapping("dashboard")
     public String sinhVien(HttpServletRequest request, ModelMap model) {
         HttpSession session = request.getSession();
+        Connection connection = ConnectionService.getConnection();
+        StudentService.setConnection(connection);
         String loginuser = (String) session.getAttribute("username");
         SINHVIEN student = StudentService.getSINHVIENByMASV(loginuser);
         LOP lop = StudentService.getLOPByMASV(student.getMALOP());

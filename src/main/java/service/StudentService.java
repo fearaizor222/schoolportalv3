@@ -11,9 +11,13 @@ import bean.LOP;
 import bean.SINHVIEN;
 
 public class StudentService {
-    private static Connection connection = ConnectionService.getConnection();
+    private static Connection connection;
 
     public StudentService() {
+    }
+
+    public static void setConnection(Connection connection) {
+        StudentService.connection = connection;
     }
 
     public static SINHVIEN getSINHVIENByMASV(String username) {

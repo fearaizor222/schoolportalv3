@@ -35,40 +35,38 @@ public class LoginController {
             RedirectAttributes redirectAttributes) {
 
         String url = MatcherService.getSite(Integer.parseInt(site));
-        Connection connection = null;
+        Connection connection = ConnectionService.makeConnection(url, username, password);
         CallableStatement callableStatement = null;
         try {
-            if (MatcherService.isStudent(username)) {
-                String classType = MatcherService.getStudentClass(username);
-                connection = ConnectionService.makeConnection(classType, "svlogin", "123456789");
-                String storedProcedureCall = "{call sp_xacMinhSINHVIEN(?, ?)}";
-                callableStatement = connection.prepareCall(storedProcedureCall);
-                callableStatement.setString(1, username);
-                callableStatement.setString(2, password);
-                ResultSet rs = callableStatement.executeQuery();
-                rs.next();
-                int val = rs.getInt(1);
-                if (val == 1) {
-                    request.getSession().setAttribute("username", username);
-                    request.getSession().setAttribute("role", "student");
-                    request.getSession().setMaxInactiveInterval(15 * 60);
-                    return "redirect:/student/dashboard.htm";
-                }
-            } else {
-                connection = ConnectionService.makeConnection(url, username, password);
-                if(connection != null){
-                    ConnectionService.makeConnection(url, username, password);
-                    request.getSession().setAttribute("username", username);
-                    request.getSession().setAttribute("role", "teacher");
-                    request.getSession().setMaxInactiveInterval(15 * 60);
-                    return "redirect:/teacher/dashboard.htm";
+            if(connection != null){
+                request.getSession().setAttribute("username", username);
+                request.getSession().setAttribute("role", "teacher");
+                request.getSession().setMaxInactiveInterval(15 * 60);
+                return "redirect:/teacher/dashboard.htm";
+            }
+            else{
+                if(MatcherService.isStudent(username)){
+                    connection = ConnectionService.makeConnection(url, "svlogin", "123456789");
+                    String storedProcedureCall = "{call sp_xacMinhSINHVIEN(?, ?)}";
+                    callableStatement = connection.prepareCall(storedProcedureCall);
+                    callableStatement.setString(1, username);
+                    callableStatement.setString(2, password);
+                    ResultSet rs = callableStatement.executeQuery();
+                    rs.next();
+                    int val = rs.getInt(1);
+                    if (val == 1) {
+                        request.getSession().setAttribute("username", username);
+                        request.getSession().setAttribute("role", "student");
+                        request.getSession().setMaxInactiveInterval(15 * 60);
+                        return "redirect:/student/dashboard.htm";
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         ConnectionService.closeConnection();
-        redirectAttributes.addFlashAttribute("message", "Sai tên đăng nhập hoặc mật khẩu");
+        redirectAttributes.addFlashAttribute("message", "Sai tên đăng nhập/mật khẩu/khoa");
         return "redirect:/login.htm";
     }
 }
