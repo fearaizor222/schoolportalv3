@@ -47,21 +47,20 @@
                                     <input type="password" class="form-control form-control-lg bg-light fs-6"
                                         placeholder="Password" name="password" autocomplete="off">
                                 </div>
-                                <div class="input-group mb-5 d-flex justify-content-between">
-                                    <div class="form-check" style="visibility: hidden;">
-                                        <input type="checkbox" class="form-check-input" id="formCheck" name="remember">
-                                        <label for="formCheck" class="form-check-label text-secondary"><small>Remember Me</small></label>
-                                    </div>
-                                    <div class="forgot">
-                                        <small><a href="forgot-password.htm">Forgot Password?</a></small>
-                                    </div>
+                                <div class="input-group mb-5">
+                                    <select class="form-select" name="databaseSite">
+                                        <option selected value="0">Sinh viên</option>
+                                        <c:forEach var="site" items="${listSite}" varStatus="loop">
+                                            <option value="${loop.index + 1}">Nhân viên ${site}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                                 <div class="input-group mb-3">
                                     <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
                                 </div>
                             </form>
                         </div>
-                        <div class="">
+                        <div>
                             <c:if test="${not empty message}">
                                 <div class="alert alert-danger">
                                     ${message}

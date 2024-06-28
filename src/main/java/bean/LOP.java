@@ -1,27 +1,24 @@
 package bean;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "LOP")
 public class LOP {
-    @Id
     private String MALOP;
     private String TENLOP;
     private String KHOAHOC;
-    @ManyToOne
-    @JoinColumn(name = "MAKHOA")
-    private KHOA khoa;
+    private String MAKHOA;
 
-    @OneToMany(mappedBy = "lop")
-    private List<SINHVIEN> sinhviens;
+    public LOP() {
+        this.MALOP = "";
+        this.TENLOP = "";
+        this.KHOAHOC = "";
+        this.MAKHOA = "";
+    }
+
+    public LOP(String MALOP, String TENLOP, String KHOAHOC, String MAKHOA) {
+        this.MALOP = MALOP;
+        this.TENLOP = TENLOP;
+        this.KHOAHOC = KHOAHOC;
+        this.MAKHOA = MAKHOA;
+    }
 
     public String getMALOP() {
         return MALOP;
@@ -47,19 +44,11 @@ public class LOP {
         KHOAHOC = kHOAHOC;
     }
 
-    public List<SINHVIEN> getSinhviens() {
-        return sinhviens;
+    public String getMAKHOA() {
+        return MAKHOA;
     }
 
-    public void setSinhviens(List<SINHVIEN> sinhviens) {
-        this.sinhviens = sinhviens;
-    }
-
-    public KHOA getKhoa() {
-        return khoa;
-    }
-
-    public void setKhoa(KHOA khoa) {
-        this.khoa = khoa;
+    public void setMAKHOA(String mAKHOA) {
+        MAKHOA = mAKHOA;
     }
 }

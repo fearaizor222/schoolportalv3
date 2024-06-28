@@ -17,7 +17,7 @@
 	
 	<!-- Cấu hình package chứa các controller -->
 	<context:component-scan base-package="controller" />
-	<context:component-scan base-package="bean" />
-	<context:component-scan base-package="DAO" />
+	<!-- <context:component-scan base-package="bean" />
+	<context:component-scan base-package="DAO" /> -->
 	
 </beans>

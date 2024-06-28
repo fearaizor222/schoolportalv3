@@ -8,13 +8,6 @@
            http://www.springframework.org/schema/mvc 
            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	
-    <!-- <bean id="StudentPattern" class="java.lang.String">
-        <constructor-arg value="N\d{2}DC(CN|VT|TD|DT|AT)\d{3}" />
-    </bean>
-
-    <bean id="TeacherPattern" class="java.lang.String">
-        <constructor-arg value="GV\d{2}" />
-    </bean> -->
 
     <mvc:interceptors>
         <mvc:interceptor>
@@ -27,12 +20,6 @@
             <mvc:exclude-mapping path="/teacher/announcement.htm" />
             <mvc:exclude-mapping path="/teacher/settings.htm" />
             <bean class="interceptor.TeacherSecurityInterceptor" />
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/teacher/fee.htm" />
-            <mvc:mapping path="/teacher/announcement.htm" />
-            <mvc:mapping path="/teacher/settings.htm" />
-            <bean class="interceptor.SuperAdminSecurityInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

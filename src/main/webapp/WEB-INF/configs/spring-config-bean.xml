@@ -10,7 +10,14 @@
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
                         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <bean id="superAdmin" class="java.lang.String">
-        <constructor-arg value="GV01" />
+
+    <bean id="Site" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <value>Công nghệ thông tin</value>
+                <value>Viễn thông</value>
+                <value>Kế toán</value>
+            </list>
+        </constructor-arg>
     </bean>
 </beans>

@@ -1,93 +1,74 @@
 package controller;
 
-import javax.mail.internet.MimeMessage;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import DAO.GIANGVIENDAO;
-import DAO.SINHVIENDAO;
-import bean.SINHVIEN;
+import service.ConnectionService;
+import service.MatcherService;
 
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class LoginController {
     @Autowired
-    private SINHVIENDAO SINHVIENDAO;
-
-    @Autowired
-    private GIANGVIENDAO GIANGVIENDAO;
-
-    @Autowired
-    private JavaMailSender mailSender;
-
-    @Autowired
-    private String superAdmin;
+    private ArrayList<String> Site;
 
     @RequestMapping("login")
-    public String login() {
+    public String login(HttpServletRequest request) {
+        request.getSession().setAttribute("listSite", Site);
         return "login";
     }
-    
-    @RequestMapping(value="login-action", method = RequestMethod.POST)
-    public String dangnhap(@RequestParam("username") String username, 
-                            @RequestParam("password") String password, 
-                            HttpServletRequest request,
-                            RedirectAttributes redirectAttributes) {
-        if(SINHVIENDAO.authenticate(username, password)) {
-            request.getSession().setAttribute("username", username);
-            request.getSession().setAttribute("role", "student");
-            request.getSession().setMaxInactiveInterval(15 * 60);
-            return "redirect:/student/dashboard.htm";
-        }
-        else if(GIANGVIENDAO.authenticate(username, password)) {
-                request.getSession().setAttribute("username", username);
-                request.getSession().setMaxInactiveInterval(15 * 60);
-                if(username.equals(superAdmin)){
-                    request.getSession().setAttribute("role", "admin");
-                }
-                else{
-                    request.getSession().setAttribute("role", "teacher");
-                }
-                return "redirect:/teacher/dashboard.htm";
-        }
 
+    @RequestMapping(value = "login-action", method = RequestMethod.POST)
+    public String dangnhap(@RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam("databaseSite") String site,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes) {
+
+        String url = MatcherService.getSite(Integer.parseInt(site));
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        try {
+            if (MatcherService.isStudent(username)) {
+                String classType = MatcherService.getStudentClass(username);
+                connection = ConnectionService.makeConnection(classType, "svlogin", "123456789");
+                String storedProcedureCall = "{call sp_xacMinhSINHVIEN(?, ?)}";
+                callableStatement = connection.prepareCall(storedProcedureCall);
+                callableStatement.setString(1, username);
+                callableStatement.setString(2, password);
+                ResultSet rs = callableStatement.executeQuery();
+                rs.next();
+                int val = rs.getInt(1);
+                if (val == 1) {
+                    request.getSession().setAttribute("username", username);
+                    request.getSession().setAttribute("role", "student");
+                    request.getSession().setMaxInactiveInterval(15 * 60);
+                    return "redirect:/student/dashboard.htm";
+                }
+            } else {
+                connection = ConnectionService.makeConnection(url, username, password);
+                if(connection != null){
+                    ConnectionService.makeConnection(url, username, password);
+                    request.getSession().setAttribute("username", username);
+                    request.getSession().setAttribute("role", "teacher");
+                    request.getSession().setMaxInactiveInterval(15 * 60);
+                    return "redirect:/teacher/dashboard.htm";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ConnectionService.closeConnection();
         redirectAttributes.addFlashAttribute("message", "Sai tên đăng nhập hoặc mật khẩu");
         return "redirect:/login.htm";
-    }
-
-    @RequestMapping("forgot-password")
-    public String forgotPassword() {
-        return "forgot-password";
-    }
-
-    @RequestMapping(value="forgot-password-action", method = RequestMethod.POST)
-    public String forgotPasswordAction(@RequestParam("userEmail") String usernameString, ModelMap model) {
-        try {
-            SINHVIEN sv = SINHVIENDAO.getSinhvienByEmail(usernameString);
-
-            String password = sv.getPASSWORD();
-            String email = sv.getEMAIL();
-    
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message);
-            helper.setFrom("phuoc.lam.259@gmail.com", "forgot.password@no-reply");
-            helper.setTo(email);
-            helper.setReplyTo("phuoc.lam.259@gmail.com", "forgot.password@no-reply");
-            helper.setSubject("Forgot password");
-            helper.setText("Your password is: " + password, true);
-
-            mailSender.send(message);
-            model.addAttribute("message", "Gửi mail thành công");
-        } catch (Exception e) {
-            model.addAttribute("message", "Gửi mail thất bại");
-        }   
-        return "forgot-password";
     }
 }

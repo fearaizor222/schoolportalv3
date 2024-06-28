@@ -29,6 +29,10 @@
                         white-space: normal;
                         height: 250px;
                     }
+
+                    .form-group {
+                        margin-bottom: 20px;
+                    }
                 </style>
             </head>
 
@@ -54,12 +58,6 @@
                                         <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin
                                             sinh
                                             viên</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="point.htm">Điểm</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="test.htm">Lịch thi</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="dangkymon.htm">Đăng ký môn</a>
@@ -91,145 +89,125 @@
                                         <p class="card-text">Giới tính: ${SINHVIEN.PHAI == True? "Nữ": "Nam"}</p>
                                         <p class="card-text">Địa chỉ: ${SINHVIEN.DIACHI}</p>
                                         <p class="card-text">Ngày sinh: ${SINHVIEN.NGAYSINH}</p>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#changePasswordModal">
+                                            Đổi mật khẩu
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mt-3">
-                                    <img src="${'data:image/png;base64,'.concat(SINHVIEN.LINKANH)}" alt="avatar"
+                                    <img src="${'data:image/png;base64,'.concat(123)}" alt="avatar"
                                         class="card-img-right"
                                         style="width: 120px; height: 144px; border: 2px solid black;"
                                         onerror="this.onerror=null; this.src='/webapp/resources/heh.png';">
                                 </div>
                             </div>
                         </div>
-
                         <div class="card mt-3">
                             <div class="card-body">
                                 <h5 class="card-title">Thông tin lớp</h5>
                                 <p class="card-text">Mã lớp: ${LOP.MALOP}</p>
                                 <p class="card-text">Tên lớp: ${LOP.TENLOP}</p>
                                 <p class="card-text">Niên khóa: ${LOP.KHOAHOC}</p>
-                                <!-- <p class="card-text">Khoa: ${LOP.khoa.TENKHOA}</p> -->
-                            </div>
-                        </div>
-
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Thông báo</h5>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Ngày đăng</th>
-                                            <th scope="col">Tiêu đề</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <div style="height: 70px; overflow-y: auto;">
-                                    <table class="table">
-                                        <tbody>
-                                            <c:forEach var="TB" items="${dsTHONGBAO}" varStatus="loop">
-                                                <tr data-bs-toggle="modal"
-                                                    data-bs-target="#announcementModal${loop.index}">
-                                                    <td>${TB.NGAYDANG}</td>
-                                                    <td>${TB.TIEUDE}</td>
-                                                </tr>
-                                                <div class="modal fade" id="announcementModal${loop.index}"
-                                                    tabindex="-1" aria-labelledby="announcementModalLabel${loop.index}"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title"
-                                                                    id="announcementModalLabel${loop.index}">
-                                                                    ${TB.TIEUDE}</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                ${TB.NOIDUNG}
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8 d-flex flex-column">
-                        <div class="card flex-grow-1">
-                            <div class="card-body d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h5 id="titleWeek" class="card-title mb-0">${'Thời khóa biểu
-                                        '.concat('(').concat(firstDayOfWeek).concat(' ->
-                                        ').concat(lastDayOfWeek).concat(')')}</h5>
-                                    <div class="d-flex">
-                                        <form action="truoc.htm" method="get">
-                                            <button id="prevWeek" class="btn btn-primary"
-                                                style="margin-right: 10px;">Trước</button>
-                                        </form>
-                                        <form action="sau.htm" method="get">
-                                            <button id="nextWeek" class="btn btn-primary">Sau</button>
-                                        </form>
+                    <div class="container col-md-8" style="height: 550px; overflow: auto;">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Môn học</th>
+                                    <th>Niên khóa</th>
+                                    <th>Điểm chuyên cần</th>
+                                    <th>Điểm giữa kỳ</th>
+                                    <th>Điểm cuối kỳ</th>
+                                    <th>Điểm tổng kết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="p" items="${points}">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>${p.DIEM_CC}</td>
+                                        <td>${p.DIEM_GK}</td>
+                                        <td>${p.DIEM_CK}</td>
+                                        <td>6</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog"
+                    aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="changePasswordModalLabel">Đổi mật
+                                    khẩu</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="changePasswordForm" method="post" action="change-password.htm">
+                                    <div class="form-group">
+                                        <label for="currentPassword">Mật khẩu hiện tại</label>
+                                        <input type="password" class="form-control" id="currentPassword" name="curPass"
+                                            >
                                     </div>
-                                </div>
-                                <table class="table flex-grow-1">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Time/Day</th>
-                                            <th scope="col">Thứ hai</th>
-                                            <th scope="col">Thứ ba</th>
-                                            <th scope="col">Thứ tư</th>
-                                            <th scope="col">Thứ năm</th>
-                                            <th scope="col">Thứ sáu</th>
-                                            <th scope="col">Thứ bảy</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row" class="align-middle">Tiết 1-4</th>
-                                            <c:forEach var="Buoi" items="${dsLICHSANG}">
-                                                <c:if test="${Buoi.TIETBD == 1}">
-                                                    <td class="table-cell">
-                                                        ${Buoi.loptinchi.monhoc.TENMH}<br>
-                                                        Phòng: ${Buoi.PHONG}
-                                                    </td>
-                                                </c:if>
-                                                <c:if test="${Buoi.TIETBD != 1}">
-                                                    <td class="table-cell"></td>
-                                                </c:if>
-                                            </c:forEach>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="align-middle">Tiết 7-10</th>
-                                            <c:forEach var="Buoi" items="${dsLICHCHIEU}">
-                                                <c:if test="${Buoi.TIETBD == 7}">
-                                                    <td class="table-cell">
-                                                        ${Buoi.loptinchi.monhoc.TENMH}<br>
-                                                        Phòng: ${Buoi.PHONG}
-                                                    </td>
-                                                </c:if>
-                                                <c:if test="${Buoi.TIETBD != 7}">
-                                                    <td class="table-cell"></td>
-                                                </c:if>
-                                            </c:forEach>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    <div class="form-group">
+                                        <label for="newPassword">Mật khẩu mới</label>
+                                        <input type="password" class="form-control" id="newPassword" name="newPass"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmNewPassword">Xác nhận mật khẩu
+                                            mới</label>
+                                        <input type="password" class="form-control" id="confirmNewPassword"
+                                            name="newPassConf" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Đổi mật
+                                        khẩu</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="passwordUpdateModal" tabindex="-1" aria-labelledby="passwordUpdateModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="passwordUpdateModalLabel">Password Update</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                     <div class="container text-center">
-                        <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Hiếu</span>
+                        <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
                     </div>
                 </footer>
+                <script>
+                    document.addEventListener('DOMContentLoaded', (event) => {
+                      // Check if there's a password update message
+                      var passwordUpdateMsg = "${passwordUpdateMsg}";
+                      if(passwordUpdateMsg !== '') {
+                        // Set the message in the modal body
+                        document.querySelector('#passwordUpdateModal .modal-body').textContent = passwordUpdateMsg;
+                        
+                        // Show the modal
+                        var passwordUpdateModal = new bootstrap.Modal(document.getElementById('passwordUpdateModal'), {});
+                        passwordUpdateModal.show();
+                      }
+                    });
+                  </script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                     crossorigin="anonymous"></script>

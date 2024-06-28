@@ -1,58 +1,45 @@
 package bean;
 
-import java.io.Serializable;
-
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "DANGKY")
 public class DANGKY {
-    @EmbeddedId
-    private DANGKYID ID;
-
+    private int MALTC;
+    private String MASV;
     private int DIEM_CC;
     private float DIEM_GK;
     private float DIEM_CK;
     private boolean HUYDANGKY;
 
-    @MapsId("MALTC")
-    @ManyToOne
-    @JoinColumn(name = "MALTC")
-    private LOPTINCHI loptinchi;
-
-    @MapsId("MASV")
-    @ManyToOne
-    @JoinColumn(name = "MASV")
-    private SINHVIEN sinhvien;
-
-    public DANGKYID getID() {
-        return ID;
+    public DANGKY() {
+        this.MALTC = 0;
+        this.MASV = "";
+        this.DIEM_CC = 0;
+        this.DIEM_GK = 0;
+        this.DIEM_CK = 0;
+        this.HUYDANGKY = false;
     }
 
-    public void setID(DANGKYID iD) {
-        ID = iD;
+    public DANGKY(int MALTC, String MASV, int DIEM_CC, float DIEM_GK, float DIEM_CK, boolean HUYDANGKY) {
+        this.MALTC = MALTC;
+        this.MASV = MASV;
+        this.DIEM_CC = DIEM_CC;
+        this.DIEM_GK = DIEM_GK;
+        this.DIEM_CK = DIEM_CK;
+        this.HUYDANGKY = HUYDANGKY;
     }
 
     public int getMALTC() {
-        return ID.getMALTC();
+        return MALTC;
     }
 
-    public void setMALTC(int maltc) {
-        ID.setMALTC(maltc);
+    public void setMALTC(int mALTC) {
+        MALTC = mALTC;
     }
 
     public String getMASV() {
-        return ID.getMASV();
+        return MASV;
     }
 
-    public void setMASV(String masv) {
-        ID.setMASV(masv);
+    public void setMASV(String mASV) {
+        MASV = mASV;
     }
 
     public int getDIEM_CC() {
@@ -79,58 +66,11 @@ public class DANGKY {
         DIEM_CK = dIEM_CK;
     }
 
-    public LOPTINCHI getLoptinchi() {
-        return loptinchi;
-    }
-
-    public void setLoptinchi(LOPTINCHI loptinchi) {
-        this.loptinchi = loptinchi;
-    }
-
-    public SINHVIEN getSinhVien() {
-        return sinhvien;
-    }
-
-    public void setSinhVien(SINHVIEN sinhVien) {
-        this.sinhvien = sinhVien;
-    }
-
     public boolean getHUYDANGKY() {
         return HUYDANGKY;
     }
 
     public void setHUYDANGKY(boolean hUYDANGKY) {
         HUYDANGKY = hUYDANGKY;
-    }
-
-    @Embeddable
-    public static class DANGKYID implements Serializable {
-        private int MALTC;
-        private String MASV;
-
-        public DANGKYID(){
-            
-        }
-
-        public DANGKYID(int maltc, String masv){
-            setMALTC(maltc);
-            setMASV(masv);
-        }
-
-        public int getMALTC() {
-            return MALTC;
-        }
-
-        public void setMALTC(int maltc2) {
-            MALTC = maltc2;
-        }
-
-        public String getMASV() {
-            return MASV;
-        }
-
-        public void setMASV(String mASV) {
-            MASV = mASV;
-        }
     }
 }
