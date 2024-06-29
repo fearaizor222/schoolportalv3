@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.DANGKY;
+import bean.DisplayHPObject;
+import bean.DisplayLTCObject;
+import bean.DisplayPointObject;
 import bean.LOP;
 import bean.SINHVIEN;
 
@@ -16,13 +18,10 @@ public class StudentService {
     public StudentService() {
     }
 
-    public static void setConnection(Connection connection) {
-        StudentService.connection = connection;
-    }
-
     public static SINHVIEN getSINHVIENByMASV(String username) {
+        connection = ConnectionService.getConnection();
         SINHVIEN student = new SINHVIEN();
-        try{
+        try {
             CallableStatement cstmt = connection.prepareCall("{call sp_getSINHVIENByMASV(?)}");
             cstmt.setString(1, username);
             ResultSet rs = cstmt.executeQuery();
@@ -38,16 +37,17 @@ public class StudentService {
                 student.setDANGHIHOC(rs.getBoolean("DANGHIHOC"));
                 student.setPASSWORD(rs.getString("PASSWORD"));
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return student;
     }
 
     public static LOP getLOPByMASV(String malop) {
+        connection = ConnectionService.getConnection();
+
         LOP lop = new LOP();
-        try{
+        try {
             CallableStatement cstmt = connection.prepareCall("{call sp_getLOPByMASV(?)}");
             cstmt.setString(1, malop);
             ResultSet rs = cstmt.executeQuery();
@@ -58,55 +58,142 @@ public class StudentService {
                 lop.setKHOAHOC(rs.getString("KHOAHOC"));
                 lop.setMAKHOA(rs.getString("MAKHOA"));
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return lop;
     }
 
-    public static List<DANGKY> getAllDANGKYByMASV(String masv) {
-        List<DANGKY> dangkys = new ArrayList<DANGKY>();
-        try{
-            CallableStatement cstmt = connection.prepareCall("{call sp_getAllDANGKYByMASV(?)}");
+    public static List<DisplayPointObject> getAllDANGKYByMASV(String masv) {
+        connection = ConnectionService.getConnection();
+
+        List<DisplayPointObject> dangkys = new ArrayList<DisplayPointObject>();
+        try {
+            CallableStatement cstmt = connection.prepareCall("{call sp_getDisplayPoint(?)}");
             cstmt.setString(1, masv);
             ResultSet rs = cstmt.executeQuery();
 
-            while(rs.next()) {
-                DANGKY dangky = new DANGKY();
-                dangky.setMALTC(rs.getInt("MALTC"));
-                dangky.setMASV(rs.getString("MASV"));
+            while (rs.next()) {
+                DisplayPointObject dangky = new DisplayPointObject();
+                dangky.setHOTEN(rs.getString("HOTEN"));
+                dangky.setMAMH(rs.getString("MAMH"));
+                dangky.setTENMH(rs.getString("TENMH"));
+                dangky.setNIENKHOA(rs.getString("NIENKHOA"));
+                dangky.setHOCKY(rs.getInt("HOCKY"));
+                dangky.setNHOM(rs.getInt("NHOM"));
+                dangky.setSOTINCHI(rs.getInt("SOTINCHI"));
                 dangky.setDIEM_CC(rs.getInt("DIEM_CC"));
                 dangky.setDIEM_GK(rs.getFloat("DIEM_GK"));
                 dangky.setDIEM_CK(rs.getFloat("DIEM_CK"));
-                dangky.setHUYDANGKY(rs.getBoolean("HUYDANGKY"));
 
                 dangkys.add(dangky);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return dangkys;
     }
 
-    public static boolean updatePASSWORDByMASV(String masv, String oldPassword, String newPassword, String confirmPassword) {
+    public static boolean updatePASSWORDByMASV(String masv, String oldPassword, String newPassword,
+            String confirmPassword) {
+        connection = ConnectionService.getConnection();
+
         boolean isRightPass = getSINHVIENByMASV(masv).getPASSWORD().equals(oldPassword);
         boolean isNewPassMatch = newPassword.equals(confirmPassword);
         if (isRightPass && isNewPassMatch) {
-            try{
+            try {
                 CallableStatement cstmt = connection.prepareCall("{call sp_updatePASSWORDByMASV(?, ?)}");
                 cstmt.setString(1, masv);
                 cstmt.setString(2, newPassword);
                 cstmt.executeUpdate();
                 return true;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return false;
+    }
+
+    public static boolean dangKyMon(String masv, int maltc) throws Exception {
+        connection = ConnectionService.getConnection();
+
+        CallableStatement cstmt = connection.prepareCall("{call sp_dangKyMon(?, ?, ?)}");
+        cstmt.setInt(1, maltc);
+        cstmt.setString(2, masv);
+        cstmt.setInt(3, 650000);
+        cstmt.execute();
+        return true;
+    }
+
+    public static boolean huyDangKyMon(String masv, int maltc) throws Exception {
+        connection = ConnectionService.getConnection();
+
+        CallableStatement cstmt = connection.prepareCall("{call sp_huyDangKyMon(?, ?, ?)}");
+        cstmt.setInt(1, maltc);
+        cstmt.setString(2, masv);
+        cstmt.setInt(3, 650000);
+        cstmt.execute();
+        return true;
+    }
+
+    public static List<DisplayLTCObject> getLTCByMASV(String masv) {
+        connection = ConnectionService.getConnection();
+
+        List<DisplayLTCObject> loptinchis = new ArrayList<DisplayLTCObject>();
+        try {
+            CallableStatement cstmt = connection.prepareCall("{call sp_getLTCWithDADANGKY(?)}");
+            cstmt.setString(1, masv);
+            ResultSet rs = cstmt.executeQuery();
+
+            while (rs.next()) {
+                DisplayLTCObject loptinchi = new DisplayLTCObject();
+                loptinchi.setMALTC(rs.getInt("MALTC"));
+                loptinchi.setNIENKHOA(rs.getString("NIENKHOA"));
+                loptinchi.setHOCKY(rs.getInt("HOCKY"));
+                loptinchi.setMAMH(rs.getString("MAMH"));
+                loptinchi.setNHOM(rs.getInt("NHOM"));
+                loptinchi.setMAGV(rs.getString("MAGV"));
+                loptinchi.setMAKHOA(rs.getString("MAKHOA"));
+                loptinchi.setHUYLOP(rs.getBoolean("HUYLOP"));
+                loptinchi.setDADANGKY(rs.getBoolean("DADANGKY"));
+                loptinchi.setSOSVTOITHIEU(rs.getInt("SOSVTOITHIEU"));
+                loptinchi.setHOTENGV(rs.getString("HOTENGV"));
+                loptinchi.setTENMH(rs.getString("TENMH"));
+                loptinchi.setSOSVDANGKY(rs.getInt("SOSVDANGKY"));
+
+                loptinchis.add(loptinchi);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return loptinchis;
+    }
+
+    public static List<DisplayHPObject> getHPByMASV(String masv) {
+        connection = ConnectionService.getConnection();
+
+        List<DisplayHPObject> hocphis = new ArrayList<DisplayHPObject>();
+        try {
+            CallableStatement cstmt = connection.prepareCall("{call sp_getHOCPHIbyMASV(?)}");
+            cstmt.setString(1, masv);
+            ResultSet rs = cstmt.executeQuery();
+
+            while (rs.next()) {
+                DisplayHPObject hocphi = new DisplayHPObject();
+                hocphi.setMASV(rs.getString("MASV"));
+                hocphi.setNIENKHOA(rs.getString("NIENKHOA"));
+                hocphi.setHOCKY(rs.getInt("HOCKY"));
+                hocphi.setHOCPHI(rs.getInt("HOCPHI"));
+                hocphi.setPAID(rs.getInt("PAID"));
+
+                hocphis.add(hocphi);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return hocphis;
     }
 }

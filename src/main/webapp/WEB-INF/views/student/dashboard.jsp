@@ -112,11 +112,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container col-md-8" style="height: 550px; overflow: auto;">
+                    <div class="container col-md-8" style="height: 650px; overflow: auto;">
                         <table class="table table-striped table-hover table-bordered">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th>Môn học</th>
+                                    <th>Mã môn</th>
                                     <th>Niên khóa</th>
                                     <th>Điểm chuyên cần</th>
                                     <th>Điểm giữa kỳ</th>
@@ -125,15 +125,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="p" items="${points}">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
+                                <c:forEach var="p" items="${points}" varStatus="loop">
+                                    <tr data-bs-toggle="modal" data-bs-target="#pointsModal${loop.index}">
+                                        <td>${p.MAMH}</td>
+                                        <td>${p.NIENKHOA}</td>
                                         <td>${p.DIEM_CC}</td>
                                         <td>${p.DIEM_GK}</td>
                                         <td>${p.DIEM_CK}</td>
-                                        <td>6</td>
+                                        <td>${p.DIEM_CC*0.1 + p.DIEM_GK*0.3 + p.DIEM_CC*0.6}</td>
                                     </tr>
+                                    <div class="modal fade" id="pointsModal${loop.index}" tabindex="-1" aria-labelledby="pointsModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="pointsModalLabel">Chi tiết môn</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Tên môn: ${p.TENMH}</p>
+                                                <p>Số tín chỉ: ${p.SOTINCHI}</p>
+                                                <p>Giảng viên: ${p.HOTEN}</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
                                 </c:forEach>
                             </tbody>
                         </table>

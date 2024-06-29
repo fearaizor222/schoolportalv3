@@ -137,12 +137,6 @@
                                             viên</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="point.htm">Điểm</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="test.htm">Lịch thi</a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a class="nav-link" href="dangkymon.htm">Đăng ký môn</a>
                                     </li>
                                     <li class="nav-item">
@@ -171,82 +165,19 @@
                                 <th>Niên Khóa</th>
                                 <th>Học Kỳ</th>
                                 <th>Học phí</th>
-                                <th>Ngày đóng</th>
-                                <th>Số tiền đã đóng</th>
-                                <th>Còn nợ</th>
+                                <th>Đã Đóng</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="a" items="${SINHVIEN.getHocPhis()}" varStatus="status">
+                            <c:forEach var="hp" items="${list}">
                                 <tr>
-                                    <td>${a.hocPhiId.NIENKHOA}</td>
-                                    <td>${a.hocPhiId.HOCKY}</td>
-                                    <td>${SINHVIEN.getTongTienCanDongTrongKy(a.hocPhiId.NIENKHOA, a.hocPhiId.HOCKY)}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${status.index < fn:length(dsCt_DONGHOCPHI)}">
-                                                ${dsCt_DONGHOCPHI[status.index].ID.NGAYDONG}
-                                            </c:when>
-                                            <c:otherwise></c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${status.index < fn:length(dsCt_DONGHOCPHI)}">
-                                                ${dsCt_DONGHOCPHI[status.index].SOTIENDONG}
-                                            </c:when>
-                                            <c:otherwise></c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${status.index < fn:length(dsCt_DONGHOCPHI)}">
-                                                ${dsCt_DONGHOCPHI[status.index].SOTIENDONG == 0 ? "Chưa đóng" :
-                                                (a.HOCPHI - dsCt_DONGHOCPHI[status.index].SOTIENDONG < 0 ?
-                                                    Math.abs(a.HOCPHI - dsCt_DONGHOCPHI[status.index].SOTIENDONG) :
-                                                    a.HOCPHI - dsCt_DONGHOCPHI[status.index].SOTIENDONG)} </c:when>
-                                                    <c:otherwise></c:otherwise>
-                                        </c:choose>
-                                    </td>
+                                    <td>${hp.NIENKHOA}</td>
+                                    <td>${hp.HOCKY}</td>
+                                    <td>${hp.HOCPHI}</td>
+                                    <td>${hp.PAID}</td>
                                 </tr>
                             </c:forEach>
 
-                        </tbody>
-                    </table>
-
-                    <table class="table total-table">
-                        <tbody>
-                            <tr>
-                                <td class="total-label">Tổng số tiền đã đóng</td>
-                                <td>
-                                    <c:set var="total" value="0" />
-                                    <c:forEach var="b" items="${dsCt_DONGHOCPHI}">
-                                        <c:set var="total" value="${total + b.SOTIENDONG}" />
-                                    </c:forEach>
-                                    ${total}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="total-label">Tổng số tiền nợ</td>
-                                <td>
-                                    <c:set var="tongHocPhi" value="0" />
-                                    <c:forEach var="a" items="${SINHVIEN.getHocPhis()}">
-                                        <c:set var="tongHocPhi" value="${tongHocPhi + a.HOCPHI}" />
-                                    </c:forEach>
-                                    <c:set var="tongDaDong" value="0" />
-                                    <c:forEach var="b" items="${dsCt_DONGHOCPHI}">
-                                        <c:set var="tongDaDong" value="${tongDaDong + b.SOTIENDONG}" />
-                                    </c:forEach>
-                                    <c:set var="tongConNo" value="${tongHocPhi - tongDaDong}" />
-                                    <c:choose>
-                                        <c:when test="${tongConNo > 0}">
-                                            <span class="chuadong">${tongConNo}</span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            ${tongConNo < 0 ? Math.abs(tongConNo) : tongConNo} </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -255,7 +186,7 @@
                 <footer>
                     <div class="container">
                         <span class="text-light" style="font-size: larger;">Copyright &copy; 2024 Nhóm 8 được hướng dẫn
-                            bởi thầy Hiếu</span>
+                            bởi thầy Thư</span>
                     </div>
                 </footer>
 

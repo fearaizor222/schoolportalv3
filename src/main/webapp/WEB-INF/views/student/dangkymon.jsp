@@ -51,12 +51,6 @@
                                                 viên</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="point.htm">Điểm</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="test.htm">Lịch thi</a>
-                                        </li>
-                                        <li class="nav-item">
                                             <a class="nav-link active" href="dangkymon.htm">Đăng ký môn</a>
                                         </li>
                                         <li class="nav-item">
@@ -77,39 +71,39 @@
                     <div class="container">
                         <c:if test="${not empty message}">
                             <div class="alert alert-info text-center">
-                                ${message}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>${message}</span>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                             </div>
                         </c:if>
-                        <div class="form-group">
-                            Niên khóa: ${nienkhoa} <br>
-                            Học kỳ: ${hocky}
-                        </div>
-                        <div style="height: 550px; overflow-y: auto;">
+                        <div style="height: 650px; overflow-y: auto;">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-center">#</th>
                                         <th scope="col" class="text-center">Mã môn</th>
                                         <th scope="col" class="text-center">Môn học</th>
+                                        <th scope="col" class="text-center">Nhóm</th>
                                         <th scope="col" class="text-center">Niên khóa</th>
                                         <th scope="col" class="text-center">Học kỳ</th>
                                         <th scope="col" class="text-center">Giảng viên</th>
+                                        <th scope="col" class="text-center">Sĩ số</th>
                                         <th scope="col" class="text-center">Đăng ký</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="p" items="${ltc}" varStatus="index">
+                                    <c:forEach var="p" items="${ltc}">
                                         <tr>
-                                            <td class="text-center">${index.index}</td>
-                                            <td class="text-center">${p.monhoc.MAMH}</td>
-                                            <td class="text-center">${p.monhoc.TENMH}</td>
+                                            <td class="text-center">${p.MAMH}</td>
+                                            <td class="text-center">${p.TENMH}</td>
+                                            <td class="text-center">${p.NHOM}</td>
                                             <td class="text-center">${p.NIENKHOA}</td>
                                             <td class="text-center">${p.HOCKY}</td>
-                                            <td class="text-center">${p.giangvien.HO.concat('
-                                                ').concat(p.giangvien.TEN)}</td>
+                                            <td class="text-center">${p.HOTENGV}</td>
+                                            <td class="text-center">${p.SOSVDANGKY}</td>
                                             <td class="text-center">
                                                 <c:choose>
-                                                    <c:when test="${p.hasThisSINHVIEN(SINHVIEN.MASV)}">
+                                                    <c:when test="${p.DADANGKY == true}">
                                                         <a href="huydangky.htm?maltc=${p.MALTC}"
                                                             class="btn btn-danger">Hủy đăng
                                                             ký</a>
@@ -128,7 +122,7 @@
                     </div>
                     <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                         <div class="container text-center">
-                            <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Hiếu</span>
+                            <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
                         </div>
                     </footer>
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

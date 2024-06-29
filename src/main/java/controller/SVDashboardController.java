@@ -1,6 +1,5 @@
 package controller;
 
-import java.sql.Connection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import bean.DANGKY;
+import bean.DisplayPointObject;
 import bean.LOP;
 import bean.SINHVIEN;
 import service.ConnectionService;
@@ -25,12 +24,10 @@ public class SVDashboardController {
     @RequestMapping("dashboard")
     public String sinhVien(HttpServletRequest request, ModelMap model) {
         HttpSession session = request.getSession();
-        Connection connection = ConnectionService.getConnection();
-        StudentService.setConnection(connection);
         String loginuser = (String) session.getAttribute("username");
         SINHVIEN student = StudentService.getSINHVIENByMASV(loginuser);
         LOP lop = StudentService.getLOPByMASV(student.getMALOP());
-        List<DANGKY> listDangKy = StudentService.getAllDANGKYByMASV(loginuser);
+        List<DisplayPointObject> listDangKy = StudentService.getAllDANGKYByMASV(loginuser);
 
         model.addAttribute("SINHVIEN", student);
         model.addAttribute("LOP", lop);
