@@ -12,7 +12,7 @@ public class TeacherSecurityInterceptor extends HandlerInterceptorAdapter {
         HttpSession session = request.getSession();
         String role = (String) session.getAttribute("role");
         String username = (String) session.getAttribute("username");
-        if (username == null || !role.equals("teacher") ) {
+        if (username == null || !(role.equals("KHOA") || role.equals("PGV") || role.equals("PKT"))  ) {
             response.sendRedirect(request.getContextPath() + "/login.htm");
             return false;
         }

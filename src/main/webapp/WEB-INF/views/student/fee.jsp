@@ -166,6 +166,7 @@
                                 <th>Học Kỳ</th>
                                 <th>Học phí</th>
                                 <th>Đã Đóng</th>
+                                <th>Ngày đóng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -175,6 +176,7 @@
                                     <td>${hp.HOCKY}</td>
                                     <td>${hp.HOCPHI}</td>
                                     <td>${hp.PAID}</td>
+                                    <td>${hp.NGAYDONG == '1970-01-01'? 'Chưa đóng': hp.NGAYDONG}</td>
                                 </tr>
                             </c:forEach>
 

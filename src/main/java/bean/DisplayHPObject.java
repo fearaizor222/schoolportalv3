@@ -1,21 +1,33 @@
 package bean;
 
+import java.sql.Date;
+
 public class DisplayHPObject {
     private String MASV;
     private String NIENKHOA;
     private int HOCKY;
     private int HOCPHI;
     private int PAID;
+    private Date NGAYDONG;
 
     public DisplayHPObject() {
     }
 
-    public DisplayHPObject(String MASV, String NIENKHOA, int HOCKY, int HOCPHI, int PAID) {
+    public DisplayHPObject(String MASV, String NIENKHOA, int HOCKY, int HOCPHI, int PAID, Date NGAYDONG) {
         this.MASV = MASV;
         this.NIENKHOA = NIENKHOA;
         this.HOCKY = HOCKY;
         this.HOCPHI = HOCPHI;
         this.PAID = PAID;
+        this.NGAYDONG = NGAYDONG;
+    }
+
+    public Date getNGAYDONG() {
+        return NGAYDONG;
+    }
+
+    public void setNGAYDONG(Date NGAYDONG) {
+        this.NGAYDONG = NGAYDONG;
     }
 
     public String getMASV() {

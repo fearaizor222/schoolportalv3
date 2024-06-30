@@ -16,9 +16,6 @@
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/teacher/**" />
-            <mvc:exclude-mapping path="/teacher/fee.htm" />
-            <mvc:exclude-mapping path="/teacher/announcement.htm" />
-            <mvc:exclude-mapping path="/teacher/settings.htm" />
             <bean class="interceptor.TeacherSecurityInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

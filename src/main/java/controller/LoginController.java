@@ -23,6 +23,8 @@ public class LoginController {
 
     @RequestMapping("login")
     public String login(HttpServletRequest request) {
+        request.getSession().invalidate();
+        ConnectionService.closeConnection();
         request.getSession().setAttribute("listSite", Site);
         return "login";
     }
@@ -35,12 +37,14 @@ public class LoginController {
             RedirectAttributes redirectAttributes) {
 
         String url = MatcherService.getSite(Integer.parseInt(site));
+        String siteName = MatcherService.getSiteName(Integer.parseInt(site));
         Connection connection = ConnectionService.makeConnection(url, username, password);
         CallableStatement callableStatement = null;
         try {
             if(connection != null){
                 request.getSession().setAttribute("username", username);
-                request.getSession().setAttribute("role", "teacher");
+                request.getSession().setAttribute("role", ConnectionService.getRole());
+                request.getSession().setAttribute("site", siteName);
                 request.getSession().setMaxInactiveInterval(15 * 60);
                 return "redirect:/teacher/dashboard.htm";
             }
@@ -56,7 +60,8 @@ public class LoginController {
                     int val = rs.getInt(1);
                     if (val == 1) {
                         request.getSession().setAttribute("username", username);
-                        request.getSession().setAttribute("role", "student");
+                        request.getSession().setAttribute("role", ConnectionService.getRole());
+                        request.getSession().setAttribute("site", siteName);
                         request.getSession().setMaxInactiveInterval(15 * 60);
                         return "redirect:/student/dashboard.htm";
                     }

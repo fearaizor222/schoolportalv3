@@ -26,7 +26,18 @@ public class MatcherService {
     //     }
     //     return "Unknown";
     // }
-
+    public static String getSiteName(int index){
+        switch (index) {
+            case 1:
+                return "CNTT";
+            case 2:
+                return "VT";
+            case 3:
+                return "HP";
+            default:
+                return "Unknown";
+        }
+    }
     public static String getSite(int index){
         switch (index) {
             case 1:

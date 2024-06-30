@@ -28,7 +28,7 @@
                 </head>
 
                 <body>
-                    <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
+                    <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 10;">
                         <div class="container-fluid">
                             <a class="navbar-brand">Cổng đăng ký môn học</a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -77,7 +77,18 @@
                                 </div>
                             </div>
                         </c:if>
-                        <div style="height: 650px; overflow-y: auto;">
+                        <div style="z-index: 1;">
+                            <form action="timkiem.htm" method="post">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Nhập niên khóa"
+                                        name="nienkhoa" required>
+                                    <input type="text" class="form-control" placeholder="Nhập niên khóa"
+                                        name="hocky" required>
+                                    <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div style="height: 550px; overflow-y: auto;">
                             <table class="table">
                                 <thead>
                                     <tr>

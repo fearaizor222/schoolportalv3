@@ -188,6 +188,7 @@ public class StudentService {
                 hocphi.setHOCKY(rs.getInt("HOCKY"));
                 hocphi.setHOCPHI(rs.getInt("HOCPHI"));
                 hocphi.setPAID(rs.getInt("PAID"));
+                hocphi.setNGAYDONG(rs.getDate("NGAYNOPTIEN"));
 
                 hocphis.add(hocphi);
             }

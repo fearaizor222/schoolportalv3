@@ -10,7 +10,7 @@ public class StudentSecurityInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
        HttpSession session = request.getSession();
-       if (session.getAttribute("username") == null || !session.getAttribute("role").equals("student")){
+       if (session.getAttribute("username") == null || !session.getAttribute("role").equals("SV")){
             response.sendRedirect(request.getContextPath() + "/login.htm");
             return false;
         } 

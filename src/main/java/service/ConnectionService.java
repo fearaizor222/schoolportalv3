@@ -1,7 +1,9 @@
 package service;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConnectionService {
@@ -32,6 +34,24 @@ public class ConnectionService {
     public static void retryConnection() {
         closeConnection();
         makeConnection(url, username, password);
+    }
+
+    public static String getRole() {
+        String role = null;
+        Connection conn = getConnection(); // Use the existing connection
+        if (conn != null) {
+            try (CallableStatement stmt = conn.prepareCall("{CALL sp_getRole(?)}")) {
+                stmt.setString(1, username);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        role = rs.getString(1);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("Error fetching user role: " + e.getMessage());
+            }
+        }
+        return role;
     }
 
     public static Connection getConnection() {

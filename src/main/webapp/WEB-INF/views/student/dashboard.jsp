@@ -134,24 +134,27 @@
                                         <td>${p.DIEM_CK}</td>
                                         <td>${p.DIEM_CC*0.1 + p.DIEM_GK*0.3 + p.DIEM_CC*0.6}</td>
                                     </tr>
-                                    <div class="modal fade" id="pointsModal${loop.index}" tabindex="-1" aria-labelledby="pointsModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="pointsModal${loop.index}" tabindex="-1"
+                                        aria-labelledby="pointsModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h5 class="modal-title" id="pointsModalLabel">Chi tiết môn</h5>
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="pointsModalLabel">Chi tiết môn</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Tên môn: ${p.TENMH}</p>
+                                                    <p>Số tín chỉ: ${p.SOTINCHI}</p>
+                                                    <p>Giảng viên: ${p.HOTEN}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
-                                            <div class="modal-body">
-                                                <p>Tên môn: ${p.TENMH}</p>
-                                                <p>Số tín chỉ: ${p.SOTINCHI}</p>
-                                                <p>Giảng viên: ${p.HOTEN}</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                          </div>
                                         </div>
-                                      </div>
+                                    </div>
                                 </c:forEach>
                             </tbody>
                         </table>
@@ -171,8 +174,7 @@
                                 <form id="changePasswordForm" method="post" action="change-password.htm">
                                     <div class="form-group">
                                         <label for="currentPassword">Mật khẩu hiện tại</label>
-                                        <input type="password" class="form-control" id="currentPassword" name="curPass"
-                                            >
+                                        <input type="password" class="form-control" id="currentPassword" name="curPass">
                                     </div>
                                     <div class="form-group">
                                         <label for="newPassword">Mật khẩu mới</label>
@@ -192,21 +194,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="passwordUpdateModal" tabindex="-1" aria-labelledby="passwordUpdateModalLabel" aria-hidden="true">
+                <div class="modal fade" id="passwordUpdateModal" tabindex="-1"
+                    aria-labelledby="passwordUpdateModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="passwordUpdateModalLabel">Password Update</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="passwordUpdateModalLabel">Password Update</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                      </div>
                     </div>
-                  </div>
+                </div>
                 <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                     <div class="container text-center">
                         <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
@@ -214,18 +218,15 @@
                 </footer>
                 <script>
                     document.addEventListener('DOMContentLoaded', (event) => {
-                      // Check if there's a password update message
-                      var passwordUpdateMsg = "${passwordUpdateMsg}";
-                      if(passwordUpdateMsg !== '') {
-                        // Set the message in the modal body
-                        document.querySelector('#passwordUpdateModal .modal-body').textContent = passwordUpdateMsg;
-                        
-                        // Show the modal
-                        var passwordUpdateModal = new bootstrap.Modal(document.getElementById('passwordUpdateModal'), {});
-                        passwordUpdateModal.show();
-                      }
+                        var passwordUpdateMsg = "${passwordUpdateMsg}";
+                        if (passwordUpdateMsg !== '') {
+                            document.querySelector('#passwordUpdateModal .modal-body').textContent = passwordUpdateMsg;
+
+                            var passwordUpdateModal = new bootstrap.Modal(document.getElementById('passwordUpdateModal'), {});
+                            passwordUpdateModal.show();
+                        }
                     });
-                  </script>
+                </script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                     crossorigin="anonymous"></script>
