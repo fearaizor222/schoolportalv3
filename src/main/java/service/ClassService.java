@@ -21,7 +21,7 @@ public class ClassService {
         List<LOP> list = new ArrayList<LOP>();
         try {
             Statement stmt = connection.createStatement();
-            String sql = "SELECT * FROM LINK0.QLDSV_TC.DBO.v_getAllLOP";
+            String sql = "SELECT *, k.TENKHOA FROM LINK0.QLDSV_TC.DBO.v_getAllLOP l JOIN LINK0.QLDSV_TC.DBO.KHOA k ON l.MAKHOA = k.MAKHOA";
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()) {
@@ -30,6 +30,7 @@ public class ClassService {
                 lop.setTENLOP(rs.getString("TENLOP"));
                 lop.setKHOAHOC(rs.getString("KHOAHOC"));
                 lop.setMAKHOA(rs.getString("MAKHOA"));
+                lop.setTENKHOA(rs.getString("TENKHOA"));
                 list.add(lop);
             }
         } catch (Exception e) {

@@ -12,76 +12,40 @@
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
                     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
                     crossorigin="anonymous">
-                <style>
-                    .header {
-                        display: flex;
-                        align-items: left;
-                        margin-bottom: 20px;
-                    }
+                    <style>
+                        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
-                    .total-row {
-                        font-weight: bold;
-                    }
+                        .header {
+                            display: flex;
+                            align-items: left;
+                            margin-bottom: 20px;
+                        }
 
-                    .total-label {
-                        font-weight: bold;
-                        color: red;
-                    }
+                        body {
+                            font-family: 'Poppins', sans-serif;
+                            background: #ececec;
+                            margin-top: 10px;
+                            padding-top: 5px;
+                        }
 
-                    .chuadong {
-                        color: red;
-                        font-weight: bold;
-                        font-size: 16px;
-                    }
+                        .department-name {
+                            text-align: left;
+                            font-size: 24px;
+                            font-weight: bold;
+                        }
 
-                    footer {
-                        background-color: #dc3545;
-                        color: white;
-                        padding: 10px 0;
-                        text-align: left;
-                        position: fixed;
-                        width: 100%;
-                        bottom: 0;
-                        z-index: 1;
-                    }
+                        .offcanvas {
+                            width: 350px !important;
+                        }
 
-                    body {
-                        min-height: 100vh;
-                        padding-bottom: 60px;
-                        background-color: #ececec
-                    }
+                        .navbar-fixed-top {
+                            z-index: 2;
+                        }
 
-                    .rounded-table {
-                        border-collapse: separate;
-                        min-width: 100%;
-                        background-color: rgb(247, 247, 247);
-                        border-radius: 5px;
-                        overflow: visible;
-                        border: 2px solid #ced3da;
-                    }
-
-                    .rounded-table th,
-                    .rounded-table td {
-                        border: none;
-                        text-align: center;
-                        padding: 12px;
-                        font-size: 18px;
-                    }
-
-                    .rounded-table thead th {
-                        border: none;
-                    }
-
-                    .rounded-table tbody td {
-                        background-color: rgb(252, 252, 252);
-                        border-top: 1px solid #ced3da;
-                    }
-
-                    /* Fix for offcanvas width */
-                    .offcanvas {
-                        width: 350px !important;
-                    }
-                </style>
+                        .navbar-offcanvas {
+                            z-index: 1;
+                        }
+                    </style>
             </head>
 
             <body>
@@ -140,55 +104,18 @@
 
                 <div class="container mt-5">
                     <div class="header">
-                        <!-- Button to trigger offcanvas -->
-                        <button class="btn btn-primary me-2" type="button" data-bs-toggle="offcanvas"
+                        <a class="btn btn-danger me-2" href="class-management.htm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
+                            </svg>
+                        </a>
+                        <button class="btn btn-success me-2" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasAddStudent" aria-controls="offcanvasAddStudent">
                             +
                         </button>
-                        <button class="btn btn-danger me-2" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasDeleteStudent" aria-controls="offcanvasDeleteStudent">
-                            -
-                        </button>
-                        <button class="btn btn-warning me-2" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasEditStudent" aria-controls="offcanvasEditStudent">
-                            Sửa
-                        </button>
                     </div>
-
-                    <table class="table table-bordered rounded-table">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Mã SV</th>
-                                <th>Họ</th>
-                                <th>Tên</th>
-                                <th>Phái</th>
-                                <th>Địa chỉ</th>
-                                <th>Ngày sinh</th>
-                                <th>Mã Lớp</th>
-                                <th>Đã nghỉ học</th>
-                                <th>Email</th>
-                                <th>Link ảnh</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="sinhvien" items="${dsSINHVIEN}">
-                                <tr>
-                                    <td data-masv="${sinhvien.MASV}">${sinhvien.MASV}</td>
-                                    <td>${sinhvien.HO}</td>
-                                    <td>${sinhvien.TEN}</td>
-                                    <td>${sinhvien.PHAI ? "Nữ" : "Nam"}</td>
-                                    <td>${sinhvien.DIACHI}</td>
-                                    <td>${sinhvien.NGAYSINH}</td>
-                                    <td>${sinhvien.lop.MALOP}</td>
-                                    <td>${sinhvien.DANGHIHOC ? "Có" : "Không"}</td>
-                                    <td>${sinhvien.EMAIL}</td>
-                                    <td><a href="${sinhvien.LINKANH}" target="_blank">Xem ảnh</a></td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-
-                    <!-- Add new student with spring form -->
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddStudent"
                         aria-labelledby="offcanvasAddStudentLabel">
                         <div class="offcanvas-header">
@@ -197,160 +124,218 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
-                            <form:form action="insertsv.htm" method="post" modelAttribute="sinhvien">
+                            <form action="insertsv.htm" method="post">
                                 <div class="mb-3">
-                                    <label for="masv" class="form-label">Mã sinh viên</label>
-                                    <form:input type="text" class="form-control" path="MASV" required="true" />
+                                    <label class="form-label">Mã sinh viên</label>
+                                    <input type="text" class="form-control" name="MASV" required="true" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="ho" class="form-label">Họ</label>
-                                    <form:input type="text" class="form-control" path="HO" required="true" />
+                                    <label class="form-label">Họ</label>
+                                    <input type="text" class="form-control" name="HO" required="true" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="ten" class="form-label">Tên</label>
-                                    <form:input type="text" class="form-control" path="TEN" required="true" />
+                                    <label class="form-label">Tên</label>
+                                    <input type="text" class="form-control" name="TEN" required="true" />
+                                </div>
+                                <div class="mb-3 d-flex align-items-center">
+                                    <label class="form-label">Phái:</label>
+                                    <div>
+                                        <input type="radio" id="male" name="PHAI" value="0" required>
+                                        <label for="male">Nam</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="female" name="PHAI" value="1" required>
+                                        <label for="female">Nữ</label>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="phai" class="form-label">Phái</label>
-                                    <form:select class="form-select" id="phai" path="PHAI" required="true">
-                                        <form:option value="true">Nữ</form:option>
-                                        <form:option value="false">Nam</form:option>
-                                    </form:select>
+                                    <label class="form-label">Địa chỉ</label>
+                                    <input type="text" class="form-control" name="DIACHI" required="true" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="diachi" class="form-label">Địa chỉ</label>
-                                    <form:input type="text" class="form-control" path="DIACHI" required="true" />
+                                    <label class="form-label">Ngày sinh</label>
+                                    <input type="date" class="form-control" name="NGAYSINH" required="true" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="ngaysinh" class="form-label">Ngày sinh</label>
-                                    <form:input type="date" class="form-control" path="NGAYSINH" required="true" />
+                                    <label class="form-label">Mật khẩu</label>
+                                    <input type="text" class="form-control" name="PASSWORD" required="true" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="malop" class="form-label">Mã lớp</label>
-                                    <form:input type="text" class="form-control" path="lop.MALOP" required="true" />
+                                    <label class="form-label">Mã lớp</label>
+                                    <input type="text" class="form-control" name="MALOP" required="true"
+                                        value="${malop}" readonly />
                                 </div>
-                                <div class="mb-3">
-                                    <label for="danghihoc" class="form-label">Đã nghỉ học</label>
-                                    <form:select class="form-select" path="DANGHIHOC" required="true">
-                                        <form:option value="true">Không</form:option>
-                                        <form:option value="false">Có</form:option>
-                                    </form:select>
+                                <div class="d-grid gap-2 justify-content-center">
+                                    <button type="submit" class="btn btn-primary">Thêm</button>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <form:input type="email" class="form-control" path="EMAIL" required="true" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Mật khẩu</label>
-                                    <form:input type="password" class="form-control" path="PASSWORD" required="true" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="linkanh" class="form-label">Link ảnh</label>
-                                    <form:input type="text" class="form-control" path="LINKANH" required="false" />
-                                </div>
-                                <button type="submit" class="btn btn-primary">Thêm</button>
-                            </form:form>
+                            </form>
                         </div>
                     </div>
-
-                    <!-- Delete student with spring form -->
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasDeleteStudent"
-                        aria-labelledby="offcanvasDeleteStudentLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasDeleteStudentLabel">Xóa sinh viên</h5>
-                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <form:form action="deletesv.htm" method="get" modelAttribute="sinhvien">
-                                <div class="mb-3">
-                                    <label for="masv" class="form-label">Mã sinh viên</label>
-                                    <form:input type="text" class="form-control" path="MASV" required="true" />
+                    <table class="table table-bordered rounded-table">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Mã SV</th>
+                                <th>Họ tên</th>
+                                <th>Phái</th>
+                                <th>Địa chỉ</th>
+                                <th>Ngày sinh</th>
+                                <th>Mã Lớp</th>
+                                <th>Đã nghỉ học</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="sinhvien" items="${dsSV}" varStatus="loop">
+                                <tr>
+                                    <td>${sinhvien.MASV}</td>
+                                    <td>${sinhvien.HO.concat(' ').concat(sinhvien.TEN)}</td>
+                                    <td>${sinhvien.PHAI ? "Nữ" : "Nam"}</td>
+                                    <td>${sinhvien.DIACHI}</td>
+                                    <td>${sinhvien.NGAYSINH}</td>
+                                    <td>${sinhvien.MALOP}</td>
+                                    <td>${sinhvien.DANGHIHOC ? "Có" : "Không"}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center">
+                                            <button class="btn btn-primary me-2" type="button"
+                                                data-bs-toggle="offcanvas"
+                                                data-bs-target="#offcanvasEditStudent${loop.index}"
+                                                aria-controls="offcanvasEditStudent${loop.index}">
+                                                Cập nhật
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <div class="offcanvas offcanvas-end" tabindex="-1"
+                                    id="offcanvasEditStudent${loop.index}" aria-labelledby="offcanvasEditStudentLabel">
+                                    <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title" id="offcanvasEditStudentLabel">Sửa sinh viên</h5>
+                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body">
+                                        <form action="updatesv.htm" method="post">
+                                            <div class="mb-3">
+                                                <label class="form-label">Mã sinh viên</label>
+                                                <input type="text" class="form-control" name="MASV" required="true" value="${sinhvien.MASV}" readonly/>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Họ</label>
+                                                <input type="text" class="form-control" name="HO" value="${sinhvien.HO}" required="true" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Tên</label>
+                                                <input type="text" class="form-control" name="TEN" value="${sinhvien.TEN}" required="true" />
+                                            </div>
+                                            <div class="mb-3 d-flex align-items-center">
+                                                <label class="form-label">Phái:</label>
+                                                <div>
+                                                    <input type="radio" id="male" name="PHAI" value="0" ${sinhvien.PHAI == false? 'checked':''} required>
+                                                    <label for="male">Nam</label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" id="female" name="PHAI" value="1" ${sinhvien.PHAI == true? 'checked':''} required>
+                                                    <label for="female">Nữ</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Địa chỉ</label>
+                                                <input type="text" class="form-control" name="DIACHI" value="${sinhvien.DIACHI}" required="true" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Ngày sinh</label>
+                                                <input type="date" class="form-control" name="NGAYSINH" value="${sinhvien.NGAYSINH}" required="true" />
+                                            </div>
+                                            <div class="mb-3 d-flex align-items-center">
+                                                <label class="form-label">Trạng thái:</label>
+                                                <div>
+                                                    <input type="radio" id="male" name="DANGHIHOC" value="1" ${sinhvien.DANGHIHOC == true? 'checked':''} required>
+                                                    <label for="male">Đã nghỉ học</label>
+                                                </div>
+                                                <div>
+                                                    <input type="radio" id="female" name="DANGHIHOC" value="0" ${sinhvien.DANGHIHOC == false? 'checked':''} required>
+                                                    <label for="female">Còn học</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Mật khẩu</label>
+                                                <input type="text" class="form-control" name="PASSWORD" value="${sinhvien.PASSWORD}" required="true" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Mã lớp</label>
+                                                <input type="text" class="form-control" name="MALOP" required="true"
+                                                    value="${malop}" readonly />
+                                            </div>
+                                            <div class="d-grid gap-2 justify-content-center">
+                                                <button type="submit" class="btn btn-primary">Sửa</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-danger">Xóa</button>
-                            </form:form>
-                        </div>
-                    </div>
-                    <!-- Form to edit student -->
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditStudent"
-                        aria-labelledby="offcanvasEditStudentLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasEditStudentLabel">Sửa thông tin sinh viên</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <form:form action="editStudentAction.htm" method="post" modelAttribute="sinhvien">
-                                <div class="mb-3">
-                                    <label for="masvToEdit" class="form-label">Mã sinh viên</label>
-                                    <form:input path="MASV" type="text" class="form-control form-control-lg"
-                                        id="masvToEdit" required="true" readonly="true" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="hoToEdit" class="form-label">Họ</label>
-                                    <form:input path="HO" type="text" class="form-control form-control-lg" id="hoToEdit"
-                                        required="true" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="tenToEdit" class="form-label">Tên</label>
-                                    <form:input path="TEN" type="text" class="form-control form-control-lg"
-                                        id="tenToEdit" required="true" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="phaiToEdit" class="form-label">Phái</label>
-                                    <form:select path="PHAI" class="form-select form-select-lg" id="phaiToEdit">
-                                        <form:option value="0">Nam</form:option>
-                                        <form:option value="1">Nữ</form:option>
-                                    </form:select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="diachiToEdit" class="form-label">Địa chỉ</label>
-                                    <form:input path="DIACHI" type="text" class="form-control form-control-lg"
-                                        id="diachiToEdit" required="true" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ngaysinhToEdit" class="form-label">Ngày sinh</label>
-                                    <form:input path="NGAYSINH" type="date" class="form-control form-control-lg"
-                                        id="ngaysinhToEdit" required="true" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="malopToEdit" class="form-label">Mã lớp</label>
-                                    <form:input path="lop.MALOP" type="text" class="form-control form-control-lg"
-                                        id="malopToEdit" required="true" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="danghihocToEdit" class="form-label">Đã nghỉ học</label>
-                                    <form:select path="DANGHIHOC" class="form-select form-select-lg"
-                                        id="danghihocToEdit">
-                                        <form:option value="false">Không</form:option>
-                                        <form:option value="true">Có</form:option>
-                                    </form:select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="emailToEdit" class="form-label">Email</label>
-                                    <form:input path="EMAIL" type="email" class="form-control form-control-lg"
-                                        id="emailToEdit" required="true" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="linkanhToEdit" class="form-label">Link ảnh</label>
-                                    <form:input path="LINKANH" type="url" class="form-control form-control-lg"
-                                        id="linkanhToEdit" required="true" />
-                                </div>
-                                <button type="submit" class="btn btn-warning">Sửa</button>
-                            </form:form>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal fade" id="InsertSVModal" tabindex="-1" aria-labelledby="InsertSVModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="InsertSVModalLabel">Chi tiết</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
-
-                <!-- Footer -->
-                <footer>
-                    <div class="container">
-                        <span class="text-light" style="font-size: larger;">Copyright &copy; 2024 Nhóm 8 được hướng
-                            dẫn bởi thầy Hiếu</span>
+                <div class="modal fade" id="UpdateSVModal" tabindex="-1" aria-labelledby="UpdateSVModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="UpdateSVModalLabel">Chi tiết</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
+                    <div class="container text-center">
+                        <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
                     </div>
                 </footer>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', (event) => {
+                        var passwordUpdateMsg = "${InsertSVMsg}";
+                        if (passwordUpdateMsg !== '') {
+                            document.querySelector('#InsertSVModal .modal-body').textContent = passwordUpdateMsg;
+
+                            var passwordUpdateModal = new bootstrap.Modal(document.getElementById('InsertSVModal'), {});
+                            passwordUpdateModal.show();
+                        }
+                    });
+
+                    document.addEventListener('DOMContentLoaded', (event) => {
+                        var passwordUpdateMsg = "${UpdateSVMsg}";
+                        if (passwordUpdateMsg !== '') {
+                            document.querySelector('#UpdateSVModal .modal-body').textContent = passwordUpdateMsg;
+
+                            var passwordUpdateModal = new bootstrap.Modal(document.getElementById('UpdateSVModal'), {});
+                            passwordUpdateModal.show();
+                        }
+                    });
+                </script>
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

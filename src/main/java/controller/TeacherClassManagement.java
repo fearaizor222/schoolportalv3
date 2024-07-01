@@ -32,9 +32,8 @@ public class TeacherClassManagement {
     }
 
     @RequestMapping("/insertclass")
-    public String insertClass(@RequestParam("MALOP") String MALOP, @RequestParam("TENLOP") String TENLOP, @RequestParam("KHOAHOC") String KHOAHOC, RedirectAttributes redirectAttributes) {
-        String makhoa = ClassService.getAllLOP().get(0).getMAKHOA();
-        try {
+    public String insertClass(@RequestParam("MALOP") String MALOP, @RequestParam("TENLOP") String TENLOP, @RequestParam("KHOAHOC") String KHOAHOC, @RequestParam("MAKHOA") String makhoa, RedirectAttributes redirectAttributes) {
+        try {                
             ClassService.insertClass(MALOP, TENLOP, KHOAHOC,makhoa);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("InsertClassMsg", e.getMessage());

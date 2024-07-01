@@ -2,6 +2,7 @@ package service;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -196,5 +197,61 @@ public class StudentService {
             e.printStackTrace();
         }
         return hocphis;
+    }
+
+    public static List<SINHVIEN> getAllSINHVIENByMALOP(String malop){
+        connection = ConnectionService.getConnection();
+        List<SINHVIEN> list = new ArrayList<SINHVIEN>();
+        try {
+            CallableStatement cstmt = connection.prepareCall("{call LINK0.QLDSV_TC.DBO.sp_getAllSINHVIENByMALOP(?)}");
+            cstmt.setString(1, malop);
+            ResultSet rs = cstmt.executeQuery();
+
+            while(rs.next()) {
+                SINHVIEN student = new SINHVIEN();
+                student.setMASV(rs.getString("MASV"));
+                student.setHO(rs.getString("HO"));
+                student.setTEN(rs.getString("TEN"));
+                student.setPHAI(rs.getBoolean("PHAI"));
+                student.setDIACHI(rs.getString("DIACHI"));
+                student.setNGAYSINH(rs.getDate("NGAYSINH"));
+                student.setMALOP(rs.getString("MALOP"));
+                student.setDANGHIHOC(rs.getBoolean("DANGHIHOC"));
+                student.setPASSWORD(rs.getString("PASSWORD"));
+                list.add(student);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static void insertSINHVIEN(String masv, String ho, String ten, boolean phai, String diachi, Date ngaysinh, String malop, String password) throws Exception{
+        connection = ConnectionService.getConnection();
+        CallableStatement cstmt = connection.prepareCall("{call SP_INSERTSINHVIEN(?, ?, ?, ?, ?, ?, ?, ?)}");
+        cstmt.setString(1, masv);
+        cstmt.setString(2, ho);
+        cstmt.setString(3, ten);
+        cstmt.setBoolean(4, phai);
+        cstmt.setString(5, diachi);
+        cstmt.setDate(6, ngaysinh);
+        cstmt.setString(7, malop);
+        cstmt.setString(8, password);
+        cstmt.execute();
+    }
+
+    public static void updateSINHVIEN(String masv, String ho, String ten, boolean phai, String diachi, Date ngaysinh, boolean danghi, String password) throws Exception{
+        connection = ConnectionService.getConnection();
+        CallableStatement cstmt = connection.prepareCall("{call sp_updateSINHVIEN(?, ?, ?, ?, ?, ?, ?, ?)}");
+        cstmt.setString(1, masv);
+        cstmt.setString(2, ho);
+        cstmt.setString(3, ten);
+        cstmt.setBoolean(4, phai);
+        cstmt.setString(5, diachi);
+        cstmt.setDate(6, ngaysinh);
+        cstmt.setBoolean(7, danghi);
+        cstmt.setString(8, password);
+
+        cstmt.execute();
     }
 }

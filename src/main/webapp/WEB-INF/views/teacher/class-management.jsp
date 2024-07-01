@@ -21,7 +21,6 @@
                         .header {
                             display: flex;
                             align-items: left;
-                            justify-content: left;
                             margin-bottom: 20px;
                         }
 
@@ -100,18 +99,22 @@
                     </nav>
                     <div class="container mt-5">
                         <div class="header">
-                            <!-- Button to trigger offcanvas -->
-                            <button class="btn btn-primary me-2" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasAddStudent" aria-controls="offcanvasAddStudent">
-                                Thêm
+                            <a class="btn btn-danger me-2" href="dashboard.htm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                                  </svg>
+                            </a>
+                            <button class="btn btn-success me-2" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasAddClass" aria-controls="offcanvasAddClass">
+                                +
                             </button>
                         </div>
 
                         <!-- Add new class with spring form -->
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddStudent"
-                            aria-labelledby="offcanvasAddStudentLabel">
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddClass"
+                            aria-labelledby="offcanvasAddClassLabel">
                             <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasAddStudentLabel">Thêm lớp</h5>
+                                <h5 class="offcanvas-title" id="offcanvasAddClassLabel">Thêm lớp</h5>
                                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                     aria-label="Close"></button>
                             </div>
@@ -157,10 +160,11 @@
                             <table class="table table-striped table-hover table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
+                                        <th>Khoa</th>
                                         <th>Mã lớp</th>
                                         <th>Tên lớp</th>
                                         <th>Khóa học</th>
-                                        <th colspan="2" style="text-align: center;">Chức năng</th>
+                                        <th colspan="3" style="text-align: center;">Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -169,15 +173,23 @@
                                             <c:when test="${role == 'KHOA'}">
                                                 <c:if test="${fn:trim(lop.MAKHOA) == site}">
                                                     <tr>
+                                                        <td>${lop.TENKHOA}</td>
                                                         <td>${lop.MALOP}</td>
                                                         <td>${lop.TENLOP}</td>
                                                         <td>${lop.KHOAHOC}</td>
                                                         <td>
                                                             <div class="d-flex justify-content-center">
+                                                                <a class="btn btn-secondary"
+                                                                    href="student-management.htm?malop=${lop.MALOP}">Chi
+                                                                    tiết</a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex justify-content-center">
                                                                 <button class="btn btn-primary me-2" type="button"
                                                                     data-bs-toggle="offcanvas"
-                                                                    data-bs-target="#offcanvasEditStudent${loop.index}"
-                                                                    aria-controls="offcanvasEditStudent${loop.index}">
+                                                                    data-bs-target="#offcanvasEditClass${loop.index}"
+                                                                    aria-controls="offcanvasEditClass${loop.index}">
                                                                     Cập nhật
                                                                 </button>
                                                             </div>
@@ -193,15 +205,23 @@
                                             </c:when>
                                             <c:when test="${role == 'PGV'}">
                                                 <tr>
+                                                    <td>${lop.TENKHOA}</td>
                                                     <td>${lop.MALOP}</td>
                                                     <td>${lop.TENLOP}</td>
                                                     <td>${lop.KHOAHOC}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
+                                                            <a class="btn btn-secondary"
+                                                                href="student-management.htm?malop=${lop.MALOP}">Chi
+                                                                tiết</a>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex justify-content-center">
                                                             <button class="btn btn-primary me-2" type="button"
                                                                 data-bs-toggle="offcanvas"
-                                                                data-bs-target="#offcanvasEditStudent${loop.index}"
-                                                                aria-controls="offcanvasEditStudent${loop.index}">
+                                                                data-bs-target="#offcanvasEditClass${loop.index}"
+                                                                aria-controls="offcanvasEditClass${loop.index}">
                                                                 Cập nhật
                                                             </button>
                                                         </div>
@@ -216,10 +236,10 @@
                                             </c:when>
                                         </c:choose>
                                         <div class="offcanvas offcanvas-end" tabindex="-1"
-                                            id="offcanvasEditStudent${loop.index}"
-                                            aria-labelledby="offcanvasEditStudentLabel">
+                                            id="offcanvasEditClass${loop.index}"
+                                            aria-labelledby="offcanvasEditClassLabel">
                                             <div class="offcanvas-header">
-                                                <h5 class="offcanvas-title" id="offcanvasEditStudentLabel">Sửa lớp</h5>
+                                                <h5 class="offcanvas-title" id="offcanvasEditClassLabel">Sửa lớp</h5>
                                                 <button type="button" class="btn-close text-reset"
                                                     data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                             </div>
