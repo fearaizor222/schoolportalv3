@@ -55,22 +55,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="points.htm">Chỉnh Điểm</a>
+                                    <a class="nav-link" href="class-management.htm">Chỉnh sửa lớp</a>
                                 </li>
-                                <c:if test="${role == 'admin'}">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="student-management.htm">Nhập/xóa Sinh viên</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="announcement.htm">Thông báo</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="fee.htm">Học phí sinh viên</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="settings.htm">Điều chỉnh</a>
-                                    </li>
-                                </c:if>
+                                <li class="nav-item">
+                                        <a class="nav-link" href="creditclass-management.htm">Chỉnh sửa lớp tín chỉ</a>
+                                </li>
                             </ul>
                         </div>
 
@@ -108,8 +97,7 @@
                     <div class="card mt-3">
                         <div class="card-body">
                             <h5 class="card-title">Thông tin Khoa</h5>
-                            <p class="card-text">Mã khoa: ${Khoa.MAKHOA}</p>
-                            <p class="card-text">Tên khoa: ${Khoa.TENKHOA}</p>
+                            <p class="card-text">Mã khoa: ${GIANGVIEN.MAKHOA}</p>
                         </div>
                     </div>
 
@@ -163,71 +151,37 @@
                 </div>
                 <div class="col-md-8 d-flex flex-column">
                     <div class="card flex-grow-1">
-                        <div class="card-body d-flex flex-column">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title mb-0">${'Thời khóa biểu
-                                    '.concat('(').concat(firstDayOfWeek).concat(' ->
-                                    ').concat(lastDayOfWeek).concat(')')}</h5>
-                                <div class="d-flex">
-                                    <form action="truoc.htm" method="get">
-                                        <button id="prevWeek" class="btn btn-primary"
-                                            style="margin-right: 10px;">Trước</button>
-                                    </form>
-                                    <form action="sau.htm" method="get">
-                                        <button id="nextWeek" class="btn btn-primary">Sau</button>
-                                    </form>
-                                </div>
+                        <div class="container mt-5">
+                            <div style="height: 620px; overflow: auto;">
+                                <table class="table table-striped table-hover table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="center-text">Mã lớp tín chỉ</th>
+                                            <th class="center-text">Niên khóa</th>
+                                            <th class="center-text">Học kỳ</th>
+                                            <th class="center-text">Nhóm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="ltc" items="${AllLTCList}">
+                                            <tr>
+                                                <td class="center-text">${ltc.MALTC}</td>
+                                                <td class="center-text">${ltc.NIENKHOA}</td>
+                                                <td class="center-text">${ltc.HOCKY}</td>
+                                                <td class="center-text">${ltc.NHOM}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
-                            <table class="table flex-grow-1">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Time/Day</th>
-                                        <th scope="col">Thứ hai</th>
-                                        <th scope="col">Thứ ba</th>
-                                        <th scope="col">Thứ tư</th>
-                                        <th scope="col">Thứ năm</th>
-                                        <th scope="col">Thứ sáu</th>
-                                        <th scope="col">Thứ bảy</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" class="align-middle">Tiết 1-4</th>
-                                        <c:forEach var="Buoi" items="${dsLICHSANG}">
-                                            <c:if test="${Buoi.TIETBD == 1}">
-                                                <td class="table-cell">
-                                                    ${Buoi.loptinchi.monhoc.TENMH}<br>
-                                                    Phòng: ${Buoi.PHONG}
-                                                </td>
-                                            </c:if>
-                                            <c:if test="${Buoi.TIETBD != 1}">
-                                                <td class="table-cell"></td>
-                                            </c:if>
-                                        </c:forEach>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="align-middle">Tiết 7-10</th>
-                                        <c:forEach var="Buoi" items="${dsLICHCHIEU}">
-                                            <c:if test="${Buoi.TIETBD == 7}">
-                                                <td class="table-cell">
-                                                    ${Buoi.loptinchi.monhoc.TENMH}<br>
-                                                    Phòng: ${Buoi.PHONG}
-                                                </td>
-                                            </c:if>
-                                            <c:if test="${Buoi.TIETBD != 7}">
-                                                <td class="table-cell"></td>
-                                            </c:if>
-                                        </c:forEach>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
+                        
                     </div>
                 </div>
             </div>
             <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                 <div class="container text-center">
-                    <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Hiếu</span>
+                    <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
                 </div>
             </footer>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
