@@ -9,6 +9,7 @@ import java.util.List;
 
 import bean.DANGKYObjectWithName;
 import bean.MONHOC;
+import bean.REPORT_DSLTCObject;
 
 public class LTCService {
     private static Connection connection;
@@ -79,5 +80,30 @@ public class LTCService {
             cstmt.setFloat(4, diemgk);
             cstmt.setFloat(5, diemck);
             cstmt.executeUpdate();
+    }
+
+    public static List<REPORT_DSLTCObject> getDSLTC(String nienkhoa, int hocky) {
+        connection = ConnectionService.getConnection();
+
+        List<REPORT_DSLTCObject> reportDSLTCList = new ArrayList<REPORT_DSLTCObject>();
+        try {
+            CallableStatement cstmt = connection.prepareCall("{call SP_REPORT_LOPTINCHI(?,?)}");
+            cstmt.setString(1, nienkhoa);
+            cstmt.setInt(2, hocky);
+            ResultSet resultSet = cstmt.executeQuery();
+            while (resultSet.next()) {
+                REPORT_DSLTCObject reportDSLTC = new REPORT_DSLTCObject();
+                reportDSLTC.setMONHOC(resultSet.getString("MONHOC"));
+                reportDSLTC.setNHOM(resultSet.getInt("NHOM"));
+                reportDSLTC.setGIANGVIEN(resultSet.getString("GIANGVIEN"));
+                reportDSLTC.setSOSVTOITHIEU(resultSet.getInt("SOSVTOITHIEU"));
+                reportDSLTC.setSVDANGKY(resultSet.getInt("SVDANGKY"));
+                reportDSLTCList.add(reportDSLTC);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return reportDSLTCList;
     }
 }
