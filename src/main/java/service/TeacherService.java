@@ -4,11 +4,12 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.ResultSet;
-
+import java.sql.Statement;
 import java.util.List;
 
 import bean.DisplayLTCObject;
 import bean.GIANGVIEN;
+import bean.KHOA;
 
 public class TeacherService {
     private static Connection connection;
@@ -21,17 +22,17 @@ public class TeacherService {
     }
 
     public static GIANGVIEN getGIANGVIENByMAGV(String username) {
+        connection = ConnectionService.getConnection();
         GIANGVIEN teacher = new GIANGVIEN();
         try {
-            CallableStatement cstmt = connection.prepareCall("{call sp_getGIANGVIENByMAGV(?)}");
+            CallableStatement cstmt = connection.prepareCall("{call SP_getGIANGVIENbyMAGV(?)}");
             cstmt.setString(1, username);
             ResultSet rs = cstmt.executeQuery();
-
-            if (rs.next()) {
+            while (rs.next()) {
                 teacher.setMAGV(rs.getString("MAGV"));
+                teacher.setMAKHOA(rs.getString("MAKHOA"));
                 teacher.setHO(rs.getString("HO"));
                 teacher.setTEN(rs.getString("TEN"));
-                teacher.setMAKHOA(rs.getString("MAKHOA"));
                 teacher.setHOCVI(rs.getString("HOCVI"));
                 teacher.setHOCHAM(rs.getString("HOCHAM"));
                 teacher.setCHUYENMON(rs.getString("CHUYENMON"));
@@ -116,5 +117,48 @@ public class TeacherService {
             e.printStackTrace();
         }
         return loptinchis;
+    }
+
+    public static List<DisplayLTCObject> getAllLTCByMAGV(String magv) {
+        Connection connection = ConnectionService.getConnection();
+        List<DisplayLTCObject> loptinchis = new ArrayList<>();
+
+        try {
+            CallableStatement cstmt = connection.prepareCall("{call sp_getAllLTCByMAGV(?)}");
+            cstmt.setString(1, magv);
+            ResultSet rs = cstmt.executeQuery();
+
+            while (rs.next()) {
+                DisplayLTCObject loptinchi = new DisplayLTCObject();
+                loptinchi.setMALTC(rs.getInt("MALTC"));
+                loptinchi.setNIENKHOA(rs.getString("NIENKHOA"));
+                loptinchi.setHOCKY(rs.getInt("HOCKY"));
+                loptinchi.setNHOM(rs.getInt("NHOM"));
+                loptinchis.add(loptinchi);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return loptinchis;
+    }
+
+    public static List<KHOA> getAllKHOA() {
+        connection = ConnectionService.getConnection();
+        List<KHOA> list = new ArrayList<KHOA>();
+        try {
+            Statement stmt = connection.createStatement();
+            String sql = "SELECT * FROM LINK0.QLDSV_TC.DBO.v_getAllKHOA";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                KHOA khoa = new KHOA();
+                khoa.setMAKHOA(rs.getString("MAKHOA"));
+                khoa.setTENKHOA(rs.getString("TENKHOA"));
+                list.add(khoa);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

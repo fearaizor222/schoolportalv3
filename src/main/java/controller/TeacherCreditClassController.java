@@ -58,14 +58,15 @@ public class TeacherCreditClassController {
 
     @RequestMapping("updateltc")
     public String updateClass(@RequestParam("MALTC") String maltc, @RequestParam("NIENKHOA") String NIENKHOA,
-            @RequestParam("HOCKY") String hocky, @RequestParam("NHOM") String nhom,
+            @RequestParam("HOCKY") String hocky, @RequestParam("MAMH") String MAMH, @RequestParam("NHOM") String nhom,
+            @RequestParam("MAKHOA") String MAKHOA, @RequestParam("MAGV") String MAGV,
             @RequestParam("SOSVTOITHIEU") String sosvtoithieu, RedirectAttributes redirectAttributes) {
         int MALTC = Integer.parseInt(maltc);
         int HOCKY = Integer.parseInt(hocky);
         int NHOM = Integer.parseInt(nhom);
         int SOSVTOITHIEU = Integer.parseInt(sosvtoithieu);
         try {
-            CreditClassService.updateCreditClass(MALTC, NIENKHOA, HOCKY, NHOM, SOSVTOITHIEU);
+            CreditClassService.updateCreditClass(MALTC, NIENKHOA, HOCKY, MAMH, NHOM, MAKHOA, MAGV, SOSVTOITHIEU);
             redirectAttributes.addFlashAttribute("UpdateLTCMsg", "Sửa lớp tín chỉ thành công");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("UpdateLTCMsg", e.getMessage());

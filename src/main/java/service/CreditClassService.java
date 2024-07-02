@@ -66,16 +66,20 @@ public class CreditClassService {
         cstmt.execute();
     }
 
-    public static void updateCreditClass(int maltc, String nienkhoa, int hocky, int nhom, int sosvtoithieu)
+    public static void updateCreditClass(int maltc, String nienkhoa, int hocky, String mamh, int nhom, String makhoa,
+            String magv, int sosvtoithieu)
             throws Exception {
         connection = ConnectionService.getConnection();
 
-        CallableStatement cstmt = connection.prepareCall("{call SP_UPDATELTC(?,?,?,?,?)}");
+        CallableStatement cstmt = connection.prepareCall("{call SP_UPDATELTC(?,?,?,?,?,?,?,?)}");
         cstmt.setInt(1, maltc);
         cstmt.setString(2, nienkhoa);
         cstmt.setInt(3, hocky);
-        cstmt.setInt(4, nhom);
-        cstmt.setInt(5, sosvtoithieu);
+        cstmt.setString(4, mamh);
+        cstmt.setInt(5, nhom);
+        cstmt.setString(6, makhoa);
+        cstmt.setString(7, magv);
+        cstmt.setInt(8, sosvtoithieu);
         cstmt.execute();
     }
 
