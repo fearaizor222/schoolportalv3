@@ -10,6 +10,7 @@ import java.util.List;
 import bean.DANGKYObjectWithName;
 import bean.MONHOC;
 import bean.REPORT_DSLTCObject;
+import bean.REPORTDSSVLTCObject;
 
 public class LTCService {
     private static Connection connection;
@@ -101,5 +102,32 @@ public class LTCService {
         }
 
         return reportDSLTCList;
+    }
+
+    public static List<REPORTDSSVLTCObject> getDSSVLTC(String nienkhoa, int hocky, String mamonhoc, int nhom) {
+        connection = ConnectionService.getConnection();
+
+        List<REPORTDSSVLTCObject> reportDSSVLTCList = new ArrayList<REPORTDSSVLTCObject>();
+        try {
+            CallableStatement cstmt = connection.prepareCall("{call SP_REPORT_SINHVIENLTC(?,?,?,?)}");
+        cstmt.setString(1, nienkhoa);
+        cstmt.setInt(2, hocky);
+        cstmt.setString(3, mamonhoc);
+        cstmt.setInt(4, nhom);
+        ResultSet resultSet = cstmt.executeQuery();
+        while (resultSet.next()) {
+                REPORTDSSVLTCObject reportDSSVLTC = new REPORTDSSVLTCObject();
+                reportDSSVLTC.setMASV(resultSet.getString("MASV"));
+                reportDSSVLTC.setHO(resultSet.getString("HO"));
+                reportDSSVLTC.setTEN(resultSet.getString("TEN"));
+                reportDSSVLTC.setPHAI(resultSet.getBoolean("PHAI"));
+                reportDSSVLTC.setMALOP(resultSet.getString("MALOP"));
+                reportDSSVLTCList.add(reportDSSVLTC);
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return reportDSSVLTCList;
     }
 }
