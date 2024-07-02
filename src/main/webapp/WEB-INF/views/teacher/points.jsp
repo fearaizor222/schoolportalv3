@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <!DOCTYPE html>
         <html>
 
@@ -50,7 +52,7 @@
         </head>
 
         <body>
-            <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
+            <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 10;">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Quản lý điểm</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -102,7 +104,7 @@
                     </div>
                 </div>
             </nav>
-            <div class="container">
+            <div class="container" style="z-index: 1;">
                 <form action="timkiemdiem.htm" method="post">
                     <div class="input-group mb-3">
                         <div class="form-group">
@@ -144,32 +146,87 @@
                     </thead>
                     <tbody>
                         <c:forEach var="p" items="${points}">
-                            <tr>
-                                <form action="updatepoint.htm" method="post">
-                                    <input type="hidden" name="masv" value="${p.MASV}">
-                                    <input type="hidden" name="maltc" value="${p.MALTC}">
-                                    <td>${p.MASV}</td>
-                                    <td>${p.HOTEN}</td>
-                                    <td><input type="number" class="form-control" id="diemcc" name="diemcc"
-                                            value="${p.DIEM_CC}" max="10" min="0"></td>
-                                    <td><input type="number" class="form-control" id="diemgk" name="diemgk"
-                                            value="${p.DIEM_GK}" max="10" min="0"></td>
-                                    <td><input type="number" class="form-control" id="diemck" name="diemck"
-                                            value="${p.DIEM_CK}" max="10" min="0"></td>
-                                    <td>${p.DIEM_CC * 0.1 + p.DIEM_GK * 0.3 + p.DIEM_CK * 0.6}</td>
-                                    <td>
-                                        <button class="btn btn-primary" type="submit">Lưu</button>
-                                    </td>
-                                </form>
-                            </tr>
+                            <c:choose>
+                                <c:when test="${role == 'KHOA'}">
+                                    <c:if test="${fn:trim(lop.MAKHOA) == site}">
+                                        <tr>
+                                            <form action="updatepoint.htm" method="post">
+                                                <input type="hidden" name="masv" value="${p.MASV}">
+                                                <input type="hidden" name="maltc" value="${p.MALTC}">
+                                                <td>${p.MASV}</td>
+                                                <td>${p.HOTEN}</td>
+                                                <td><input type="number" class="form-control" id="diemcc" name="diemcc"
+                                                        value="${p.DIEM_CC}" max="10" min="0"></td>
+                                                <td><input type="number" class="form-control" id="diemgk" name="diemgk"
+                                                        value="${p.DIEM_GK}" max="10" min="0"></td>
+                                                <td><input type="number" class="form-control" id="diemck" name="diemck"
+                                                        value="${p.DIEM_CK}" max="10" min="0"></td>
+                                                <td>${p.DIEM_CC * 0.1 + p.DIEM_GK * 0.3 + p.DIEM_CK * 0.6}</td>
+                                                <td>
+                                                    <button class="btn btn-primary" type="submit">Lưu</button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                    </c:if>
+                                </c:when>
+                                <c:when test="${role == 'PGV'}">
+                                    <tr>
+                                        <form action="updatepoint.htm" method="post">
+                                            <input type="hidden" name="masv" value="${p.MASV}">
+                                            <input type="hidden" name="maltc" value="${p.MALTC}">
+                                            <td>${p.MASV}</td>
+                                            <td>${p.HOTEN}</td>
+                                            <td><input type="number" class="form-control" id="diemcc" name="diemcc"
+                                                    value="${p.DIEM_CC}" max="10" min="0"></td>
+                                            <td><input type="text" class="form-control" id="diemgk" name="diemgk"
+                                                    value="${p.DIEM_GK}" pattern="^(10|10.0|10.00|[0-9]|0\.\d{1,2}|[1-9]\.\d{1,2})$" title="Điểm nằm trong khoảng [1:10]"></td>
+                                            <td><input type="text" class="form-control" id="diemck" name="diemck"
+                                                    value="${p.DIEM_CK}" pattern="^(10|10.0|10.00|[0-9]|0\.\d{1,2}|[1-9]\.\d{1,2})$" title="Điểm nằm trong khoảng [1:10]"></td>
+                                            <td><fmt:formatNumber value="${p.DIEM_CC * 0.1 + p.DIEM_GK * 0.3 + p.DIEM_CK * 0.6}" maxFractionDigits="2" pattern="#.##"/></td>
+                                            <td>
+                                                <button class="btn btn-primary" type="submit">Lưu</button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </c:when>
+                            </c:choose>
                         </c:forEach>
                     </tbody>
                 </table>
+                <div class="modal fade" id="UpdatePointModal" tabindex="-1" aria-labelledby="UpdatePointModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="UpdatePointModalLabel">Chi tiết</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                     <div class="container text-center">
                         <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
                     </div>
                 </footer>
+                <script>
+                    document.addEventListener('DOMContentLoaded', (event) => {
+                        var passwordUpdateMsg = "${UpdatePointMsg}";
+                        if (passwordUpdateMsg !== '') {
+                            document.querySelector('#UpdatePointModal .modal-body').textContent = passwordUpdateMsg;
+
+                            var passwordUpdateModal = new bootstrap.Modal(document.getElementById('UpdatePointModal'), {});
+                            passwordUpdateModal.show();
+                        }
+                    });
+                </script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                     crossorigin="anonymous"></script>

@@ -60,6 +60,7 @@ public class LTCService {
                 dangky.setDIEM_CK(resultSet.getFloat("DIEM_CK"));
                 dangky.setHUYDANGKY(resultSet.getBoolean("HUYDANGKY"));
                 dangky.setHOTEN(resultSet.getString("HOTEN"));
+                dangky.setMAKHOA(resultSet.getString("MAKHOA"));
                 dangkyList.add(dangky);
             }
         } catch (Exception e) {
@@ -69,9 +70,8 @@ public class LTCService {
         return dangkyList;
     }
 
-    public static void updateDIEM(String maltc, String masv, int diemcc, float diemgk, float diemck) {
+    public static void updateDIEM(String maltc, String masv, int diemcc, float diemgk, float diemck) throws Exception {
         connection = ConnectionService.getConnection();
-        try {
             CallableStatement cstmt = connection.prepareCall("{call SP_INSERTDIEM(?,?,?,?,?)}");
             cstmt.setString(1, maltc);
             cstmt.setString(2, masv);
@@ -79,8 +79,5 @@ public class LTCService {
             cstmt.setFloat(4, diemgk);
             cstmt.setFloat(5, diemck);
             cstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

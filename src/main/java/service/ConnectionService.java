@@ -38,7 +38,7 @@ public class ConnectionService {
 
     public static String getRole() {
         String role = null;
-        Connection conn = getConnection(); // Use the existing connection
+        Connection conn = getConnection();
         if (conn != null) {
             try (CallableStatement stmt = conn.prepareCall("{CALL sp_getRole(?)}")) {
                 stmt.setString(1, username);

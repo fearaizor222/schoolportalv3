@@ -254,4 +254,15 @@ public class StudentService {
 
         cstmt.execute();
     }
+
+    public static void xacnhanHOCPHI(String masv, String nienkhoa, int hocky, int hocphi) throws Exception{
+        connection = ConnectionService.getConnection();
+        CallableStatement cstmt = connection.prepareCall("{call sp_xacnhanHOCPHI(?, ?, ?, ?)}");
+        cstmt.setString(1, masv);
+        cstmt.setString(2, nienkhoa);
+        cstmt.setInt(3, hocky);
+        cstmt.setInt(4, hocphi);
+
+        cstmt.execute();
+    }
 }

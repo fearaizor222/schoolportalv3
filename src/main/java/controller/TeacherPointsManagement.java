@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import service.LTCService;
 
@@ -27,8 +28,14 @@ public class TeacherPointsManagement {
     }
 
     @RequestMapping("updatepoint")
-    public String updatepoint(@RequestParam("maltc") String maltc, @RequestParam("masv") String masv, @RequestParam("diemcc") int diemcc, @RequestParam("diemgk") float diemgk, @RequestParam("diemck") float diemck) {
-        LTCService.updateDIEM(maltc, masv, diemcc, diemgk, diemck);
+    public String updatepoint(@RequestParam("maltc") String maltc, @RequestParam("masv") String masv, @RequestParam("diemcc") int diemcc, @RequestParam("diemgk") float diemgk, @RequestParam("diemck") float diemck, RedirectAttributes redirectAttributes) {
+        try{
+            LTCService.updateDIEM(maltc, masv, diemcc, diemgk, diemck);
+            redirectAttributes.addFlashAttribute("UpdatePointMsg", "Cập nhật điểm thành công");
+        }
+        catch(Exception e){
+            redirectAttributes.addFlashAttribute("UpdatePointMsg", e.getMessage());
+        }
         return "redirect:" + currentviewurl;
     }
 }

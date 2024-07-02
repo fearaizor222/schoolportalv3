@@ -100,9 +100,11 @@
                     <div class="container mt-5">
                         <div class="header">
                             <a class="btn btn-danger me-2" href="dashboard.htm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-                                  </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
+                                </svg>
                             </a>
                             <button class="btn btn-success me-2" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasAddClass" aria-controls="offcanvasAddClass">
@@ -288,7 +290,6 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                     <div class="modal fade" id="DeleteClassModal" tabindex="-1" aria-labelledby="DeleteClassModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
@@ -307,7 +308,6 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                     <div class="modal fade" id="UpdateClassModal" tabindex="-1" aria-labelledby="UpdateClassModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
@@ -325,7 +325,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                     <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                         <div class="container text-center">

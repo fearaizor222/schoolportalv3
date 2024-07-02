@@ -8,6 +8,7 @@ public class DANGKYObjectWithName {
     private float DIEM_CK;
     private boolean HUYDANGKY;
     private String HOTEN;
+    private String MAKHOA;
 
     public DANGKYObjectWithName() {
         this.MALTC = 0;
@@ -17,9 +18,10 @@ public class DANGKYObjectWithName {
         this.DIEM_CK = 0;
         this.HUYDANGKY = false;
         this.HOTEN = "";
+        this.MAKHOA = "";
     }
 
-    public DANGKYObjectWithName(int MALTC, String MASV, int DIEM_CC, float DIEM_GK, float DIEM_CK, boolean HUYDANGKY, String HOTEN) {
+    public DANGKYObjectWithName(int MALTC, String MASV, int DIEM_CC, float DIEM_GK, float DIEM_CK, boolean HUYDANGKY, String HOTEN, String MAKHOA) {
         this.MALTC = MALTC;
         this.MASV = MASV;
         this.DIEM_CC = DIEM_CC;
@@ -27,6 +29,7 @@ public class DANGKYObjectWithName {
         this.DIEM_CK = DIEM_CK;
         this.HUYDANGKY = HUYDANGKY;
         this.HOTEN = HOTEN;
+        this.MAKHOA = MAKHOA;
     }
 
     public int getMALTC() {
@@ -83,5 +86,13 @@ public class DANGKYObjectWithName {
 
     public void setHOTEN(String hOTEN) {
         HOTEN = hOTEN;
+    }
+
+    public String getMAKHOA() {
+        return MAKHOA;
+    }
+
+    public void setMAKHOA(String mAKHOA) {
+        MAKHOA = mAKHOA;
     }
 }

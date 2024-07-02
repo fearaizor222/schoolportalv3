@@ -82,7 +82,7 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Nhập niên khóa"
                                         name="nienkhoa" required>
-                                    <input type="text" class="form-control" placeholder="Nhập niên khóa"
+                                    <input type="text" class="form-control" placeholder="Nhập học kỳ"
                                         name="hocky" required>
                                     <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                                 </div>
