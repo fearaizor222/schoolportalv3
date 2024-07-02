@@ -44,7 +44,7 @@
 <body>
     <nav class="navbar navbar-dark bg-danger fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Quản lý điểm</a>
+            <a class="navbar-brand" href="#">Báo cáo</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
                 aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -58,27 +58,42 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="points.htm">Chỉnh điểm</a>
-                        </li>
-
-                        <c:if test="${role == 'admin'}">
-                            <li class="nav-item">
-                                <a class="nav-link" href="student-management.htm">Nhập/ xóa Sinh viên</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="announcement.htm">Thông báo</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="fee.htm">Học phí sinh viên</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="settings.htm">Điều chỉnh</a>
-                            </li>
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${role != 'PKT'}">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="class-management.htm">Chỉnh sửa lớp</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="creditclass-management.htm">Chỉnh sửa lớp tín chỉ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="reportDSLTC.htm">In danh sách lớp tín chỉ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="reportDSSVLTC.htm">In danh sách đăng ký lớp tín chỉ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="reportPHIEUDIEMSV.htm">In phiếu điểm</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                </li>
+                            </c:when>
+                            <c:when test="${role == 'PKT'}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="fee.htm">Xem học phí</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="reportHOCPHI.htm">In danh sách đóng học phí</a>
+                                </li>
+                            </c:when>
+                        </c:choose>
                     </ul>
                 </div>
 

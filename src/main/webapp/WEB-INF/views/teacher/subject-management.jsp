@@ -71,7 +71,7 @@
                         <c:choose>
                             <c:when test="${role != 'PKT'}">
                                 <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
+                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="class-management.htm">Chỉnh sửa lớp</a>
@@ -80,21 +80,30 @@
                                     <a class="nav-link" href="creditclass-management.htm">Chỉnh sửa lớp tín chỉ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="subject-management.htm">Chỉnh sửa môn</a>
+                                    <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="points-management.htm">Chỉnh sửa điểm</a>
+                                    <a class="nav-link" href="reportDSLTC.htm">In danh sách lớp tín chỉ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="reportDSSVLTC.htm">In danh sách đăng ký lớp tín chỉ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="reportPHIEUDIEMSV.htm">In phiếu điểm</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
                                 </li>
                             </c:when>
                             <c:when test="${role == 'PKT'}">
                                 <li class="nav-item">
                                     <a class="nav-link" href="fee.htm">Xem học phí</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="reportHOCPHI.htm">In danh sách đóng học phí</a>
+                                </li>
                             </c:when>
                         </c:choose>
-                        <li class="nav-item">
-                            <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
-                        </li>
                     </ul>
                 </div>
 
@@ -190,6 +199,8 @@
             background-color: #17a2b8;
         }
     </style>
+
+    
     <div class="container mt-5" style="height: 550px; overflow: auto;">
         <table class="table table-striped table-hover table-bordered">
             <thead class="thead-dark">
