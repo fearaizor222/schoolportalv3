@@ -36,7 +36,6 @@ public class TeacherService {
                 teacher.setHOCVI(rs.getString("HOCVI"));
                 teacher.setHOCHAM(rs.getString("HOCHAM"));
                 teacher.setCHUYENMON(rs.getString("CHUYENMON"));
-                teacher.setPASSWORD(rs.getString("PASSWORD"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,5 +159,40 @@ public class TeacherService {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static List<GIANGVIEN> getAllGIANGVIEN(){
+        connection = ConnectionService.getConnection();
+        List<GIANGVIEN> list = new ArrayList<GIANGVIEN>();
+        try {
+            Statement stmt = connection.createStatement();
+            String sql = "SELECT * FROM v_getAllGIANGVIEN";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                GIANGVIEN gv = new GIANGVIEN();
+                gv.setMAGV(rs.getString("MAGV"));
+                gv.setMAKHOA(rs.getString("MAKHOA"));
+                gv.setHO(rs.getString("HO"));
+                gv.setTEN(rs.getString("TEN"));
+                gv.setHOCVI(rs.getString("HOCVI"));
+                gv.setHOCHAM(rs.getString("HOCHAM"));
+                gv.setCHUYENMON(rs.getString("CHUYENMON"));
+                list.add(gv);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static void taoLOGIN(String lgname, String password, String role) throws Exception {
+        connection = ConnectionService.getConnection();
+        CallableStatement cstmt = connection.prepareCall("{call sp_taoLOGIN(?, ?, ?, ?)}");
+        cstmt.setString(1, lgname);
+        cstmt.setString(2, password);
+        cstmt.setString(3, lgname);
+        cstmt.setString(4, role);
+        cstmt.executeUpdate();
     }
 }
