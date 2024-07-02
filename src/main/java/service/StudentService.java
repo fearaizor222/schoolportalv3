@@ -11,6 +11,8 @@ import bean.DisplayHPObject;
 import bean.DisplayLTCObject;
 import bean.DisplayPointObject;
 import bean.LOP;
+import bean.REPORT_PHIEUDIEMSVObject;
+import bean.REPORT_BANGDIEMObject;
 import bean.SINHVIEN;
 
 public class StudentService {
@@ -95,6 +97,53 @@ public class StudentService {
         }
 
         return dangkys;
+    }
+
+    public static List<REPORT_PHIEUDIEMSVObject> getPhieuDiemSV(String masv) {
+        connection = ConnectionService.getConnection();
+
+        List<REPORT_PHIEUDIEMSVObject> phieudiems = new ArrayList<REPORT_PHIEUDIEMSVObject>();
+        try {
+            CallableStatement cstmt = connection.prepareCall("{call SP_REPORT_PHIEUDIEMSV(?)}");
+            cstmt.setString(1, masv);
+            ResultSet rs = cstmt.executeQuery();
+
+            while (rs.next()) {
+                REPORT_PHIEUDIEMSVObject phieudiem = new REPORT_PHIEUDIEMSVObject();
+                phieudiem.setTENMH(rs.getString("TENMH"));
+                phieudiem.setDIEMKT(rs.getInt("DIEMKT"));
+                phieudiems.add(phieudiem);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return phieudiems;
+    }
+
+    public static List<REPORT_BANGDIEMObject> getBangDiemLTC(int maltc) {
+        connection = ConnectionService.getConnection();
+
+        List<REPORT_BANGDIEMObject> bangdiems = new ArrayList<REPORT_BANGDIEMObject>();
+        try {
+            CallableStatement cstmt = connection.prepareCall("{call SP_REPORT_DIEMLTC(?)}");
+            cstmt.setInt(1, maltc);
+            ResultSet rs = cstmt.executeQuery();
+
+            while (rs.next()) {
+                REPORT_BANGDIEMObject bangdiem = new REPORT_BANGDIEMObject();
+                bangdiem.setMASV(rs.getString("MASV"));
+                bangdiem.setHO(rs.getString("HO"));
+                bangdiem.setTEN(rs.getString("TEN"));
+                bangdiem.setDIEM_CC(rs.getInt("DIEM_CC"));
+                bangdiem.setDIEM_GK(rs.getFloat("DIEM_GK"));
+                bangdiem.setDIEM_CK(rs.getFloat("DIEM_CK"));
+                bangdiem.setDIEMKT(rs.getFloat("DIEMKT"));
+                bangdiems.add(bangdiem);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bangdiems;
     }
 
     public static boolean updatePASSWORDByMASV(String masv, String oldPassword, String newPassword,
@@ -199,7 +248,7 @@ public class StudentService {
         return hocphis;
     }
 
-    public static List<SINHVIEN> getAllSINHVIENByMALOP(String malop){
+    public static List<SINHVIEN> getAllSINHVIENByMALOP(String malop) {
         connection = ConnectionService.getConnection();
         List<SINHVIEN> list = new ArrayList<SINHVIEN>();
         try {
@@ -207,7 +256,7 @@ public class StudentService {
             cstmt.setString(1, malop);
             ResultSet rs = cstmt.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 SINHVIEN student = new SINHVIEN();
                 student.setMASV(rs.getString("MASV"));
                 student.setHO(rs.getString("HO"));
@@ -226,7 +275,8 @@ public class StudentService {
         return list;
     }
 
-    public static void insertSINHVIEN(String masv, String ho, String ten, boolean phai, String diachi, Date ngaysinh, String malop, String password) throws Exception{
+    public static void insertSINHVIEN(String masv, String ho, String ten, boolean phai, String diachi, Date ngaysinh,
+            String malop, String password) throws Exception {
         connection = ConnectionService.getConnection();
         CallableStatement cstmt = connection.prepareCall("{call SP_INSERTSINHVIEN(?, ?, ?, ?, ?, ?, ?, ?)}");
         cstmt.setString(1, masv);
@@ -240,7 +290,8 @@ public class StudentService {
         cstmt.execute();
     }
 
-    public static void updateSINHVIEN(String masv, String ho, String ten, boolean phai, String diachi, Date ngaysinh, boolean danghi, String password) throws Exception{
+    public static void updateSINHVIEN(String masv, String ho, String ten, boolean phai, String diachi, Date ngaysinh,
+            boolean danghi, String password) throws Exception {
         connection = ConnectionService.getConnection();
         CallableStatement cstmt = connection.prepareCall("{call sp_updateSINHVIEN(?, ?, ?, ?, ?, ?, ?, ?)}");
         cstmt.setString(1, masv);
@@ -255,7 +306,7 @@ public class StudentService {
         cstmt.execute();
     }
 
-    public static void xacnhanHOCPHI(String masv, String nienkhoa, int hocky, int hocphi) throws Exception{
+    public static void xacnhanHOCPHI(String masv, String nienkhoa, int hocky, int hocphi) throws Exception {
         connection = ConnectionService.getConnection();
         CallableStatement cstmt = connection.prepareCall("{call sp_xacnhanHOCPHI(?, ?, ?, ?)}");
         cstmt.setString(1, masv);

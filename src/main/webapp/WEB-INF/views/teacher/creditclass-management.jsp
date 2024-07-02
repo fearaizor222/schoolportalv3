@@ -100,18 +100,18 @@
                                                 <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="points-management.htm">Chỉnh sửa điểm</a>
+                                                <a class="nav-link" href="link.htm">In</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="link.htm">Tạo tài khoản</a>
                                             </li>
                                         </c:when>
-                                        <c:when test="${role == 'PKT'}">
+                                        <c:when test="${role != 'PKT'}">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="fee.htm">Xem học phí</a>
+                                                <a class="nav-link" aria-current="page" href="link.htm">Học phí</a>
                                             </li>
                                         </c:when>
                                     </c:choose>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
-                                    </li>
                                 </ul>
                             </div>
 
@@ -282,9 +282,24 @@
                                                             required="true" value="${ltc.HOCKY}" />
                                                     </div>
                                                     <div class="mb-3">
+                                                        <label for="mamh" class="form-label">Mã môn</label>
+                                                        <input type="text" class="form-control" name="MAMH"
+                                                            required="true" value="${ltc.MAMH}" readonly/>
+                                                    </div>
+                                                    <div class="mb-3">
                                                         <label for="nhom" class="form-label">Nhóm</label>
                                                         <input type="number" class="form-control" name="NHOM"
                                                             required="true" value="${ltc.NHOM}" />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="makhoa" class="form-label">Mã khoa</label>
+                                                        <input type="text" class="form-control" name="MAKHOA"
+                                                            required="true" value="${ltc.MAKHOA}" readonly/>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="magv" class="form-label">Mã giảng viên</label>
+                                                        <input type="text" class="form-control" name="MAGV"
+                                                            required="true" value="${ltc.MAGV}" readonly/>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="sosvtoithieu" class="form-label">Số sinh viên tối thiểu</label>
