@@ -60,8 +60,8 @@
                                 aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="offcanvas offcanvas-end bg-danger text-white" tabindex="-1"
-                                id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                            <div class="offcanvas offcanvas-end bg-danger text-white" tabindex="-1" id="offcanvasDarkNavbar"
+                                aria-labelledby="offcanvasDarkNavbarLabel">
                                 <div class="offcanvas-header">
                                     <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
@@ -69,25 +69,36 @@
                                 </div>
                                 <div class="offcanvas-body">
                                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                        <c:choose>
+                                            <c:when test="${role != 'PKT'}">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="class-management.htm">Chỉnh sửa lớp</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="creditclass-management.htm">Chỉnh sửa lớp tín chỉ</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="points-management.htm">Chỉnh sửa điểm</a>
+                                                </li>
+                                            </c:when>
+                                            <c:when test="${role == 'PKT'}">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="fee.htm">Xem học phí</a>
+                                                </li>
+                                            </c:when>
+                                        </c:choose>
                                         <li class="nav-item">
-                                            <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin sinh
-                                                viên</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="point.htm">Điểm</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="test.htm">Lịch thi</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="dangkymon.htm">Đăng ký môn</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="fee.htm">Học phí</a>
+                                            <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
                                         </li>
                                     </ul>
                                 </div>
-
+    
                                 <form action="logout.htm" method="post">
                                     <div class="position-absolute bottom-0 start-50 translate-middle-x my-10"
                                         style="margin-bottom: 10px;">

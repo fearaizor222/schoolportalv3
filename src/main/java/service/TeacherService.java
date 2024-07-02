@@ -175,9 +175,9 @@ public class TeacherService {
                 gv.setMAKHOA(rs.getString("MAKHOA"));
                 gv.setHO(rs.getString("HO"));
                 gv.setTEN(rs.getString("TEN"));
-                gv.setHOCVI(rs.getString("HOCVI"));
-                gv.setHOCHAM(rs.getString("HOCHAM"));
-                gv.setCHUYENMON(rs.getString("CHUYENMON"));
+                // gv.setHOCVI(rs.getString("HOCVI"));
+                // gv.setHOCHAM(rs.getString("HOCHAM"));
+                // gv.setCHUYENMON(rs.getString("CHUYENMON"));
                 list.add(gv);
             }
         } catch (Exception e) {

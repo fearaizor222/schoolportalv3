@@ -100,10 +100,18 @@
                                                 <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="link.htm">Tạo tài khoản</a>
+                                                <a class="nav-link" href="points-management.htm">Chỉnh sửa điểm</a>
+                                            </li>
+                                        </c:when>
+                                        <c:when test="${role == 'PKT'}">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="fee.htm">Xem học phí</a>
                                             </li>
                                         </c:when>
                                     </c:choose>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                    </li>
                                 </ul>
                             </div>
 

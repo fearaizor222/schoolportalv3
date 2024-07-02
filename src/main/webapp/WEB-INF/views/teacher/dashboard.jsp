@@ -32,9 +32,9 @@
         </head>
 
         <body>
-            <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 2;">
+            <nav class="navbar navbar-dark bg-danger fixed-top navbar-fixed-top">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Thông tin giảng viên</a>
+                    <a class="navbar-brand">Thông tin giảng viên</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                         aria-label="Toggle navigation">
@@ -49,16 +49,32 @@
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <c:choose>
+                                    <c:when test="${role != 'PKT'}">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="class-management.htm">Chỉnh sửa lớp</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="creditclass-management.htm">Chỉnh sửa lớp tín chỉ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="points-management.htm">Chỉnh sửa điểm</a>
+                                        </li>
+                                    </c:when>
+                                    <c:when test="${role == 'PKT'}">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="fee.htm">Xem học phí</a>
+                                        </li>
+                                    </c:when>
+                                </c:choose>
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng
-                                        viên
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="class-management.htm">Chỉnh sửa lớp</a>
-                                </li>
-                                <li class="nav-item">
-                                        <a class="nav-link" href="creditclass-management.htm">Chỉnh sửa lớp tín chỉ</a>
+                                    <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
                                 </li>
                             </ul>
                         </div>
@@ -84,6 +100,7 @@
                                     <p class="card-text">Học hàm: ${GIANGVIEN.HOCHAM}</p>
                                     <p class="card-text">Học vị: ${GIANGVIEN.HOCVI}</p>
                                     <p class="card-text">Chuyên môn: ${GIANGVIEN.CHUYENMON}</p>
+                                    <p class="card-text">Vai trò: ${role}</p>
                                 </div>
                             </div>
                             <div class="col-md-4 mt-3">
@@ -98,54 +115,6 @@
                         <div class="card-body">
                             <h5 class="card-title">Thông tin Khoa</h5>
                             <p class="card-text">Mã khoa: ${GIANGVIEN.MAKHOA}</p>
-                        </div>
-                    </div>
-
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">Thông báo</h5>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Ngày đăng</th>
-                                        <th scope="col">Tiêu đề</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <div style="height: 70px; overflow-y: auto;">
-                                <table class="table">
-                                    <tbody>
-                                        <c:forEach var="TB" items="${dsTHONGBAO}" varStatus="loop">
-                                            <tr data-bs-toggle="modal" data-bs-target="#announcementModal${loop.index}">
-                                                <td>${TB.NGAYDANG}</td>
-                                                <td>${TB.TIEUDE}</td>
-                                            </tr>
-                                            <div class="modal fade" id="announcementModal${loop.index}" tabindex="-1"
-                                                aria-labelledby="announcementModalLabel${loop.index}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title"
-                                                                id="announcementModalLabel${loop.index}">
-                                                                ${TB.TIEUDE}</h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            ${TB.NOIDUNG}
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
                     </div>
                 </div>

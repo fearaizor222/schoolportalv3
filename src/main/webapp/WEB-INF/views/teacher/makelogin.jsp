@@ -17,6 +17,62 @@
                 </head>
 
                 <body>
+                    <nav class="navbar navbar-dark bg-danger fixed-top navbar-fixed-top">
+                        <div class="container-fluid">
+                            <a class="navbar-brand">Tạo login</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="offcanvas offcanvas-end bg-danger text-white" tabindex="-1" id="offcanvasDarkNavbar"
+                                aria-labelledby="offcanvasDarkNavbarLabel">
+                                <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                        <c:choose>
+                                            <c:when test="${role != 'PKT'}">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="class-management.htm">Chỉnh sửa lớp</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="creditclass-management.htm">Chỉnh sửa lớp tín chỉ</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="points-management.htm">Chỉnh sửa điểm</a>
+                                                </li>
+                                            </c:when>
+                                            <c:when test="${role == 'PKT'}">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="fee.htm">Xem học phí</a>
+                                                </li>
+                                            </c:when>
+                                        </c:choose>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="taologin.htm">Tạo tài khoản</a>
+                                        </li>
+                                    </ul>
+                                </div>
+    
+                                <form action="logout.htm" method="post">
+                                    <div class="position-absolute bottom-0 start-50 translate-middle-x my-10"
+                                        style="margin-bottom: 10px;">
+                                        <button type="submit" class="btn btn-warning">Logout</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-6">
@@ -24,7 +80,7 @@
                                     <div class="card-body">
                                         <form action="makelogin-action.htm" method="post">
                                             <div class="mb-3">
-                                                <label for="magvDropdown" class="form-label">MAGV</label>
+                                                <label for="magvDropdown" class="form-label">Mã giảng viên</label>
                                                 <select class="form-select" id="magvDropdown" name="LGNAME">
                                                     <c:forEach var="teacher" items="${allmagv}">
                                                         <option value="${teacher.MAGV}">${teacher.MAGV}</option>
