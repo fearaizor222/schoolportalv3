@@ -9,6 +9,7 @@ import java.util.List;
 
 import bean.KHOA;
 import bean.LOP;
+import bean.REPORTHOCPHI;
 
 public class ClassService {
     private static Connection connection;
@@ -85,4 +86,24 @@ public class ClassService {
         }
         return list;
     }
+
+    public static List<REPORTHOCPHI> getReportHocPhi(String malop, String nienkhoa, int hocky) throws Exception{
+        connection = ConnectionService.getConnection();
+
+        List<REPORTHOCPHI> list = new ArrayList<REPORTHOCPHI>();
+        CallableStatement cstmt = connection.prepareCall("{call SP_REPORT_DSHOCPHI_LOP(?,?,?)}");
+        cstmt.setString(1, malop);
+        cstmt.setString(2, nienkhoa); // nienkhoa (e.g. 2021-2022)
+        cstmt.setInt(3, hocky);
+        ResultSet rs = cstmt.executeQuery();
+        while (rs.next()) {
+            REPORTHOCPHI reportHOCPHI = new REPORTHOCPHI();
+            reportHOCPHI.setHOTEN(rs.getString("HOTEN"));
+            reportHOCPHI.setHOCPHI(rs.getInt("HOCPHI"));
+            reportHOCPHI.setSOTIENDADONG(rs.getInt("SOTIENDADONG"));
+            list.add(reportHOCPHI);
+        }
+        return list;
+    }
+
 }
