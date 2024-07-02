@@ -125,7 +125,7 @@
                             </div>
                         </form>
                         <div id='printable_div_id' style="display: none;">
-                            <h1 style="text-align: center;">Khoa: ${site}</h1>
+                            <h1 style="text-align: center;">Khoa: ${tenkhoa}</h1>
                             <h3 style="text-align: center;">Niên khóa: ${nienkhoa} Học kỳ: ${hocky}</h3>
                             <table class="table table-bordered table-hover">
                                 <thead>
@@ -153,7 +153,7 @@
                             </table>
                             <h4>Số lượng lớp đã mở: ${soluong}</h4>
                         </div>
-                        <!-- <div class="modal fade" id="UpdatePointModal" tabindex="-1"
+                        <div class="modal fade" id="UpdatePointModal" tabindex="-1"
                             aria-labelledby="UpdatePointModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -170,23 +170,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                             <div class="container text-center">
                                 <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
                             </div>
                         </footer>
-                        <!-- <script>
-                    document.addEventListener('DOMContentLoaded', (event) => {
-                        var passwordUpdateMsg = "${UpdatePointMsg}";
-                        if (passwordUpdateMsg !== '') {
-                            document.querySelector('#UpdatePointModal .modal-body').textContent = passwordUpdateMsg;
 
-                            var passwordUpdateModal = new bootstrap.Modal(document.getElementById('UpdatePointModal'), {});
-                            passwordUpdateModal.show();
-                        }
-                    });
-                </script> -->
                         <script>
                             function printdiv(elem) {
                                 old_title = document.title;
@@ -200,6 +190,16 @@
                                 document.body.innerHTML = old_str;
                                 return false;
                             }
+                            document.addEventListener('DOMContentLoaded', (event) => {
+                                var passwordUpdateMsg = "${msg}";
+                                if (passwordUpdateMsg !== '') {
+                                    document.getElementById('printable_div_id').style.display = 'block';
+                                    document.querySelector('#UpdatePointModal .modal-body').textContent = passwordUpdateMsg;
+
+                                    var passwordUpdateModal = new bootstrap.Modal(document.getElementById('UpdatePointModal'), {});
+                                    passwordUpdateModal.show();
+                                }
+                            });
                         </script>
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

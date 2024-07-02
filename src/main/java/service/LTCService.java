@@ -82,26 +82,22 @@ public class LTCService {
             cstmt.executeUpdate();
     }
 
-    public static List<REPORT_DSLTCObject> getDSLTC(String nienkhoa, int hocky) {
+    public static List<REPORT_DSLTCObject> getDSLTC(String nienkhoa, int hocky) throws Exception{
         connection = ConnectionService.getConnection();
 
         List<REPORT_DSLTCObject> reportDSLTCList = new ArrayList<REPORT_DSLTCObject>();
-        try {
-            CallableStatement cstmt = connection.prepareCall("{call SP_REPORT_LOPTINCHI(?,?)}");
-            cstmt.setString(1, nienkhoa);
-            cstmt.setInt(2, hocky);
-            ResultSet resultSet = cstmt.executeQuery();
-            while (resultSet.next()) {
-                REPORT_DSLTCObject reportDSLTC = new REPORT_DSLTCObject();
-                reportDSLTC.setMONHOC(resultSet.getString("MONHOC"));
-                reportDSLTC.setNHOM(resultSet.getInt("NHOM"));
-                reportDSLTC.setGIANGVIEN(resultSet.getString("GIANGVIEN"));
-                reportDSLTC.setSOSVTOITHIEU(resultSet.getInt("SOSVTOITHIEU"));
-                reportDSLTC.setSVDANGKY(resultSet.getInt("SVDANGKY"));
-                reportDSLTCList.add(reportDSLTC);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        CallableStatement cstmt = connection.prepareCall("{call SP_REPORT_LOPTINCHI(?,?)}");
+        cstmt.setString(1, nienkhoa);
+        cstmt.setInt(2, hocky);
+        ResultSet resultSet = cstmt.executeQuery();
+        while (resultSet.next()) {
+            REPORT_DSLTCObject reportDSLTC = new REPORT_DSLTCObject();
+            reportDSLTC.setMONHOC(resultSet.getString("MONHOC"));
+            reportDSLTC.setNHOM(resultSet.getInt("NHOM"));
+            reportDSLTC.setGIANGVIEN(resultSet.getString("GIANGVIEN"));
+            reportDSLTC.setSOSVTOITHIEU(resultSet.getInt("SOSVTOITHIEU"));
+            reportDSLTC.setSVDANGKY(resultSet.getInt("SVDANGKY"));
+            reportDSLTCList.add(reportDSLTC);
         }
 
         return reportDSLTCList;
