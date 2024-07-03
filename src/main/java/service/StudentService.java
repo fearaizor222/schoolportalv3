@@ -120,13 +120,16 @@ public class StudentService {
         return phieudiems;
     }
 
-    public static List<REPORT_BANGDIEMObject> getBangDiemLTC(int maltc) {
+    public static List<REPORT_BANGDIEMObject> getBangDiemLTC(String nienkhoa, int hocky, String mamh, int nhom) {
         connection = ConnectionService.getConnection();
 
         List<REPORT_BANGDIEMObject> bangdiems = new ArrayList<REPORT_BANGDIEMObject>();
         try {
-            CallableStatement cstmt = connection.prepareCall("{call SP_REPORT_DIEMLTC(?)}");
-            cstmt.setInt(1, maltc);
+            CallableStatement cstmt = connection.prepareCall("{call SP_REPORT_DIEMLTC(?, ?, ?, ?)}");
+            cstmt.setString(1, nienkhoa);
+            cstmt.setInt(2, hocky);
+            cstmt.setString(3, mamh);
+            cstmt.setInt(4, nhom);
             ResultSet rs = cstmt.executeQuery();
 
             while (rs.next()) {

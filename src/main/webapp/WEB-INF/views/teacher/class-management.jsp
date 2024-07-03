@@ -40,11 +40,10 @@
                         .offcanvas {
                             width: 350px !important;
                         }
-
                         .navbar-fixed-top {
                             z-index: 2;
                         }
-
+    
                         .navbar-offcanvas {
                             z-index: 1;
                         }
@@ -52,7 +51,7 @@
                 </head>
 
                 <body>
-                    <nav class="navbar navbar-dark bg-danger fixed-top navbar-fixed-top">
+                    <nav class="navbar navbar-dark bg-danger fixed-top navbar-fixed-top" style="z-index: 100;">
                         <div class="container-fluid">
                             <a class="navbar-brand">Danh sách lớp</a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -72,16 +71,19 @@
                                         <c:choose>
                                             <c:when test="${role != 'PKT'}">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
+                                                    <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="class-management.htm">Chỉnh sửa lớp</a>
+                                                    <a class="nav-link active" href="class-management.htm">Chỉnh sửa lớp</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="creditclass-management.htm">Chỉnh sửa lớp tín chỉ</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="points-management.htm">Chỉnh sửa điểm</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="reportDSLTC.htm">In danh sách lớp tín chỉ</a>
@@ -93,8 +95,9 @@
                                                     <a class="nav-link" href="reportPHIEUDIEMSV.htm">In phiếu điểm</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                                    <a class="nav-link" href="reportBANGDIEM.htm">In điểm của lớp</a>
                                                 </li>
+                                                
                                             </c:when>
                                             <c:when test="${role == 'PKT'}">
                                                 <li class="nav-item">
@@ -105,6 +108,9 @@
                                                 </li>
                                             </c:when>
                                         </c:choose>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                        </li>
                                     </ul>
                                 </div>
     
@@ -346,6 +352,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                         <div class="container text-center">
                             <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>

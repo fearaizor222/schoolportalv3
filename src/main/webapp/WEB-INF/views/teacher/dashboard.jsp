@@ -64,6 +64,9 @@
                                             <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
                                         </li>
                                         <li class="nav-item">
+                                            <a class="nav-link" href="points-management.htm">Chỉnh sửa điểm</a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="nav-link" href="reportDSLTC.htm">In danh sách lớp tín chỉ</a>
                                         </li>
                                         <li class="nav-item">
@@ -73,8 +76,9 @@
                                             <a class="nav-link" href="reportPHIEUDIEMSV.htm">In phiếu điểm</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                            <a class="nav-link" href="reportBANGDIEM.htm">In điểm của lớp</a>
                                         </li>
+                                        
                                     </c:when>
                                     <c:when test="${role == 'PKT'}">
                                         <li class="nav-item">
@@ -85,6 +89,9 @@
                                         </li>
                                     </c:when>
                                 </c:choose>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                </li>
                             </ul>
                         </div>
 
@@ -134,7 +141,7 @@
                                 <table class="table table-striped table-hover table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th class="center-text">Mã lớp tín chỉ</th>
+                                            <th class="center-text">Mã môn học</th>
                                             <th class="center-text">Niên khóa</th>
                                             <th class="center-text">Học kỳ</th>
                                             <th class="center-text">Nhóm</th>
@@ -143,7 +150,7 @@
                                     <tbody>
                                         <c:forEach var="ltc" items="${AllLTCList}">
                                             <tr>
-                                                <td class="center-text">${ltc.MALTC}</td>
+                                                <td class="center-text">${ltc.MAMH}</td>
                                                 <td class="center-text">${ltc.NIENKHOA}</td>
                                                 <td class="center-text">${ltc.HOCKY}</td>
                                                 <td class="center-text">${ltc.NHOM}</td>

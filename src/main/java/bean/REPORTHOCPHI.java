@@ -4,6 +4,7 @@ public class REPORTHOCPHI {
     private String HOTEN;
     private int HOCPHI;
     private int SOTIENDADONG;
+    private String TENKHOA;
 
     public REPORTHOCPHI() {
     }
@@ -36,5 +37,13 @@ public class REPORTHOCPHI {
 
     public void setSOTIENDADONG(int SOTIENDADONG) {
         this.SOTIENDADONG = SOTIENDADONG;
+    }
+
+    public String getTENKHOA() {
+        return TENKHOA;
+    }
+
+    public void setTENKHOA(String tENKHOA) {
+        TENKHOA = tENKHOA;
     }
 }

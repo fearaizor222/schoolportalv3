@@ -73,7 +73,7 @@
                                         <c:choose>
                                             <c:when test="${role != 'PKT'}">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
+                                                    <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="class-management.htm">Chỉnh sửa lớp</a>
@@ -85,6 +85,9 @@
                                                     <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
                                                 </li>
                                                 <li class="nav-item">
+                                                    <a class="nav-link active" href="points-management.htm">Chỉnh sửa điểm</a>
+                                                </li>
+                                                <li class="nav-item">
                                                     <a class="nav-link" href="reportDSLTC.htm">In danh sách lớp tín chỉ</a>
                                                 </li>
                                                 <li class="nav-item">
@@ -94,8 +97,9 @@
                                                     <a class="nav-link" href="reportPHIEUDIEMSV.htm">In phiếu điểm</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                                    <a class="nav-link" href="reportBANGDIEM.htm">In điểm của lớp</a>
                                                 </li>
+                                                
                                             </c:when>
                                             <c:when test="${role == 'PKT'}">
                                                 <li class="nav-item">
@@ -106,6 +110,9 @@
                                                 </li>
                                             </c:when>
                                         </c:choose>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -162,7 +169,6 @@
                                 <c:forEach var="p" items="${points}">
                                     <c:choose>
                                         <c:when test="${role == 'KHOA'}">
-                                            <c:if test="${fn:trim(lop.MAKHOA) == site}">
                                                 <tr>
                                                     <form action="updatepoint.htm" method="post">
                                                         <input type="hidden" name="masv" value="${p.MASV}">
@@ -170,21 +176,25 @@
                                                         <td>${p.MASV}</td>
                                                         <td>${p.HOTEN}</td>
                                                         <td><input type="number" class="form-control" id="diemcc"
-                                                                name="diemcc" value="${p.DIEM_CC}" max="10" min="0">
+                                                                name="diemcc" value="${p.DIEM_CC}" max="10" min="0"></td>
+                                                        <td><input type="text" class="form-control" id="diemgk"
+                                                                name="diemgk" value="${p.DIEM_GK}"
+                                                                pattern="^(10|10.0|10.00|[0-9]|0\.\d{1,2}|[1-9]\.\d{1,2})$"
+                                                                title="Điểm nằm trong khoảng [1:10]"></td>
+                                                        <td><input type="text" class="form-control" id="diemck"
+                                                                name="diemck" value="${p.DIEM_CK}"
+                                                                pattern="^(10|10.0|10.00|[0-9]|0\.\d{1,2}|[1-9]\.\d{1,2})$"
+                                                                title="Điểm nằm trong khoảng [1:10]"></td>
+                                                        <td>
+                                                            <fmt:formatNumber
+                                                                value="${p.DIEM_CC * 0.1 + p.DIEM_GK * 0.3 + p.DIEM_CK * 0.6}"
+                                                                maxFractionDigits="2" pattern="#.##" />
                                                         </td>
-                                                        <td><input type="number" class="form-control" id="diemgk"
-                                                                name="diemgk" value="${p.DIEM_GK}" max="10" min="0">
-                                                        </td>
-                                                        <td><input type="number" class="form-control" id="diemck"
-                                                                name="diemck" value="${p.DIEM_CK}" max="10" min="0">
-                                                        </td>
-                                                        <td>${p.DIEM_CC * 0.1 + p.DIEM_GK * 0.3 + p.DIEM_CK * 0.6}</td>
                                                         <td>
                                                             <button class="btn btn-primary" type="submit">Lưu</button>
                                                         </td>
                                                     </form>
                                                 </tr>
-                                            </c:if>
                                         </c:when>
                                         <c:when test="${role == 'PGV'}">
                                             <tr>
@@ -197,7 +207,7 @@
                                                             name="diemcc" value="${p.DIEM_CC}" max="10" min="0"></td>
                                                     <td><input type="text" class="form-control" id="diemgk"
                                                             name="diemgk" value="${p.DIEM_GK}"
-                                                            pattern="^(10|10.0|10.00|[0-9]|0\.\d{1,2}|[1-9]\.\d{1,2})$"
+                                                            pattern="^(10|10.0|10.00|[0-9]|0\. \.\d{1,2})$"
                                                             title="Điểm nằm trong khoảng [1:10]"></td>
                                                     <td><input type="text" class="form-control" id="diemck"
                                                             name="diemck" value="${p.DIEM_CK}"

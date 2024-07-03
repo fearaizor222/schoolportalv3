@@ -2,7 +2,6 @@ package controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -20,31 +19,27 @@ import service.ClassService;
 public class ReportHOCPHIController {
     @RequestMapping("/reportHOCPHI")
     public String reportHOCPHI(HttpSession session) {
-        String makhoasite = (String) session.getAttribute("site");
-        List<KHOA> listkhoa = ClassService.getAllKHOA();
-        for(KHOA khoa : listkhoa){
-            if(khoa.getMAKHOA().trim().equals(makhoasite)){
-                session.setAttribute("tenkhoa", khoa.getTENKHOA());
-                break;
-            }
-        }
-        //Lấy mã lớp
-        List<LOP> listlop = ClassService.getAllLOP();
-        session.setAttribute("listlop", listlop);
         return "teacher/reportHOCPHI";
     }
 
     @RequestMapping("/timkiemhocphireport")
-    public String timkiemhocphi(@RequestParam("malop") String malop, @RequestParam("nienkhoa") String nienkhoa, @RequestParam("hocky") int hocky, ModelMap model) {
-        try{
+    public String timkiemhocphi(@RequestParam("malop") String malop, @RequestParam("nienkhoa") String nienkhoa,
+            @RequestParam("hocky") int hocky, ModelMap model) {
+        try {
             List<REPORTHOCPHI> listhocphi = ClassService.getReportHocPhi(malop, nienkhoa, hocky);
             model.addAttribute("malop", malop);
             model.addAttribute("nienkhoa", nienkhoa);
             model.addAttribute("hocky", hocky);
-            model.addAttribute("listhocphi",listhocphi);
+            model.addAttribute("listhocphi", listhocphi);
             model.addAttribute("soluong", listhocphi.size());
+            model.addAttribute("tenkhoa", listhocphi.get(0).getTENKHOA());
+            int tonghocphi = 0;
+            for (REPORTHOCPHI reporthocphi : listhocphi) {
+                tonghocphi += reporthocphi.getHOCPHI();
             }
-        catch(Exception e){
+            model.addAttribute("msg", "thanh cong");
+            model.addAttribute("tonghocphi", tonghocphi);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "teacher/reportHOCPHI";

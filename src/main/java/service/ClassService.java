@@ -17,7 +17,7 @@ public class ClassService {
     public ClassService() {
     }
 
-    public static List<LOP> getAllLOP(){
+    public static List<LOP> getAllLOP() {
         connection = ConnectionService.getConnection();
         List<LOP> list = new ArrayList<LOP>();
         try {
@@ -25,7 +25,7 @@ public class ClassService {
             String sql = "SELECT *, k.TENKHOA FROM LINK0.QLDSV_TC.DBO.v_getAllLOP l JOIN LINK0.QLDSV_TC.DBO.KHOA k ON l.MAKHOA = k.MAKHOA";
             ResultSet rs = stmt.executeQuery(sql);
 
-            while(rs.next()) {
+            while (rs.next()) {
                 LOP lop = new LOP();
                 lop.setMALOP(rs.getString("MALOP"));
                 lop.setTENLOP(rs.getString("TENLOP"));
@@ -40,7 +40,7 @@ public class ClassService {
         return list;
     }
 
-    public static void insertClass(String malop, String tenlop, String khoahoc, String makhoa) throws Exception{
+    public static void insertClass(String malop, String tenlop, String khoahoc, String makhoa) throws Exception {
         connection = ConnectionService.getConnection();
 
         CallableStatement cstmt = connection.prepareCall("{call SP_INSERTLOP(?,?,?,?)}");
@@ -51,14 +51,14 @@ public class ClassService {
         cstmt.execute();
     }
 
-    public static void deleteClass(String mALOP) throws Exception{
+    public static void deleteClass(String mALOP) throws Exception {
         connection = ConnectionService.getConnection();
         CallableStatement cstmt = connection.prepareCall("{call SP_DELETELOP(?)}");
         cstmt.setString(1, mALOP);
         cstmt.execute();
     }
 
-    public static void updateClass(String malop, String tenlop, String khoahoc) throws Exception{
+    public static void updateClass(String malop, String tenlop, String khoahoc) throws Exception {
         connection = ConnectionService.getConnection();
         CallableStatement cstmt = connection.prepareCall("{call SP_UPDATELOP(?,?,?)}");
         cstmt.setString(1, malop);
@@ -67,7 +67,7 @@ public class ClassService {
         cstmt.execute();
     }
 
-    public static List<KHOA> getAllKHOA(){
+    public static List<KHOA> getAllKHOA() {
         connection = ConnectionService.getConnection();
         List<KHOA> list = new ArrayList<KHOA>();
         try {
@@ -75,7 +75,7 @@ public class ClassService {
             String sql = "SELECT * FROM LINK0.QLDSV_TC.DBO.v_getAllKHOA";
             ResultSet rs = stmt.executeQuery(sql);
 
-            while(rs.next()) {
+            while (rs.next()) {
                 KHOA khoa = new KHOA();
                 khoa.setMAKHOA(rs.getString("MAKHOA"));
                 khoa.setTENKHOA(rs.getString("TENKHOA"));
@@ -87,7 +87,7 @@ public class ClassService {
         return list;
     }
 
-    public static List<REPORTHOCPHI> getReportHocPhi(String malop, String nienkhoa, int hocky) throws Exception{
+    public static List<REPORTHOCPHI> getReportHocPhi(String malop, String nienkhoa, int hocky) throws Exception {
         connection = ConnectionService.getConnection();
 
         List<REPORTHOCPHI> list = new ArrayList<REPORTHOCPHI>();
@@ -101,6 +101,7 @@ public class ClassService {
             reportHOCPHI.setHOTEN(rs.getString("HOTEN"));
             reportHOCPHI.setHOCPHI(rs.getInt("HOCPHI"));
             reportHOCPHI.setSOTIENDADONG(rs.getInt("SOTIENDADONG"));
+            reportHOCPHI.setTENKHOA(rs.getString("TENKHOA"));
             list.add(reportHOCPHI);
         }
         return list;

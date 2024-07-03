@@ -133,6 +133,7 @@ public class TeacherService {
                 loptinchi.setNIENKHOA(rs.getString("NIENKHOA"));
                 loptinchi.setHOCKY(rs.getInt("HOCKY"));
                 loptinchi.setNHOM(rs.getInt("NHOM"));
+                loptinchi.setMAMH(rs.getString("MAMH"));
                 loptinchis.add(loptinchi);
             }
         } catch (Exception e) {
@@ -161,7 +162,7 @@ public class TeacherService {
         return list;
     }
 
-    public static List<GIANGVIEN> getAllGIANGVIEN(){
+    public static List<GIANGVIEN> getAllGIANGVIEN() {
         connection = ConnectionService.getConnection();
         List<GIANGVIEN> list = new ArrayList<GIANGVIEN>();
         try {

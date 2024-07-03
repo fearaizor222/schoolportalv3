@@ -40,6 +40,14 @@
                             /* Adds space between form elements */
                         }
 
+                        .navbar-fixed-top {
+                            z-index: 2;
+                        }
+    
+                        .navbar-offcanvas {
+                            z-index: 1;
+                        }
+                        
                         .input-group .form-group {
                             flex: 1;
                             /* Allows each form group to grow */
@@ -53,16 +61,16 @@
                 </head>
 
                 <body>
-                    <nav class="navbar navbar-dark bg-danger fixed-top navbar-fixed-top">
+                    <nav class="navbar navbar-dark bg-danger fixed-top" style="z-index: 10;">
                         <div class="container-fluid">
-                            <a class="navbar-brand">Báo cáo</a>
+                            <a class="navbar-brand" href="#">Quản lý điểm</a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                                 aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="offcanvas offcanvas-end bg-danger text-white" tabindex="-1" id="offcanvasDarkNavbar"
-                                aria-labelledby="offcanvasDarkNavbarLabel">
+                            <div class="offcanvas offcanvas-end bg-danger text-white" tabindex="-1"
+                                id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                                 <div class="offcanvas-header">
                                     <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
@@ -97,7 +105,7 @@
                                                     <a class="nav-link" href="reportPHIEUDIEMSV.htm">In phiếu điểm</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="reportBANGDIEM.htm">In điểm của lớp</a>
+                                                    <a class="nav-link active" href="reportBANGDIEM.htm">In điểm của lớp</a>
                                                 </li>
                                                 
                                             </c:when>
@@ -106,7 +114,7 @@
                                                     <a class="nav-link" href="fee.htm">Xem học phí</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" href="reportHOCPHI.htm">In danh sách đóng học phí</a>
+                                                    <a class="nav-link" href="reportHOCPHI.htm">In danh sách đóng học phí</a>
                                                 </li>
                                             </c:when>
                                         </c:choose>
@@ -115,7 +123,7 @@
                                         </li>
                                     </ul>
                                 </div>
-    
+
                                 <form action="logout.htm" method="post">
                                     <div class="position-absolute bottom-0 start-50 translate-middle-x my-10"
                                         style="margin-bottom: 10px;">
@@ -126,12 +134,8 @@
                         </div>
                     </nav>
                     <div class="container" style="z-index: 1;">
-                        <form action="timkiemhocphireport.htm" method="post">
+                        <form action="timkiembangdiemltc.htm" method="post">
                             <div class="input-group mb-3">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="malop" name="malop"
-                                        placeholder="Mã lớp">
-                                </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="nienkhoa" name="nienkhoa"
                                         placeholder="Niên khóa">
@@ -143,39 +147,51 @@
                                         <option value="3">Học kỳ Hè</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="mamonhoc" name="mamh" placeholder="Mã môn học">
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" id="nhom" name="nhom" placeholder="Nhóm">
+                                </div>
                                 <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                                 <button class="btn btn-primary" onclick="printdiv('printable_div_id')">In ấn</button>
                             </div>
                         </form>
                         <div id='printable_div_id' style="display: none;">
-                            <h2 style="text-align: center;">Mã lớp: ${malop}</h2>
-                            <h2 style="text-align: center;">Khoa: ${tenkhoa}</h2>
+                            <h1 style="text-align: center;">Khoa: ${site}</h1>
+                            <h3 style="text-align: center;">Niên khóa: ${nienkhoa} Học kỳ: ${hocky}</h3>
+                            <h3 style="text-align: center;">Môn học: ${mamh} Nhóm: ${nhom}</h3>
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
-                                        <th scope="col">Họ và tên</th>
-                                        <th scope="col">Học phí</th>
-                                        <th scope="col">Số tiền đã đóng</th>
+                                        <th scope="col">Mã sinh viên</th>
+                                        <th scope="col">Họ</th>
+                                        <th scope="col">Tên</th>
+                                        <th scope="col">Điểm chuyên cần</th>
+                                        <th scope="col">Điểm giữa kì</th>
+                                        <th scope="col">Điểm cuối kì</th>
+                                        <th scope="col">Điểm hết môn</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="hphi" items="${listhocphi}" varStatus="loop">
+                                    <c:forEach var="sv" items="${listltc}" varStatus="loop">
                                         <tr>
                                             <td>${loop.index + 1}</td>
-                                            <td>${hphi.HOTEN}</td>
-                                            <td>${hphi.HOCPHI}</td>
-                                            <td>${hphi.SOTIENDADONG}</td>
-
+                                            <td>${sv.MASV}</td>
+                                            <td>${sv.HO}</td>
+                                            <td>${sv.TEN}</td>
+                                            <td>${sv.DIEM_CC}</td>
+                                            <td>${sv.DIEM_GK}</td>
+                                            <td>${sv.DIEM_CK}</td>
+                                            <td>${sv.DIEMKT}</td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>
-                            <h4>Tổng số sinh viên: ${soluong} </h4>
-                            <!-- Tổng học phí -->
-                             <h4>Tổng học phí: ${tonghocphi}</h4>
+                            <h4>Số sinh viên đã đăng ký: ${soluong}</h4>
                         </div>
-                        <!-- <div class="modal fade" id="UpdatePointModal" tabindex="-1"
+                        <div class="modal fade" id="UpdatePointModal" tabindex="-1"
                             aria-labelledby="UpdatePointModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -192,17 +208,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
                             <div class="container text-center">
                                 <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
                             </div>
                         </footer>
-
                         <script>
                             function printdiv(elem) {
                                 old_title = document.title;
-                                new_title = 'Danh sách lớp tín chỉ';
+                                new_title = "Danh sách sinh viên lớp tín chỉ";
                                 var new_str = document.getElementById(elem).innerHTML;
                                 var old_str = document.body.innerHTML;
                                 document.body.innerHTML = new_str;
@@ -212,17 +227,19 @@
                                 document.body.innerHTML = old_str;
                                 return false;
                             }
-                            document.addEventListener('DOMContentLoaded', (event) => {
-                                var passwordUpdateMsg = "${msg}";
-                                if (passwordUpdateMsg !== '') {
-                                    document.getElementById('printable_div_id').style.display = 'block';
-                                    document.querySelector('#UpdatePointModal .modal-body').textContent = passwordUpdateMsg;
-
-                                    var passwordUpdateModal = new bootstrap.Modal(document.getElementById('UpdatePointModal'), {});
-                                    passwordUpdateModal.show();
-                                }
-                            });
                         </script>
+                        <script>
+                        document.addEventListener('DOMContentLoaded', (event) => {
+                            var passwordUpdateMsg = "${msg}";
+                            if (passwordUpdateMsg !== '') {
+                                document.getElementById('printable_div_id').style.display = 'block';
+                                document.querySelector('#UpdatePointModal .modal-body').textContent = passwordUpdateMsg;
+
+                                var passwordUpdateModal = new bootstrap.Modal(document.getElementById('UpdatePointModal'), {});
+                                passwordUpdateModal.show();
+                            }
+                        });
+                    </script>
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                             crossorigin="anonymous"></script>

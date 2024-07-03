@@ -48,7 +48,7 @@
                                         <c:choose>
                                             <c:when test="${role != 'PKT'}">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
+                                                    <a class="nav-link" aria-current="page" href="dashboard.htm">Thông tin giảng viên</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="class-management.htm">Chỉnh sửa lớp</a>
@@ -60,6 +60,9 @@
                                                     <a class="nav-link" href="subject-management.htm">Chỉnh sửa môn</a>
                                                 </li>
                                                 <li class="nav-item">
+                                                    <a class="nav-link" href="points-management.htm">Chỉnh sửa điểm</a>
+                                                </li>
+                                                <li class="nav-item">
                                                     <a class="nav-link" href="reportDSLTC.htm">In danh sách lớp tín chỉ</a>
                                                 </li>
                                                 <li class="nav-item">
@@ -69,18 +72,22 @@
                                                     <a class="nav-link" href="reportPHIEUDIEMSV.htm">In phiếu điểm</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                                    <a class="nav-link" href="reportBANGDIEM.htm">In điểm của lớp</a>
                                                 </li>
+                                                
                                             </c:when>
                                             <c:when test="${role == 'PKT'}">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="fee.htm">Xem học phí</a>
+                                                    <a class="nav-link active" href="fee.htm">Xem học phí</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="reportHOCPHI.htm">In danh sách đóng học phí</a>
                                                 </li>
                                             </c:when>
                                         </c:choose>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="taologin.htm">Tạo tài khoản</a>
+                                        </li>
                                     </ul>
                                 </div>
     
@@ -168,11 +175,11 @@
                         </div>
                     </div>
                 </div>
-                    <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
-                        <div class="container text-center">
-                            <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
-                        </div>
-                    </footer>
+                <footer class="navbar fixed-bottom bg-danger" style="z-index: 1;">
+                    <div class="container text-center">
+                        <span class="text-light">Copyright &copy; 2024 Nhóm 8 được hướng dẫn bởi thầy Thư</span>
+                    </div>
+                </footer>
                     <script>
                         document.addEventListener('DOMContentLoaded', (event) => {
                         var passwordUpdateMsg = "${ConfirmFeeMsg}";

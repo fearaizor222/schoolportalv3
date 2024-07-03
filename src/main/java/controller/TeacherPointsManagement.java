@@ -14,6 +14,7 @@ import service.LTCService;
 @RequestMapping("/teacher")
 public class TeacherPointsManagement {
     private String currentviewurl = null;
+
     @RequestMapping("/points-management")
     public String showPointsManagement(HttpServletRequest model) {
         model.getSession().setAttribute("monhocList", LTCService.getAllMONHOC());
@@ -21,19 +22,22 @@ public class TeacherPointsManagement {
     }
 
     @RequestMapping("timkiemdiem")
-    public String timkiemdiem(@RequestParam("nienkhoa") String nienkhoa, @RequestParam("hocky") int hocky, @RequestParam("monhoc") String monhoc, @RequestParam("nhom") int nhom, ModelMap model) {
+    public String timkiemdiem(@RequestParam("nienkhoa") String nienkhoa, @RequestParam("hocky") int hocky,
+            @RequestParam("monhoc") String monhoc, @RequestParam("nhom") int nhom, ModelMap model) {
         model.addAttribute("points", LTCService.getDANGKYOfLTC(nienkhoa, hocky, monhoc, nhom));
-        currentviewurl = "/teacher/timkiemdiem.htm?nienkhoa=" + nienkhoa + "&hocky=" + hocky + "&monhoc=" + monhoc + "&nhom=" + nhom;
+        currentviewurl = "/teacher/timkiemdiem.htm?nienkhoa=" + nienkhoa + "&hocky=" + hocky + "&monhoc=" + monhoc
+                + "&nhom=" + nhom;
         return "teacher/points";
     }
 
     @RequestMapping("updatepoint")
-    public String updatepoint(@RequestParam("maltc") String maltc, @RequestParam("masv") String masv, @RequestParam("diemcc") int diemcc, @RequestParam("diemgk") float diemgk, @RequestParam("diemck") float diemck, RedirectAttributes redirectAttributes) {
-        try{
+    public String updatepoint(@RequestParam("maltc") String maltc, @RequestParam("masv") String masv,
+            @RequestParam("diemcc") int diemcc, @RequestParam("diemgk") float diemgk,
+            @RequestParam("diemck") float diemck, RedirectAttributes redirectAttributes) {
+        try {
             LTCService.updateDIEM(maltc, masv, diemcc, diemgk, diemck);
             redirectAttributes.addFlashAttribute("UpdatePointMsg", "Cập nhật điểm thành công");
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("UpdatePointMsg", e.getMessage());
         }
         return "redirect:" + currentviewurl;
